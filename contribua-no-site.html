@@ -30,6 +30,9 @@
 </div>
 </div>
 <div class="paragraph">
+<p>Em alguns sistemas, como no <a href="http://fedoraproject.org">Fedora</a>, o docker deve ser executado como <code>root</code>. Então, se você tiver experimentado um erro na execução do comando acima, tente executá-lo novamente com o seguinte comando: <code>sudo !!</code>.</p>
+</div>
+<div class="paragraph">
 <p>Se desejar saber detalhes sobre como a imagem <a href="https://registry.hub.docker.com/u/paulojeronimo/judcon-2014-brazil/">paulojeronimo/judcon-2014-brazil</a> foi criada, leia o <a href="http://paulojeronimo.github.io/JUDCon-2014-Brazil/tutorial.html">tutorial de Docker do Paulo Jerônimo</a>.</p>
 </div>
 </div>
@@ -57,12 +60,15 @@
 <pre class="highlight"><code class="language-bash" data-lang="bash">cat &gt; teste.adoc &lt;&lt;EOF
 = Teste
 :page-layout: base
+
 Essa é uma página de teste
+
+// vim: set syntax=asciidoc:
 EOF</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Execute o comando <code>rake</code> e acesse, de teu HOST, a URL <a href="http://localhost:4242/teste.html" class="bare">http://localhost:4242/teste.html</a>. Se tudo der certo, parabéns, você acaba de criar uma nova página local para o sislegis-site. Agora, você precisa fazer a adição dessa página ao teu fork e, logo após, um commit e um push:</p>
+<p>Execute o comando <code>rake</code> e acesse a URL <a href="http://localhost:4242/teste.html" class="bare">http://localhost:4242/teste.html</a>. Se tudo der certo, parabéns, você acaba de criar uma nova página local para o sislegis-site. Agora, você precisa fazer a adição dessa página ao teu fork e, logo após, um commit e um push:</p>
 </div>
 <div class="listingblock">
 <div class="content">
