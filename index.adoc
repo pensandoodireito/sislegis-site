@@ -11,7 +11,7 @@ Aqui você obtém as seguintes respostas:
 ** link:requisitos.html[Requisitos levantados e priorizados.]
 * link:equipe.html[Quem está desenvolvendo o SISLEGIS?]
 ** link:contribua.html[Posso participar?]
-** link:contribua-no-site.html[Como este site foi construído?]
+** link:contribua-no-site.html[Como este site é construído?]
 ** link:arquitetura.html[Como é a arquitetura da aplicação?]
 
 // vim: set syntax=asciidoc:
