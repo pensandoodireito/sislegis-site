@@ -1,0 +1,5 @@
+= README
+
+Projeto (site) com informações relativas ao desenvolvimento do SISLEGIS.
+
+// vim: set syntax=asciidoc:

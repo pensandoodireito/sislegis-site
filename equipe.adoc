@@ -1,0 +1,52 @@
+= Equipe
+:page-layout: base
+include::links.adoc[]
+
+== Equipe de desenvolvimento
+
+|===
+| Nome | Papéis
+
+| {uri-github}/amanrathie[Aman Rathie]
+| Requisitos
+
+Programação
+
+| {uri-github}/christianolins[Cristiano Lins]
+| Coordenação
+
+Requisitos
+
+| {uri-github}/guilhermehott[Guilherme Hott]
+| Requisitos
+
+Programação
+
+| {uri-github}/paulojeronimo[Paulo Jerônimo]
+| Infraestrutura
+
+Arquitetura da aplicação
+
+Programação
+
+| {uri-github}/raphaelbsb1[Raphael Santos]
+| Requisitos
+
+Programação
+
+| Thiago Lopes
+| Requisitos
+
+Arquitetura da informação
+
+|===
+
+== Equipe de apoio
+
+* {uri-github}/marcoamarelo[Marco Amarelo]
+* {uri-github}/epaiva[Eduardo Paiva]
+* Guilherme Moraes
+
+== link:contribua.html[Faça parte]
+
+// vim: set syntax=asciidoc:

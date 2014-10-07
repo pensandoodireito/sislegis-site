@@ -1,0 +1,26 @@
+title: SISLEGIS
+base_url: ''
+asciidoctor:
+  :numbered:
+  :safe: safe
+  :attributes:
+    base_url: ''
+    ctx_path: ''
+    idprefix: ''
+    idseparator: '-'
+    sectanchors: ''
+    icons: font
+profiles:
+  development:
+    deploy: nil
+  production:
+    base_url: http://pensandoodireito.github.io/sislegis-site
+    ctx_path: /sislegis-site
+    asciidoctor:
+      :attributes:
+        base_url: http://pensandoodireito.github.io/sislegis-site
+        ctx_path: /sislegis-site
+        imagesdir: http://pensandoodireito.github.io/sislegis-site/images
+    deploy:
+      host: github_pages
+      branch: gh-pages

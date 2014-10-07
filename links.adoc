@@ -1,0 +1,13 @@
+:uri-asciidoctor: http://asciidoctor.org
+:uri-awestruct: http://awestruct.org
+:uri-ruby: http://ruby-lang.org
+:uri-docker: http://www.docker.com
+:uri-github: http://github.com
+:uri-boot2docker: http://www.docker.com
+:uri-sislegis: {uri-github}/pensandoodireito
+:uri-sislegis-site: {uri-sislegis}/sislegis-site
+:uri-sislegis-app: {uri-sislegis}/sislegis-app
+:uri-fork-a-repo: https://help.github.com/articles/fork-a-repo/
+:uri-pull-request: https://help.github.com/articles/using-pull-requests/
+
+// vim: set syntax=asciidoc:

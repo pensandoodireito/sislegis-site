@@ -1,0 +1,57 @@
+= Como contribuir
+:page-layout: base
+include::links.adoc[]
+
+== Como contribuir na construção deste site
+Este site é estático. Isso significa que ele não é gerado dinamicamente por um servidor e é previamente construído com o uso de algumas ferramentas. No caso, essas ferramentas são o {uri-awestruct}[Awestruct] e {uri-asciidoctor}[Asciidoctor]. Após construído, ele é hospedado gratuitamente no http://pages.github.com[GitHub Pages].
+
+Esta página explica como você pode montar, rapidamente, um ambiente preparado para editar este site, adicionando, removendo ou alterando conteúdo.
+
+=== Faça um fork do repositório
+Para contribuir na construção deste site, você deve possuir uma conta no {uri-github}[GitHub]. Em seguida, deve {uri-fork-a-repo}[criar um fork] do {uri-sislegis-site}[repositório sislegis-site] para essa tua conta.
+
+=== Baixe uma imagem Docker
+A forma mais fácil e rápida de você preparar teu ambiente para fazer a construção deste site, é utilizar o {uri-docker}[Docker]. Com ele você buscará uma imagem que contém todas as ferramentas necessárias, já pré-instaladas e prontas para a execução.
+
+Instale o Docker seguindo os https://docs.docker.com/installation/[passos de instalação descritos em sua documentação].
+
+Após instalar o Docker, crie um contêiner:
+[source,bash]
+----
+docker run -it -p 4242:4242 paulojeronimo/judcon-2014-brazil /bin/bash
+----
+
+Se desejar saber detalhes sobre como a imagem https://registry.hub.docker.com/u/paulojeronimo/judcon-2014-brazil/[paulojeronimo/judcon-2014-brazil] foi criada, leia o http://paulojeronimo.github.io/JUDCon-2014-Brazil/tutorial.html[tutorial de Docker do Paulo Jerônimo].
+
+=== Configure o contêiner
+O contêiner que você criou com o comando acima já possui quase tudo o que é necessário. Mas, ainda não tem o código do teu fork deste site e também não tem as configurações do teu usuário no GitHub para fazer commits de tuas alterações. Então, execute o script a seguir que ele fará as configurações necessárias para deixar teu contêiner preparado para construir este site:
+[source,bash]
+----
+bash <(curl -L http://pensandoodireito.github.io/sislegis-site/configurar-conteiner.sh)
+----
+
+=== Edite o site e teste-o localmente
+Logue-se com o teu usuário (`su - $GHUSER`) e vá para o diretório `sislegis-site`.
+
+Teste a edição local do site criando um arquivo `teste.adoc`:
+[source,bash]
+----
+cat > teste.adoc <<EOF
+= Teste
+:page-layout: base
+Essa é uma página de teste
+EOF
+----
+
+Execute o comando `rake` e acesse, de teu HOST, a URL http://localhost:4242/teste.html. Se tudo der certo, parabéns, você acaba de criar uma nova página local para o sislegis-site. Agora, você precisa fazer a adição dessa página ao teu fork e, logo após, um commit e um push:
+
+[source,bash]
+----
+git add teste.adoc
+git commit -m 'testando uma contribuição'
+git push
+----
+
+Finalmente, faça um {uri-pull-request}[pull request] para que os administradores do projeto avaliem se o teu `commit` é útil e pode ser mesclado ao projeto!
+
+// vim: set syntax=asciidoc:

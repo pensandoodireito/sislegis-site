@@ -1,0 +1,7 @@
+= Arquitetura
+:page-layout: base
+include::links.adoc[]
+
+== Arquitetura da aplicação
+
+// vim: set syntax=asciidoc:
