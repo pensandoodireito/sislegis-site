@@ -9,5 +9,6 @@
 :uri-sislegis-app: {uri-sislegis}/sislegis-app
 :uri-fork-a-repo: https://help.github.com/articles/fork-a-repo/
 :uri-pull-request: https://help.github.com/articles/using-pull-requests/
+:uri-fedora: http://fedoraproject.org
 
 // vim: set syntax=asciidoc:

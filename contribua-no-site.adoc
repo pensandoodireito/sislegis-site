@@ -21,6 +21,8 @@ Após instalar o Docker, crie um contêiner:
 docker run -it -p 4242:4242 paulojeronimo/judcon-2014-brazil /bin/bash
 ----
 
+Em alguns sistemas, como no {uri-fedora}[Fedora], o docker deve ser executado como `root`. Então, se você tiver experimentado um erro na execução do comando acima, tente executá-lo novamente com o seguinte comando: `sudo !!`.
+
 Se desejar saber detalhes sobre como a imagem https://registry.hub.docker.com/u/paulojeronimo/judcon-2014-brazil/[paulojeronimo/judcon-2014-brazil] foi criada, leia o http://paulojeronimo.github.io/JUDCon-2014-Brazil/tutorial.html[tutorial de Docker do Paulo Jerônimo].
 
 === Configure o contêiner
@@ -39,11 +41,14 @@ Teste a edição local do site criando um arquivo `teste.adoc`:
 cat > teste.adoc <<EOF
 = Teste
 :page-layout: base
+
 Essa é uma página de teste
+
+// vim: set syntax=asciidoc:
 EOF
 ----
 
-Execute o comando `rake` e acesse, de teu HOST, a URL http://localhost:4242/teste.html. Se tudo der certo, parabéns, você acaba de criar uma nova página local para o sislegis-site. Agora, você precisa fazer a adição dessa página ao teu fork e, logo após, um commit e um push:
+Execute o comando `rake` e acesse a URL http://localhost:4242/teste.html. Se tudo der certo, parabéns, você acaba de criar uma nova página local para o sislegis-site. Agora, você precisa fazer a adição dessa página ao teu fork e, logo após, um commit e um push:
 
 [source,bash]
 ----
