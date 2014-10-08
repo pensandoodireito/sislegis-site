@@ -4,6 +4,4 @@ include::links.adoc[]
 
 == Arquitetura da aplicação
 
-Primeira adição para demonstração do uso do Awestruct para a equipe de devs.
-
 // vim: set syntax=asciidoc:
