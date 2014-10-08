@@ -15,55 +15,55 @@ Este documento descritivo, elaborado pela equipe de Consultores de TI da SAL, te
 Este documento se destina aos arquitetos de software, engenheiros de software e implementadores do sistema.
 
 == 1.3. Dados Gerais
-Nome do Projeto: Sistema de Acompanhamento Legislativo
-Sigla do Projeto: SISLEGIS
-Tipo de Projeto: Consultoria e Desenvolvimento
+* Nome do Projeto: Sistema de Acompanhamento Legislativo
+* Sigla do Projeto: SISLEGIS
+* Tipo de Projeto: Consultoria e Desenvolvimento
 
 == 1.4. Envolvidos no Projeto
-Nome: Gabriel Carvalho de Sampaio
-E-mail: gabriel.sampaio@mj.gov.br
-Telefone: (61) 2025.3190
-Papel: Secretário de Assuntos Legislativos – Ministério da Justiça
+* Nome: Gabriel Carvalho de Sampaio
+* E-mail: gabriel.sampaio@mj.gov.br
+* Telefone: (61) 2025.3190
+* Papel: Secretário de Assuntos Legislativos – Ministério da Justiça
 
-Nome: Sabrina Durigon Marques
-E-mail: sabrina.marques@mj.gov.br
-Telefone: (61) 2025.3114
-Papel: Chefe de Gabinete da Secretaria de Assuntos Legislativos – Ministério da Justiça
+* Nome: Sabrina Durigon Marques
+* E-mail: sabrina.marques@mj.gov.br
+* Telefone: (61) 2025.3114
+* Papel: Chefe de Gabinete da Secretaria de Assuntos Legislativos – Ministério da Justiça
 
-Nome: Eduardo Spanó Junqueira de Paiva
-E-mail: eduardo.paiva@mj.gov.br
-Telefone: (61) 2025.3776
-Papel: Assessor do Secretário Executivo do Ministro da Justiça
+* Nome: Eduardo Spanó Junqueira de Paiva
+* E-mail: eduardo.paiva@mj.gov.br
+* Telefone: (61) 2025.3776
+* Papel: Assessor do Secretário Executivo do Ministro da Justiça
 
-Nome: Christiano Guimarães Lins Santos
-E-mail: christiano.santos@mj.gov.br
-Telefone: (61) 2025.3114
-Papel: Consultor de TI e Coordenador do Projeto de Desenvolvimento do SISLEGIS - MJ
+* Nome: Christiano Guimarães Lins Santos
+* E-mail: christiano.santos@mj.gov.br
+* Telefone: (61) 2025.3114
+* Papel: Consultor de TI e Coordenador do Projeto de Desenvolvimento do SISLEGIS - MJ
 
-Nome: Paulo Jerônimo
-E-mail: paulojeronimo@gmail.com
-Telefone: (61) 2025.3114
-Papel: Consultor de TI e Arquiteto de Software do Projeto de Desenvolvimento do SISLEGIS – MJ
+* Nome: Paulo Jerônimo
+* E-mail: paulojeronimo@gmail.com
+* Telefone: (61) 2025.3114
+* Papel: Consultor de TI e Arquiteto de Software do Projeto de Desenvolvimento do SISLEGIS – MJ
 
-Nome: Aman Rathie
-E-mail: amanrathie@gmail.com
-Telefone: (61) 2025.3114
-Papel: Consultor de TI e Engenheiro de Software do Projeto de Desenvolvimento do SISLEGIS – MJ
+* Nome: Aman Rathie
+* E-mail: amanrathie@gmail.com
+* Telefone: (61) 2025.3114
+* Papel: Consultor de TI e Engenheiro de Software do Projeto de Desenvolvimento do SISLEGIS – MJ
 
-Nome: Raphael Augusto
-E-mail: raphaelbsb1@gmail.com
-Telefone: (61) 2025.3114
-Papel: Consultor de TI e Engenheiro de Software do Projeto de Desenvolvimento do SISLEGIS – MJ
+* Nome: Raphael Augusto
+* E-mail: raphaelbsb1@gmail.com
+* Telefone: (61) 2025.3114
+* Papel: Consultor de TI e Engenheiro de Software do Projeto de Desenvolvimento do SISLEGIS – MJ
 
-Nome: Guilherme Hott
-E-mail: guilhermehott@gmail.com
-Telefone: (61) 2025.3114
-Papel: Consultor de TI e Engenheiro de Software do Projeto de Desenvolvimento do SISLEGIS – MJ
+* Nome: Guilherme Hott
+* E-mail: guilhermehott@gmail.com
+* Telefone: (61) 2025.3114
+* Papel: Consultor de TI e Engenheiro de Software do Projeto de Desenvolvimento do SISLEGIS – MJ
 
-Nome: Thiago Souza Lopes
-E-mail: thiago.souza.lopes@gmail.com
-Telefone: (61) 2025.3114
-Papel: Consultor de TI e Arquiteto de Informação do Projeto de Desenvolvimento do SISLEGIS – MJ
+* Nome: Thiago Souza Lopes
+* E-mail: thiago.souza.lopes@gmail.com
+* Telefone: (61) 2025.3114
+* Papel: Consultor de TI e Arquiteto de Informação do Projeto de Desenvolvimento do SISLEGIS – MJ
 
 == 1.5. Justificativa do Projeto
 Automação e gerenciamento dos processos legislativos de interesse da Secretaria de Assuntos Legislativos, no momento todos os acompanhamentos são estáticos e descentralizados sendo feitos em planilhas Excel, E-mail. A automação permitirá maior eficiência e controle das pautas e processos legislativos.
@@ -78,170 +78,170 @@ Este documento realiza a elicitação de requisitos do SISLEGIS, visando a cria�
 Todo o desenvolvimento será estruturado em software livre ou Open Source, utilizando a plataforma Java.
 
 
-:numbered:
-== Áreas interessadas
+== 2. Visão Geral do Produto
 
-* Apoio Administrativo;
-* Assessoria Parlamentar (ASPAR);
-* Referência Legislativa;
-* Gabinete de Assuntos Legislativo;
-
-== Escopo da demanda
-Criação de um novo sistema de acompanhamento legislativo, tendo em vista a demanda referente as Pautas Semanais com assuntos de interesse do Ministério da Justiça. Esse Sistema deverá organizar e facilitar o processo de manutenção das informações como Proposições, Dossiês, Exposição de Motivos, Manifestações, etc.
+Criação de um novo sistema de gestão do processo legislativo, que permita o cadastro e acompanhamento dos pareceres, notas, notas técnicas e proposições em tramitação na Câmara dos Deputados, Senado Federal e Congresso Nacional, integrando e consolidando ações e procedimentos realizados pelos Ministérios e Ministério da Justiça, de modo ágil e proficiente.
 
 
-
-== Cenário Atual
-
-Atualmente é utilizado pela SAL dois sistemas: EDENS e SISLegis(Desenvolvido pelo consultor Mateus). 
-
-O Sistema Edens encontra-se em desuso pela Secretária, e o contrato com a empresa responsável pela manutenção foi cancelado.
+== 2.1. Cenário Atual
+Atualmente é utilizado pela SAL dois sistemas: EDENS e SISLEGIS (Atual).
+O Sistema Edens encontra-se em desuso pela secretária, e o contrato com a empresa responsável pela manutenção foi cancelado.
 
 Os motivos para não utilização do EDENS são:
-
 * Grande número de funcionalidades desnecessárias;
 * Interfaces complicadas;
 * Problemas de integração com o MJDOC;
 * Impossibilidade de anexação de arquivos;
 * Problemas na verificação dos nomes dos Projetos de Leis importados, gerando duplicidade;
 * Impossibilidade no acompanhamento de tarefas;
-* Falta de funcionalidades importantes para a SAL;
+* Falta de funcionalidades importantes para a SAL.
 
-O atual Sistema SisLegis também atende em partes os interesses da Secretária. Sua principal funcionalidade é a Pauta Semanal, porém ainda necessita de melhorias. Outro problema é o consumo de informações, pois somente são consumidas as informações oriundas da Câmara, faltando um "push" das informações do Senado.
+O atual Sistema SisLegis atende em partes os interesses da Secretaria de Assuntos Legislativos. Sua principal funcionalidade é a Pauta Semanal, todavia necessita de profundas melhorias. Outro agravante é o consumo de informações, uma vez que são coletadas apenas as informações oriundas da Câmara, faltando um "push" das informações do Senado.   
 
-Em virtude da insuficiência dos dois Sistemas, é frequente entre as áreas: 
-
-* Grande número de troca de e-mails; 
+Em virtude da insuficiência dos dois Sistemas, é frequente entre as áreas:
+* Grande número de troca de e-mails;
 * Geração de planilhas em Excel para controle interno;
 * Produção manual de documentos;
-* Compartilhamento de arquivos na rede sem backup;
+* Compartilhamento de arquivos na rede sem backup
+* Perda de informações.
 
-
-== Requisitos Funcionais
-
-
-
-
-1.   *Manter Usuário*
-a.   Anexar currículos da equipe;
-b.   Gerenciar perfil usuário;
-
-2.   *Consultar Tipo Proposição*
-a.   Combo consulta
-
-3.   *Manter Proposição*
-a.   Incluir número do protocolo MJDOC;
-b.   Consumir dados das duas casas legislativas;
-c.   Acessar trâmites das proposições nas duas casas legislativas;
-d.   Atrelar registro de manifestações e documentos administrativos relacionados;
-e.   Anexar Dossiê;(desnecessário no momento)    
-f.   Priorização das Proposições para reunião de Pauta;
-Manter repositório de atos normativos (Sr.Humberto)(desnecessário)
-
-4.   *Manter Exposições de Motivos*
--   Internas (de autoria do MJ)
-a.   Elaborar EMI de acordo com as orientações do Manual de Redação da Presidência da República e geração de documento padronizados para impressão e assinatura;
-b. Anexar notas elaboradas;
-c. Anexar EMI’s arquivadas sobre o mesmo tema;
-d. Relacionar a EMI com o PL e norma originada;
-
-- Externo (de autoria de outros órgãos em co-autoria com o MJ)
-a. Anexar texto das EMI's recebidas via SIDOF;
-b. Juntar notas elaboradas;
-c. Anexar documentos administrativos relacionados
-
-
-5. *Manter Manifestação*
-a. Notas;
-b. Notas técnicas;
-c. Pareceres;
-d. Posicionamentos preliminares;
-e. Anexar textos das manifestações
-f. Gerar documento de Manifestação;
-
-6. *Manter requerimento*
-a. Criar alerta quando o prazo de Requerimento estiver próximo;
-
-7. *Manter Contatos da Secretária*
-a. Agendar compromissos;
-
-8. *Cadastrar documentos administrativos*
-a. Ofícios
-b. Memorandos
-c. Despachos
-
-9. *Realizar controle de distribuição de demandas e prazos para resposta*
-a. Anexar arquivos e notificações no módulo de tarefas
-b. Filtro de destinatários
-c. Notificação via e-mail
-d. Priorização de tarefas
-e. Possibilitar o usuário verificar suas tarefas
-
-10. *Gerar relatórios referentes à distribuição das demandas, responsáveis e prazos*
-a. Possibilidade de gerar em mais de um formato de arquivo
-
-11. *Indexar temas por termos autorizados*
-
-12. *Montar Pauta Semanal*
-a. Consultar proposições das duas casas;
-
-13. *Categorizar(tags) conteúdo*
-a. Proposições;
-b. Manifestações;
-
-14. *Pesquisas por*
-a. Forma livre, pesquisando todo conteúdo do portal;
-b. Conteúdo dentro dos Documentos;
-c. Categorias;
-
-15. *Incluir dados do processo físico cadastrado no MJDOC*
-
-16. *Migração de dados do EDENS para o sistema a ser construído*
-
-17. *Manter demanda dos parlamentares*
-
-18. *Manter parecer de sansão*
-
-19. *Notificações de alterações de texto nos Projetos de Lei*
-
-== Requisitos Funcionais da Referência (Humberto)
-1. *Manter portarias*
-2. *Pesquisa de portarias para o público externo*
-3. *Migração de dados de portarias do sistema atual para o sistema a ser construído*
-Manter repositório de atos normativos (Sr.Humberto) - (Prioridade baixa)
-
-== Requisitos Funcionais da ASPAR
-1. *Mecanismo de notificação automática a medida que requerimentos de interesse do MJ surjam nas pautas da Câmara ou do Senado*
-
-
-== Requisitos Não Funcionais
-1. *O Sistema será desenvolvido na linguagem Java;*
-2. *O Sistema integra com outras aplicações;*
-3. *O sistema deverá ser acessado completamente via browser;*
-4. *O Sistema terá um procedimento de autorização de usuários, nos quais tenham que se identificar usando um (login) e uma senha. Somente usuários autorizados terão acesso aos dados;*
-
-== Atores
-
+== 2.2. Descrição dos usuários 
 * Chefe de Gabinete;
 * Secretário de Assuntos Legislativos;
 * Advogados;
 * Coordenadores;
-* Acessoria parlamentar;
-* Chefe da acessoria parlamentar;(Verificar)
-* Equipe de apoio dos coordenadores;
+* Assessores;
+* Equipe de apoio dos coordenadores.
 
-== Glossário
+
+== 3. Requisitos Funcionais
+* Manter Usuário
+** Anexar currículos da equipe;
+** Gerenciar perfil usuário;
+** Integração via LDAP.
+
+* Manter Tipos de Proposição
+
+* Manter Tratamentos de Proposição
+
+* Manter Proposição
+** Incluir número do protocolo MJDOC e contemplar SEI;
+** Consumir dados das duas casas legislativas;
+** Acessar trâmites das proposições nas duas casas legislativas e posicionamentos dos ministérios;
+** Atrelar registro de manifestações, comentários e documentos administrativos relacionados;
+** Priorização das Proposições para reunião de Pauta;
+** Anexar arquivo;
+
+* Manter Exposições de Motivos
+** *Internas (de autoria do MJ)*:
+*** Anexar notas elaboradas;
+*** Associar EMI’s arquivadas sobre o mesmo tema;
+*** Relacionar a EMI com o PL e norma originada.
+ 
+** *Externo (de autoria de outros órgãos em coautoria com o MJ)*:
+*** Anexar texto das EMI's recebidas via SIDOF;
+*** Juntar notas elaboradas;
+*** Anexar documentos administrativos relacionados;
+*** Classificar EMI’s.
+
+* Manter Manifestação
+** Notas;
+** Notas técnicas;
+** Pareceres de Sanção;
+** Manter demandas dos Parlamentares;
+** Posicionamentos preliminares;
+** Anexar textos das manifestações;
+** Vincular documento de Manifestação.
+
+* Manter Contatos da Secretária
+** Agendar compromissos.
+** Possibilitar a associação e unificação de contatos em duplicidade.
+** Permitir fácil usabilidade e interface amigável focada na secretária.
+
+* Realizar controle de distribuição de demandas e prazos para resposta
+** Anexar arquivos e notificações no módulo de tarefas;
+** Filtro de destinatários;
+** Notificação via e-mail;
+** Priorização de tarefas;
+** Possibilitar o usuário verificar suas tarefas;
+** Viabilizar a geração em mais de um formato de arquivo;
+** Gerar relatórios referentes à distribuição das demandas, responsáveis e prazos;
+** Manter demanda de parlamentares;
+** Requerimento Informativo;
+** Criar alerta quando o prazo de Requerimento estiver próximo.
+
+* Consultar Documentos - SEI
+** Ofícios;
+** Memorandos;
+** Despachos.
+
+* Montar Pauta Semanal
+** Consultar proposições da Câmara dos Deputados e Senado Federal;
+** Vincular as tramitações das Casas;
+** Agenda Legislativa: Relatório Semanal de todas as proposições, editável;
+** Evidenciar os posicionamentos ministeriais e os acontecidos oriundos da SAL.
+
+* Categorizar (tags) conteúdo:
+** Proposições;
+** Manifestações;
+** Exposição de Motivos (EM).
+
+* Pesquisas por:
+** Forma livre, pesquisando todo conteúdo do portal;
+** Conteúdo dentro dos Documentos;
+** Indexar temas por termos autorizados;
+** Categorias.
+
+* Incluir dados do processo - SEI.
+
+* Consulta e verificação dos dados existentes no Banco de Dados do EDENS que serão salvos no novo sistema SISLEGIS;
+
+* Notificações de alterações de texto ou tramitações nos Projetos de Lei.
+
+* Manter Portarias - Referência
+** Pesquisa de Portarias para o público externo
+** Migração de dados de Portarias do sistema atual para o sistema a ser desenvolvido.
+
+* Mecanismo de notificação automática na medida em que mudanças nas proposições prioritárias ou já inclusas no sistema apareçam nas pautas da Câmara dos Deputados, Senado Federal e Congresso Nacional. 
+
+
+== 4. Requisitos Não Funcionais
+
+* Segurança: O Sistema terá um procedimento de autorização de usuários, nos quais terão que se identificar usando um (login) e uma senha. Somente usuários autorizados terão acesso aos dados.
+
+* Desempenho: Os requisitos de performance deverão ser explicitados em documento de arquitetura.
+
+* Usabilidade: Deverão ser utilizados novos padrões de usabilidade e interface amigáveis.
+
+* Confiabilidade: O Sistema deverá ficar disponível 24 (Vinte e Quatro) horas por dia durante 07 (Sete) dias da semana, durante todo o ano. As paradas para manutenção de qualquer espécie neste período deverão ser negociadas com a SAL e quando necessárias devem acontecer fora do horário comercial.
+
+* Padrões Aplicáveis: O Sistema será desenvolvido na Plataforma Java. Maiores detalhes sobre a codificação do sistema estarão contemplados no documento de arquitetura.
+
+* Hardware: Desktop e Notebook. Tablet e Mobile será feito estudo de viabilidade.
+
+* Documentação: Os artefatos produzidos estarão em conformidade com as melhores práticas. As adaptações poderão ser realizadas nos modelos da documentação, caso necessárias.
+
+* O Sistema será homologado pelos seguintes browsers: Mozilla Firefox e Google Chrome.
+
+
+== 5. Glossário
 
 [glossary]
-EMI:: - Exposição de Motivos Interministerial.
+EMI:: - Exposição de Motivos Interministerial
 
-PL:: - Projeto de Lei;
+PL:: - Projeto de Lei
 
-SAL:: - Secretária de Assunto Legislativo;
+SAL:: - Secretária de Assunto Legislativo
 
 SIDOF:: - Sistema de Geração e Tramitação de Documentos
 
 ASPAR:: - Assessoria Parlamentar
+
+Requerimento:: - Proposição de alguma providência
+
+Proposição:: - Toda matéria sujeita à aprovação do Plenário da Assembleia
+
+Manifestação:: - Resposta à uma proposição ou requerimento 
 
 
 
