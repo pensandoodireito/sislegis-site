@@ -1,14 +1,21 @@
 = Como contribuir
 :page-layout: base
+:toc:
+:toc-title!:
+:toc-placement!:
+:numbered:
 include::links.adoc[]
 
+toc::[]
+
 == Como contribuir na construção deste site
-Este site é estático. Isso significa que ele não é gerado dinamicamente por um servidor e é previamente construído com o uso de algumas ferramentas. No caso, essas ferramentas são o {uri-awestruct}[Awestruct] e {uri-asciidoctor}[Asciidoctor]. Após construído, ele é hospedado gratuitamente no http://pages.github.com[GitHub Pages].
+Este site é estático. Isso significa que ele não é gerado dinamicamente por um servidor e é previamente construído com o uso de algumas ferramentas. No caso, essas ferramentas são o {uri-awestruct}[Awestruct] e {uri-asciidoctor}[Asciidoctor]. Elas dependem de um ambiente {uri-ruby}[Ruby] para serem executadas. Após construído, ele é hospedado gratuitamente no http://pages.github.com[GitHub Pages].
+
 
 Esta página explica como você pode montar, rapidamente, um ambiente preparado para editar este site, adicionando, removendo ou alterando conteúdo.
 
 === Faça um fork do repositório
-Para contribuir na construção deste site, você deve possuir uma conta no {uri-github}[GitHub]. Em seguida, deve {uri-fork-a-repo}[criar um fork] do {uri-sislegis-site}[repositório sislegis-site] para essa tua conta.
+Para contribuir na construção deste site, você deve possuir uma conta no {uri-github}[GitHub]. Em seguida, deve {uri-fork-a-repo}[criar um fork] do {uri-sislegis-site}[repositório sislegis-site] para essa tua conta. Para saber o que estamos priorizando no desenvolvimento, verifique as {uri-sislegis-site-issues}[issues abertas]. É claro que você também pode sugerir mudanças fazendo {uri-sislegis-site}/pulls?q=[pull requests] mesmo para issues ainda não existentes! ;)
 
 === Baixe uma imagem Docker
 A forma mais fácil e rápida de você preparar teu ambiente para fazer a construção deste site, é utilizar o {uri-docker}[Docker]. Com ele você buscará uma imagem que contém todas as ferramentas necessárias, já pré-instaladas e prontas para a execução.
@@ -48,15 +55,35 @@ Essa é uma página de teste
 EOF
 ----
 
-Execute o comando `rake` e acesse a URL http://localhost:4242/teste.html. Se tudo der certo, parabéns, você acaba de criar uma nova página local para o sislegis-site. Agora, você precisa fazer a adição dessa página ao teu fork e, logo após, um commit e um push:
+Execute o comando `rake` e acesse a URL http://localhost:4242/teste.html. Se tudo der certo, parabéns, você acaba de criar uma nova página local para o sislegis-site. Agora, você precisa fazer a adição dessa página ao teu fork e, logo após, um commit.
 
 [source,bash]
 ----
 git add teste.adoc
 git commit -m 'testando uma contribuição'
+----
+
+O script link:configurar-conteiner.sh[] já prepara para você o remoto `upstream` apontando para o repositório original sislegis-site. Você pode executar a instrução a seguir para verificar isso:
+[source,bash]
+----
+git remote -v
+----
+
+Como uma boa prática, sempre, antes de fazer um push e um pull request, faça um `fetch` e um `merge` das mudanças de `upstream` para o teu fork executando as instruções a seguir:
+[source,bash]
+----
+git fetch upstream
+git merge upstream/master
+----
+
+Dessa forma as alterações de outras pessoas sejam refletidas na branch master do teu fork.
+
+Se tuas alterações foram realizadas diretamente na branch master do teu fork (uma possibilidade) e não ocorreram conflitos no `merge` você pode, agora, fazer um `push`.
+[source,bash]
+----
 git push
 ----
 
-Finalmente, faça um {uri-pull-request}[pull request] para que os administradores do projeto avaliem se o teu `commit` é útil e pode ser mesclado ao projeto!
+Finalmente, faça um {uri-pull-request}[pull request], através da interface administrativa do GitHub, para que os administradores do projeto avaliem se o teu `commit` é útil e pode ser mesclado ao projeto!
 
 // vim: set syntax=asciidoc:

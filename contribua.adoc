@@ -9,6 +9,7 @@ O {uri-sislegis}[SISLEGIS] é software livre. Qualquer um pode participar contri
 O SISLEGIS está dividido, neste momento, nos seguintes projetos:
 
 . {uri-sislegis-site}[sislegis-site] (este site). Para atuar nesse projeto, primeiro leia a página link:contribua-no-site.html["Como contribuir na construção deste site"].
+.. {uri-sislegis-site-issues}[Issues abertas]
 . {uri-sislegis-app}[sislegis-app] (a aplicação executada na infraestrutura do MJ). Para atuar nesse projeto, primeiro leia a página link:arquitetura.html["Arquitetura da aplicação"].
 
 // vim: set syntax=asciidoc:

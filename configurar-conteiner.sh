@@ -20,6 +20,7 @@ git config --global user.email "$EMAIL"
 git config --global push.default simple
 git clone $GHFORK
 cd sislegis-site
+git remote add upstream https://github.com/pensandoodireito/sislegis-site
 rvm use 2.1@sislegis-site --create --ruby-version
 bundle install
 EOF

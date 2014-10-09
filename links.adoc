@@ -1,14 +1,29 @@
+// URIs diversas
 :uri-asciidoctor: http://asciidoctor.org
 :uri-awestruct: http://awestruct.org
 :uri-ruby: http://ruby-lang.org
 :uri-docker: http://www.docker.com
 :uri-github: http://github.com
 :uri-boot2docker: http://www.docker.com
-:uri-sislegis: {uri-github}/pensandoodireito
-:uri-sislegis-site: {uri-sislegis}/sislegis-site
-:uri-sislegis-app: {uri-sislegis}/sislegis-app
 :uri-fork-a-repo: https://help.github.com/articles/fork-a-repo/
 :uri-pull-request: https://help.github.com/articles/using-pull-requests/
 :uri-fedora: http://fedoraproject.org
+:uri-jruby: http://jruby.org
+:uri-targetprocess: http://www.targetprocess.com
+:uri-scrum: http://pt.wikipedia.org/wiki/Scrum
+// URIs do projeto
+:uri-sislegis: {uri-github}/pensandoodireito
+:uri-sislegis-site: {uri-sislegis}/sislegis-site
+:uri-sislegis-site-issues: {uri-sislegis-site}/issues
+:uri-sislegis-app: {uri-sislegis}/sislegis-app
+// URIs da equipe (ordem alfabética ;)
+:uri-aman: {uri-github}/amanrathie
+:uri-christiano: {uri-github}/christianolins
+:uri-guilherme: {uri-github}/guilhermehott
+:uri-marco: {uri-github}/marcoamarelo
+:uri-paulo: {uri-github}/paulojeronimo
+:uri-raphael: {uri-github}/thsl
+:uri-thiago: {uri-github}/thsl
+:uri-eduardo: {uri-github}/eduardo
 
 // vim: set syntax=asciidoc:
