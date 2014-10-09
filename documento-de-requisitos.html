@@ -1,0 +1,621 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><title>Documento de Requisitos | SISLEGIS</title><link href="http://pensandoodireito.github.io/sislegis-site/css/bootstrap.min.css" rel="stylesheet"><link href="http://pensandoodireito.github.io/sislegis-site/css/sislegis-site.css" rel="stylesheet"></head><body><div class="navbar navbar-default navbar-fixed-top" role="navigation"><div class="container"><div class="navbar-header"><button class="navbar-toggle collapsed" data-target=".navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="index.html">SISLEGIS</a></div><div class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/sislegis-site/sobre.html">O que é</a></li><li><a href="/sislegis-site/requisitos.html">Requisitos</a></li><li><a href="/sislegis-site/arquitetura.html">Arquitetura</a></li><li><a href="/sislegis-site/equipe.html">Equipe</a></li><li><a href="/sislegis-site/contribua.html">Faça parte</a></li><li><a href="http://github.com/pensandoodireito">Código Fonte</a></li></ul></div></div></div><div class="container"><div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Documento de Requisitos</div>
+<ul class="sectlevel1">
+<li><a href="#introdução">1. Introdução</a>
+<ul class="sectlevel2">
+<li><a href="#propósito">1.1. Propósito</a></li>
+<li><a href="#público-alvo">1.2. Público Alvo</a></li>
+<li><a href="#dados-gerais">1.3. Dados Gerais</a></li>
+<li><a href="#envolvidos-no-projeto">1.4. Envolvidos no Projeto</a></li>
+<li><a href="#justificativa-do-projeto">1.5. Justificativa do Projeto</a></li>
+<li><a href="#objetivos-do-projeto">1.6. Objetivos do Projeto</a></li>
+<li><a href="#escopo">1.7. Escopo</a></li>
+<li><a href="#premissas">1.8. Premissas</a></li>
+</ul>
+</li>
+<li><a href="#visão-geral-do-produto">2. Visão Geral do Produto</a>
+<ul class="sectlevel2">
+<li><a href="#cenário-atual">2.1. Cenário Atual</a></li>
+<li><a href="#descrição-dos-usuários">2.2. Descrição dos usuários</a></li>
+</ul>
+</li>
+<li><a href="#requisitos-funcionais">3. Requisitos Funcionais</a>
+<ul class="sectlevel2">
+<li><a href="#manter-usuário">3.1. Manter Usuário</a></li>
+<li><a href="#manter-tipos-de-proposição">3.2. Manter Tipos de Proposição</a></li>
+<li><a href="#manter-tratamentos-de-proposição">3.3. Manter Tratamentos de Proposição</a></li>
+<li><a href="#manter-proposição">3.4. Manter Proposição</a></li>
+<li><a href="#manter-exposições-de-motivos">3.5. Manter Exposições de Motivos</a></li>
+<li><a href="#manter-manifestação">3.6. Manter Manifestação</a></li>
+<li><a href="#manter-contatos-da-secretária">3.7. Manter Contatos da Secretária</a></li>
+<li><a href="#consultar-documentos-sei">3.8. Consultar Documentos - SEI</a></li>
+<li><a href="#montar-pauta-semanal">3.9. Montar Pauta Semanal</a></li>
+<li><a href="#categorizar-tags-conteúdo">3.10. Categorizar (tags) conteúdo</a></li>
+<li><a href="#incluir-dados-do-processo-sei">3.11. Incluir dados do processo - SEI</a></li>
+<li><a href="#consulta-e-verificação-dos-dados-existentes-no-banco-de-dados-do-edens-que-serão-salvos-no-novo-sistema-sislegis">3.12. Consulta e verificação dos dados existentes no Banco de Dados do EDENS que serão salvos no novo sistema SISLEGIS</a></li>
+<li><a href="#notificações-de-alterações-de-texto-ou-tramitações-nos-projetos-de-lei">3.13. Notificações de alterações de texto ou tramitações nos Projetos de Lei</a></li>
+<li><a href="#manter-portarias-referência">3.14. Manter Portarias - Referência</a></li>
+</ul>
+</li>
+<li><a href="#requisitos-não-funcionais">4. Requisitos Não Funcionais</a></li>
+<li><a href="#glossário">5. Glossário</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introdução"><a class="anchor" href="#introdução"></a>1. Introdução</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="propósito"><a class="anchor" href="#propósito"></a>1.1. Propósito</h3>
+<div class="paragraph">
+<p>Este documento descritivo, elaborado pela equipe de Consultores de TI da SAL, tem por objetivo apresentar um estudo inicial de viabilidade do projeto, bem como as atividades desempenhadas referentes a especificação técnica, evidenciando o levantamento dos requisitos do sistema SISLEGIS, além de fornecer aos desenvolvedores os subsídios necessários para o desenvolvimento, implementação, testes e homologação do sistema.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="público-alvo"><a class="anchor" href="#público-alvo"></a>1.2. Público Alvo</h3>
+<div class="paragraph">
+<p>Este documento se destina aos arquitetos de software, engenheiros de software e implementadores do sistema.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dados-gerais"><a class="anchor" href="#dados-gerais"></a>1.3. Dados Gerais</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Nome do Projeto: Sistema de Acompanhamento Legislativo</p>
+</li>
+<li>
+<p>Sigla do Projeto: SISLEGIS</p>
+</li>
+<li>
+<p>Tipo de Projeto: Consultoria e Desenvolvimento</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="envolvidos-no-projeto"><a class="anchor" href="#envolvidos-no-projeto"></a>1.4. Envolvidos no Projeto</h3>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Nome</th>
+<th class="tableblock halign-left valign-top">E-mail</th>
+<th class="tableblock halign-left valign-top">Telefone(s)</th>
+<th class="tableblock halign-left valign-top">Papel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gabriel Carvalho de Sampaio</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="mailto:gabriel.sampaio@mj.gov.br">gabriel.sampaio@mj.gov.br</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(61) 2025.3190</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Secretário de Assuntos Legislativos – Ministério da Justiça</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sabrina Durigon Marques</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="mailto:sabrina.marques@mj.gov.br">sabrina.marques@mj.gov.br</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(61) 2025.3114</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Chefe de Gabinete da Secretaria de Assuntos Legislativos – Ministério da Justiça</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Eduardo Spanó Junqueira de Paiva</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="mailto:eduardo.paiva@mj.gov.br">eduardo.paiva@mj.gov.br</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(61) 2025.3776</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Assessor do Secretário Executivo do Ministro da Justiça</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Christiano Guimarães Lins Santos</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="mailto:christiano.santos@mj.gov.br">christiano.santos@mj.gov.br</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(61) 2025.3114</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consultor de TI e Coordenador do Projeto de Desenvolvimento do SISLEGIS - MJ</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Paulo Jerônimo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="mailto:paulojeronimo@gmail.com">paulojeronimo@gmail.com</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(61) 2025.3114, 9504-6178</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consultor de TI e Arquiteto de Software do Projeto de Desenvolvimento do SISLEGIS – MJ</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aman Rathie</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="mailto:amanrathie@gmail.com">amanrathie@gmail.com</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(61) 2025.3114</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consultor de TI e Engenheiro de Software do Projeto de Desenvolvimento do SISLEGIS – MJ</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Raphael Augusto</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="mailto:raphaelbsb1@gmail.com">raphaelbsb1@gmail.com</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(61) 2025.3114</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consultor de TI e Engenheiro de Software do Projeto de Desenvolvimento do SISLEGIS – MJ</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Guilherme Hott</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="mailto:guilhermehott@gmail.com">guilhermehott@gmail.com</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(61) 2025.3114</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consultor de TI e Engenheiro de Software do Projeto de Desenvolvimento do SISLEGIS – MJ</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Thiago Souza Lopes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="mailto:thiago.souza.lopes@gmail.com">thiago.souza.lopes@gmail.com</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(61) 2025.3114</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consultor de TI e Arquiteto de Informação do Projeto de Desenvolvimento do SISLEGIS – MJ</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="justificativa-do-projeto"><a class="anchor" href="#justificativa-do-projeto"></a>1.5. Justificativa do Projeto</h3>
+<div class="paragraph">
+<p>Automação e gerenciamento dos processos legislativos de interesse da Secretaria de Assuntos Legislativos, no momento todos os acompanhamentos são estáticos e descentralizados sendo feitos em planilhas Excel, E-mail. A automação permitirá maior eficiência e controle das pautas e processos legislativos.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="objetivos-do-projeto"><a class="anchor" href="#objetivos-do-projeto"></a>1.6. Objetivos do Projeto</h3>
+<div class="paragraph">
+<p>Consultoria, desenvolvimento, implantação, disponibilização de um sistema web acessado via internet que permita cadastrar, acompanhar, organizar e gerir os processos legislativos de interesse do MJ.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="escopo"><a class="anchor" href="#escopo"></a>1.7. Escopo</h3>
+<div class="paragraph">
+<p>Este documento realiza a elicitação de requisitos do SISLEGIS, visando a criação de um novo sistema de gestão do processo legislativo, provendo o cadastro e acompanhamento dos pareceres, notas, notas técnicas e proposições em tramitação na Câmara dos Deputados, Senado Federal e Congresso Nacional, integrando e consolidando ações e procedimentos realizados pelos Ministérios e Ministério da Justiça, de modo ágil e proficiente.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="premissas"><a class="anchor" href="#premissas"></a>1.8. Premissas</h3>
+<div class="paragraph">
+<p>Todo o desenvolvimento será estruturado em software livre ou Open Source, utilizando a plataforma Java.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="visão-geral-do-produto"><a class="anchor" href="#visão-geral-do-produto"></a>2. Visão Geral do Produto</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Criação de um novo sistema de gestão do processo legislativo, que permita o cadastro e acompanhamento dos pareceres, notas, notas técnicas e proposições em tramitação na Câmara dos Deputados, Senado Federal e Congresso Nacional, integrando e consolidando ações e procedimentos realizados pelos Ministérios e Ministério da Justiça, de modo ágil e proficiente.</p>
+</div>
+<div class="sect2">
+<h3 id="cenário-atual"><a class="anchor" href="#cenário-atual"></a>2.1. Cenário Atual</h3>
+<div class="paragraph">
+<p>Atualmente é utilizado pela SAL dois sistemas: EDENS e SISLEGIS (Atual).
+O Sistema Edens encontra-se em desuso pela secretária, e o contrato com a empresa responsável pela manutenção foi cancelado.</p>
+</div>
+<div class="paragraph">
+<p>Os motivos para não utilização do EDENS são:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Grande número de funcionalidades desnecessárias;</p>
+</li>
+<li>
+<p>Interfaces complicadas;</p>
+</li>
+<li>
+<p>Problemas de integração com o MJDOC;</p>
+</li>
+<li>
+<p>Impossibilidade de anexação de arquivos;</p>
+</li>
+<li>
+<p>Problemas na verificação dos nomes dos Projetos de Leis importados, gerando duplicidade;</p>
+</li>
+<li>
+<p>Impossibilidade no acompanhamento de tarefas;</p>
+</li>
+<li>
+<p>Falta de funcionalidades importantes para a SAL.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>O atual Sistema SisLegis atende em partes os interesses da Secretaria de Assuntos Legislativos. Sua principal funcionalidade é a Pauta Semanal, todavia necessita de profundas melhorias. Outro agravante é o consumo de informações, uma vez que são coletadas apenas as informações oriundas da Câmara, faltando um "push" das informações do Senado.   </p>
+</div>
+<div class="paragraph">
+<p>Em virtude da insuficiência dos dois Sistemas, é frequente entre as áreas:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Grande número de troca de e-mails;</p>
+</li>
+<li>
+<p>Geração de planilhas em Excel para controle interno;</p>
+</li>
+<li>
+<p>Produção manual de documentos;</p>
+</li>
+<li>
+<p>Compartilhamento de arquivos na rede sem backup</p>
+</li>
+<li>
+<p>Perda de informações.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="descrição-dos-usuários"><a class="anchor" href="#descrição-dos-usuários"></a>2.2. Descrição dos usuários</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Chefe de Gabinete;</p>
+</li>
+<li>
+<p>Secretário de Assuntos Legislativos;</p>
+</li>
+<li>
+<p>Advogados;</p>
+</li>
+<li>
+<p>Coordenadores;</p>
+</li>
+<li>
+<p>Assessores;</p>
+</li>
+<li>
+<p>Equipe de apoio dos coordenadores.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="requisitos-funcionais"><a class="anchor" href="#requisitos-funcionais"></a>3. Requisitos Funcionais</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="manter-usuário"><a class="anchor" href="#manter-usuário"></a>3.1. Manter Usuário</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Anexar currículos da equipe;</p>
+</li>
+<li>
+<p>Gerenciar perfil usuário;</p>
+</li>
+<li>
+<p>Integração via LDAP.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="manter-tipos-de-proposição"><a class="anchor" href="#manter-tipos-de-proposição"></a>3.2. Manter Tipos de Proposição</h3>
+
+</div>
+<div class="sect2">
+<h3 id="manter-tratamentos-de-proposição"><a class="anchor" href="#manter-tratamentos-de-proposição"></a>3.3. Manter Tratamentos de Proposição</h3>
+
+</div>
+<div class="sect2">
+<h3 id="manter-proposição"><a class="anchor" href="#manter-proposição"></a>3.4. Manter Proposição</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Incluir número do protocolo MJDOC e contemplar SEI;</p>
+</li>
+<li>
+<p>Consumir dados das duas casas legislativas;</p>
+</li>
+<li>
+<p>Acessar trâmites das proposições nas duas casas legislativas e posicionamentos dos ministérios;</p>
+</li>
+<li>
+<p>Atrelar registro de manifestações, comentários e documentos administrativos relacionados;</p>
+</li>
+<li>
+<p>Priorização das Proposições para reunião de Pauta;</p>
+</li>
+<li>
+<p>Anexar arquivo;</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="manter-exposições-de-motivos"><a class="anchor" href="#manter-exposições-de-motivos"></a>3.5. Manter Exposições de Motivos</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Internas (de autoria do MJ)</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Anexar notas elaboradas;</p>
+</li>
+<li>
+<p>Associar EMI’s arquivadas sobre o mesmo tema;</p>
+</li>
+<li>
+<p>Relacionar a EMI com o PL e norma originada.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Externo (de autoria de outros órgãos em coautoria com o MJ)</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Anexar texto das EMI&#8217;s recebidas via SIDOF;</p>
+</li>
+<li>
+<p>Juntar notas elaboradas;</p>
+</li>
+<li>
+<p>Anexar documentos administrativos relacionados;</p>
+</li>
+<li>
+<p>Classificar EMI’s.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="manter-manifestação"><a class="anchor" href="#manter-manifestação"></a>3.6. Manter Manifestação</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Notas;</p>
+</li>
+<li>
+<p>Notas técnicas;</p>
+</li>
+<li>
+<p>Pareceres de Sanção;</p>
+</li>
+<li>
+<p>Manter demandas dos Parlamentares;</p>
+</li>
+<li>
+<p>Posicionamentos preliminares;</p>
+</li>
+<li>
+<p>Anexar textos das manifestações;</p>
+</li>
+<li>
+<p>Vincular documento de Manifestação.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="manter-contatos-da-secretária"><a class="anchor" href="#manter-contatos-da-secretária"></a>3.7. Manter Contatos da Secretária</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Agendar compromissos.</p>
+</li>
+<li>
+<p>Possibilitar a associação e unificação de contatos em duplicidade.</p>
+</li>
+<li>
+<p>Permitir fácil usabilidade e interface amigável focada na secretária.</p>
+</li>
+<li>
+<p>Realizar controle de distribuição de demandas e prazos para resposta</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Anexar arquivos e notificações no módulo de tarefas;</p>
+</li>
+<li>
+<p>Filtro de destinatários;</p>
+</li>
+<li>
+<p>Notificação via e-mail;</p>
+</li>
+<li>
+<p>Priorização de tarefas;</p>
+</li>
+<li>
+<p>Possibilitar o usuário verificar suas tarefas;</p>
+</li>
+<li>
+<p>Viabilizar a geração em mais de um formato de arquivo;</p>
+</li>
+<li>
+<p>Gerar relatórios referentes à distribuição das demandas, responsáveis e prazos;</p>
+</li>
+<li>
+<p>Manter demanda de parlamentares;</p>
+</li>
+<li>
+<p>Requerimento Informativo;</p>
+</li>
+<li>
+<p>Criar alerta quando o prazo de Requerimento estiver próximo.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="consultar-documentos-sei"><a class="anchor" href="#consultar-documentos-sei"></a>3.8. Consultar Documentos - SEI</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Ofícios;</p>
+</li>
+<li>
+<p>Memorandos;</p>
+</li>
+<li>
+<p>Despachos.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="montar-pauta-semanal"><a class="anchor" href="#montar-pauta-semanal"></a>3.9. Montar Pauta Semanal</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Consultar proposições da Câmara dos Deputados e Senado Federal;</p>
+</li>
+<li>
+<p>Vincular as tramitações das Casas;</p>
+</li>
+<li>
+<p>Agenda Legislativa: Relatório Semanal de todas as proposições, editável;</p>
+</li>
+<li>
+<p>Evidenciar os posicionamentos ministeriais e os acontecidos oriundos da SAL.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="categorizar-tags-conteúdo"><a class="anchor" href="#categorizar-tags-conteúdo"></a>3.10. Categorizar (tags) conteúdo</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Proposições;</p>
+</li>
+<li>
+<p>Manifestações;</p>
+</li>
+<li>
+<p>Exposição de Motivos (EM).</p>
+</li>
+<li>
+<p>Pesquisas por:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Forma livre, pesquisando todo conteúdo do portal;</p>
+</li>
+<li>
+<p>Conteúdo dentro dos Documentos;</p>
+</li>
+<li>
+<p>Indexar temas por termos autorizados;</p>
+</li>
+<li>
+<p>Categorias.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="incluir-dados-do-processo-sei"><a class="anchor" href="#incluir-dados-do-processo-sei"></a>3.11. Incluir dados do processo - SEI</h3>
+
+</div>
+<div class="sect2">
+<h3 id="consulta-e-verificação-dos-dados-existentes-no-banco-de-dados-do-edens-que-serão-salvos-no-novo-sistema-sislegis"><a class="anchor" href="#consulta-e-verificação-dos-dados-existentes-no-banco-de-dados-do-edens-que-serão-salvos-no-novo-sistema-sislegis"></a>3.12. Consulta e verificação dos dados existentes no Banco de Dados do EDENS que serão salvos no novo sistema SISLEGIS</h3>
+
+</div>
+<div class="sect2">
+<h3 id="notificações-de-alterações-de-texto-ou-tramitações-nos-projetos-de-lei"><a class="anchor" href="#notificações-de-alterações-de-texto-ou-tramitações-nos-projetos-de-lei"></a>3.13. Notificações de alterações de texto ou tramitações nos Projetos de Lei</h3>
+
+</div>
+<div class="sect2">
+<h3 id="manter-portarias-referência"><a class="anchor" href="#manter-portarias-referência"></a>3.14. Manter Portarias - Referência</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Pesquisa de Portarias para o público externo</p>
+</li>
+<li>
+<p>Migração de dados de Portarias do sistema atual para o sistema a ser desenvolvido.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Mecanismo de notificação automática na medida em que mudanças nas proposições prioritárias ou já inclusas no sistema apareçam nas pautas da Câmara dos Deputados, Senado Federal e Congresso Nacional.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="requisitos-não-funcionais"><a class="anchor" href="#requisitos-não-funcionais"></a>4. Requisitos Não Funcionais</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Segurança</strong>: O Sistema terá um procedimento de autorização de usuários, nos quais terão que se identificar usando um (login) e uma senha. Somente usuários autorizados terão acesso aos dados.</p>
+</li>
+<li>
+<p><strong>Desempenho</strong>: Os requisitos de performance deverão ser explicitados em documento de arquitetura.</p>
+</li>
+<li>
+<p><strong>Usabilidade</strong>: Deverão ser utilizados novos padrões de usabilidade e interface amigáveis.</p>
+</li>
+<li>
+<p><strong>Confiabilidade</strong>: O Sistema deverá ficar disponível 24 (Vinte e Quatro) horas por dia durante 07 (Sete) dias da semana, durante todo o ano. As paradas para manutenção de qualquer espécie neste período deverão ser negociadas com a SAL e quando necessárias devem acontecer fora do horário comercial.</p>
+</li>
+<li>
+<p><strong>Padrões Aplicáveis</strong>: O Sistema será desenvolvido na Plataforma Java. Maiores detalhes sobre a codificação do sistema estarão contemplados no documento de arquitetura.</p>
+</li>
+<li>
+<p><strong>Hardware</strong>: Desktop e Notebook. Tablet e Mobile será feito estudo de viabilidade.</p>
+</li>
+<li>
+<p><strong>Documentação</strong>: Os artefatos produzidos estarão em conformidade com as melhores práticas. As adaptações poderão ser realizadas nos modelos da documentação, caso necessárias.</p>
+</li>
+<li>
+<p><strong>Browsers suportados</strong>: o Sistema será homologado para os browsers Mozilla Firefox e Google Chrome.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="glossário"><a class="anchor" href="#glossário"></a>5. Glossário</h2>
+<div class="sectionbody">
+<div class="dlist glossary">
+<dl>
+<dt>EMI</dt>
+<dd>
+<p>- Exposição de Motivos Interministerial</p>
+</dd>
+<dt>PL</dt>
+<dd>
+<p>- Projeto de Lei</p>
+</dd>
+<dt>SAL</dt>
+<dd>
+<p>- Secretária de Assunto Legislativo</p>
+</dd>
+<dt>SIDOF</dt>
+<dd>
+<p>- Sistema de Geração e Tramitação de Documentos</p>
+</dd>
+<dt>ASPAR</dt>
+<dd>
+<p>- Assessoria Parlamentar</p>
+</dd>
+<dt>Requerimento</dt>
+<dd>
+<p>- Proposição de alguma providência</p>
+</dd>
+<dt>Proposição</dt>
+<dd>
+<p>- Toda matéria sujeita à aprovação do Plenário da Assembleia</p>
+</dd>
+<dt>Manifestação</dt>
+<dd>
+<p>- Resposta à uma proposição ou requerimento</p>
+</dd>
+</dl>
+</div>
+</div>
+</div></div><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script><script src="http://pensandoodireito.github.io/sislegis-site/js/bootstrap.min.js"></script></body></html>

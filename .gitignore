@@ -1,8 +1,0 @@
-.awestruct/
-.sass-cache/
-_site/
-_tmp/
-
-.ruby-gemset
-.ruby-version
-Gemfile.lock
