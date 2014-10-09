@@ -7,44 +7,46 @@ include::links.adoc[]
 |===
 | Nome | Papéis
 
-| {uri-github}/amanrathie[Aman Rathie]
+| {uri-aman}[Aman Rathie]
 | Requisitos
 
 Programação
 
-| {uri-github}/christianolins[Cristiano Lins]
+| {uri-christiano}[Christiano Lins]
 | Coordenação
 
 Requisitos
 
-| {uri-github}/guilhermehott[Guilherme Hott]
+| {uri-guilherme}[Guilherme Hott]
 | Requisitos
 
 Programação
 
-| {uri-github}/paulojeronimo[Paulo Jerônimo]
+| {uri-paulo}[Paulo Jerônimo]
 | Infraestrutura
 
 Arquitetura da aplicação
 
 Programação
 
-| {uri-github}/raphaelbsb1[Raphael Santos]
+| {uri-raphael}[Raphael Santos]
 | Requisitos
 
 Programação
 
-| Thiago Lopes
+| {uri-thiago}[Thiago Lopes]
 | Requisitos
 
 Arquitetura da informação
 
 |===
 
+Página no GitHub: https://github.com/orgs/pensandoodireito/people
+
 == Equipe de apoio
 
-* {uri-github}/marcoamarelo[Marco Amarelo]
-* {uri-github}/epaiva[Eduardo Paiva]
+* {uri-marco}[Marco Amarelo]
+* {uri-eduardo}[Eduardo Paiva]
 * Guilherme Moraes
 
 == link:contribua.html[Faça parte]
