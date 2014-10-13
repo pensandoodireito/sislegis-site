@@ -113,8 +113,6 @@ end
 desc 'Generate the site and deploy to production'
 task :deploy => [:push, :check] do
   run_awestruct '-P production -g --force'
-  #gen_rdoc
-  run_awestruct '-P production --deploy'
 end
 
 desc 'Generate site from Travis CI and, if not a pull request, publish site to production (GitHub Pages)'
@@ -142,18 +140,10 @@ task :travis do
   # CREDENTIALS assigned by a Travis CI Secure Environment Variable
   # see http://about.travis-ci.org/docs/user/build-configuration/#Secure-environment-variables for details
   File.open('.git/credentials', 'w') {|f| f.write("https://#{ENV['GH_U']}:#{ENV['GH_T']}@github.com") }
-  set_pub_dates 'master'
   system 'git branch gh-pages origin/gh-pages'
   run_awestruct '-P production -g --force -q', :spawn => false
-  #gen_rdoc
-  run_awestruct '-P production --deploy', :spawn => false
   File.delete '.git/credentials'
   system 'git status'
-end
-
-desc "Assign publish dates to news entries"
-task :setpub do
-  set_pub_dates 'master'
 end
 
 desc 'Clean out generated site and temporary files'
@@ -288,57 +278,5 @@ def msg(text, level = :info)
     puts "\e[31m#{text}\e[0m"
   else
     puts "\e[33m#{text}\e[0m"
-  end
-end
-
-def gen_rdoc
-  require 'fileutils'
-  asciidoctor_dir = %x(bundle show asciidoctor).chomp
-  asciidoctor_ver = asciidoctor_dir.split('-').last
-  system %(rdoc -m README.asciidoc -t "API Documentation for Asciidoctor #{asciidoctor_ver}" --markup tomdoc -o rdoc README.* lib), :chdir => asciidoctor_dir
-  FileUtils.rm "#{asciidoctor_dir}/rdoc/created.rid"
-  FileUtils.mv "#{asciidoctor_dir}/rdoc", '_site/rdoc'
-end
-
-# FIXME don't assign pub dates to post if it's a draft!!
-def set_pub_dates(branch)
-  require 'tzinfo'
-  require 'git'
-  local_tz = IO.readlines('_config/site.yml').find {|l| l.start_with?('local_tz: ') }.chomp.sub('local_tz: ', '')
-  local_tz = TZInfo::Timezone.get(local_tz)
-
-  repo = nil
-
-  Dir['news/*.adoc'].select {|e| !e.start_with? 'news/_'}.each do |e|
-    lines = IO.readlines e
-    header = lines.inject([]) {|collector, l|
-      break collector if l.chomp.empty?
-      collector << l 
-      collector
-    }
-  
-    do_commit = false
-    if !header.detect {|l| l.start_with?(':revdate: ') || l.start_with?(':awestruct-draft:') || l.start_with?(':awestruct-layout:') }
-      revdate = Time.now.utc.getlocal(local_tz.current_period.utc_total_offset)
-      lines[2] = "#{revdate.strftime('%Y-%m-%d')}\n"
-      lines.insert(3, ":revdate: #{revdate}\n")
-      File.open(e, 'w') {|f|
-        f.write(lines.join)
-      }
-      if !repo
-        repo = Git.open('.')
-        b = repo.branch(branch)
-        b.remote = 'origin/master'
-        b.create
-        b.checkout
-      end
-      repo.add(e)
-      repo.commit "Set publish date of post #{e} [ci skip]"
-      do_commit = true
-    end
-  
-    if do_commit
-      repo.push('origin', branch)
-    end
   end
 end
