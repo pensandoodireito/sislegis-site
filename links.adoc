@@ -11,10 +11,13 @@
 :uri-jruby: http://jruby.org
 :uri-targetprocess: http://www.targetprocess.com
 :uri-scrum: http://pt.wikipedia.org/wiki/Scrum
+:uri-travis-ci: http://travis-ci.org
 // URIs do projeto
 :uri-sislegis: {uri-github}/pensandoodireito
 :uri-sislegis-site: {uri-sislegis}/sislegis-site
 :uri-sislegis-site-issues: {uri-sislegis-site}/issues
+:uri-sislegis-site-travis: {uri-travis-ci}/pensandoodireito/sislegis-site
+:uri-sislegis-site-travis-builds: {uri-sislegis-site-travis}/builds
 :uri-sislegis-app: {uri-sislegis}/sislegis-app
 // URIs da equipe (ordem alfabética ;)
 :uri-aman: {uri-github}/amanrathie
