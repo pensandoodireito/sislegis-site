@@ -76,7 +76,7 @@ git fetch upstream
 git merge upstream/master
 ----
 
-Dessa forma as alterações de outras pessoas sejam refletidas na branch master do teu fork.
+Assim as alterações de outras pessoas na branch master desse projeto serão atualizadas na branch master do teu fork.
 
 Se tuas alterações foram realizadas diretamente na branch master do teu fork (uma possibilidade) e não ocorreram conflitos no `merge` você pode, agora, fazer um `push`.
 [source,bash]
