@@ -111,8 +111,8 @@ task :push do
 end
 
 desc 'Generate the site and deploy to production'
-task :deploy => [:push, :check] do
-  run_awestruct '-P production -g --force'
+task :deploy => :check do
+  run_awestruct '-P production -g --force --deploy'
 end
 
 desc 'Generate site from Travis CI and, if not a pull request, publish site to production (GitHub Pages)'
