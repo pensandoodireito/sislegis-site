@@ -2,4 +2,8 @@
 
 Projeto (site) com informações relativas ao desenvolvimento do SISLEGIS.
 
+Estado da integração no https://travis-ci.org/pensandoodireito/sislegis-site[Travis CI]:
+
+image::https://travis-ci.org/pensandoodireito/sislegis-site.svg?branch=master[]
+
 // vim: set syntax=asciidoc:
