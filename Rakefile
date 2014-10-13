@@ -141,7 +141,7 @@ task :travis do
   # see http://about.travis-ci.org/docs/user/build-configuration/#Secure-environment-variables for details
   File.open('.git/credentials', 'w') {|f| f.write("https://#{ENV['GH_U']}:#{ENV['GH_T']}@github.com") }
   system 'git branch gh-pages origin/gh-pages'
-  run_awestruct '-P production -g --force -q', :spawn => false
+  run_awestruct '-P production -g --force -q --deploy', :spawn => false
   File.delete '.git/credentials'
   system 'git status'
 end
