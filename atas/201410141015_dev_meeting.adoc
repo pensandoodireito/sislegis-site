@@ -1,0 +1,8 @@
+= Dev Meeting 13/10/2014 21h
+:page-layout: base
+
+Reunião sobre a montagem do ambiente de desenvolvimento e explicações sobre o processo de atualização do sislegis-site.
+
+== Explicações sobre o sislegis-site
+
+// vim: set syntax=asciidoc:
