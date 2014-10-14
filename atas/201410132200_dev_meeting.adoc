@@ -1,0 +1,37 @@
+= Dev Meeting 13/10/2014 21h
+
+Reunião sobre o modelo de classe da sprint #1
+
+== Definição básica das entidades
+
+. reunião
+.. data
+.. lista de proposições
+. proposição
+.. id(pk)
+.. idProposicao
+.. origem [CAMARA,SENADO]
+.. sigla (tipo+numero+ano) somente GET
+.. ano
+.. numero
+.. tipoProposicao
+.. data de apresentação
+.. ementa
+.. autor (parlamentar ou órgão) somente texto
+.. situacaoTramitacao ???
+.. idComissao
+. comissao
+
+== Definições gerais
+
+* utilizar uma fachada para tratar as informações
+que virão da camara e do senado
+* decidir como será tratado as "posições" geridas
+pelas ASPAR apresentado no documento enviado pelo Christiano hoje. 
+-> Inserir como um tipo de comentário?
+
+== Considerações finais
+
+Guilherme vai atualizar o modelo e amanhã teremos
+outra reunião para finalizar modelo da sprint #1
+e PJ apresentar estrutura do projeto
