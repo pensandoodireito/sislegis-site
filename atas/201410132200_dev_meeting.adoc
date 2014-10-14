@@ -1,13 +1,13 @@
 = Dev Meeting 13/10/2014 21h
+:page-layout: base
 
-Reunião sobre o modelo de classe da sprint #1
+Reunião sobre a camada de modelo da sprint #1
 
 == Definição básica das entidades
-
-. reunião
+. Reunião
 .. data
 .. lista de proposições
-. proposição
+. Proposição
 .. id(pk)
 .. idProposicao
 .. origem [CAMARA,SENADO]
@@ -20,18 +20,13 @@ Reunião sobre o modelo de classe da sprint #1
 .. autor (parlamentar ou órgão) somente texto
 .. situacaoTramitacao ???
 .. idComissao
-. comissao
+. Comissao
 
 == Definições gerais
-
-* utilizar uma fachada para tratar as informações
-que virão da camara e do senado
-* decidir como será tratado as "posições" geridas
-pelas ASPAR apresentado no documento enviado pelo Christiano hoje. 
--> Inserir como um tipo de comentário?
+* Utilizar uma fachada para tratar as informações que virão da camara e do senado
+* Decidir como será tratado as "posições" geridas pelas ASPAR apresentado no documento enviado pelo Christiano hoje. -> Inserir como um tipo de comentário?
 
 == Considerações finais
+Guilherme vai atualizar o modelo e amanhã teremos outra reunião para finalizar modelo da sprint #1 e PJ apresentar estrutura do projeto 
 
-Guilherme vai atualizar o modelo e amanhã teremos
-outra reunião para finalizar modelo da sprint #1
-e PJ apresentar estrutura do projeto
+// vim: set syntax=asciidoc:
