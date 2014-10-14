@@ -1,7 +1,10 @@
 language: ruby
 rvm:
-  - 2.1.1
+- 2.1.1
 branches:
   only:
-    - master
+  - master
 script: rake travis
+env:
+  global:
+    secure: URrVky9zk0TWj7EyiuWLtxzj3rZYlRVT3ak0G4hbM1Xvg4GHYIW8M/dBlW/Cr0ZYm0y752v0RKM2TCGmHOTAnKXPza8ICpdRGdBqNM0PkQeSwttYegX0l0t0/jEkhKcjQW05BerVfGGPBWM+L7Ktc4OfvVIuDiUoIi27iHrilYU=
