@@ -7,11 +7,11 @@ Este site apresenta informações sobre o desenvolvimento do *Sistema de Acompan
 
 Aqui você obtém as seguintes respostas:
 
-* link:/sobre/[O que é o SISLEGIS?]
-** link:/requisitos/[Requisitos levantados e priorizados.]
-* link:/equipe/[Quem está desenvolvendo o SISLEGIS?]
-** link:/contribua/[Posso participar?]
-** link:/contribua/neste-site/[Como este site é construído?]
-** link:/arquitetura/[Como é a arquitetura da aplicação?]
+* link:sobre/[O que é o SISLEGIS?]
+** link:requisitos/[Requisitos levantados e priorizados.]
+* link:equipe/[Quem está desenvolvendo o SISLEGIS?]
+** link:contribua/[Posso participar?]
+** link:contribua/neste-site/[Como este site é construído?]
+** link:arquitetura/[Como é a arquitetura da aplicação?]
 
 // vim: set syntax=asciidoc:
