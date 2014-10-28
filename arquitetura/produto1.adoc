@@ -1,0 +1,121 @@
+= Arquitetura da aplicação (SISLEGIS), produto 1
+:page-layout: base
+:toc:
+:toc-title!:
+:toc-placement!:
+:numbered:
+include::links.adoc[]
+
+{page-title}
+
+toc::[]
+
+== Introdução
+
+Este documento apresenta um levantamento preliminar com sugestões de melhorias arquiteturais dos sistemas de informação da Secretaria de Assuntos Legislativos (SAL). Ele descreve, mais especificamente, as melhorias arquiteturais para a {uri-github}/pensandoodireito/sislegis-app[aplicação SISLEGIS]. Essa aplicação é responsável pelo acompanhamento de proposições e o cadastramento de referências legislativas do Ministério da Justiça (MJ).
+
+== Contexto atual
+
+Em sua apresentação para a consultoria, a SAL demonstrou a realização de suas tarefas com o auxílio da {uri-sislegis-anterior-github}[aplicação protótipo do SISLEGIS] (escrita em PHP e produzida pela consultoria anterior), através de planilhas e documentos escritos no http://office.microsoft.com/pt-br/[Microsoft Office], e utilizando-se de ferramentas como o {uri-trello}[Trello]. Também foi citado pela SAL como era realizado o uso de alguns dos produtos da {uri-edens}[empresa Edens] num momento anterior.
+
+O objetivo da consultoria é, baseando-se no sistema atual (protótipo funcional) e no levantamento de requisitos realizado para a SAL (e outros departamentos do MJ), desenvolver uma solução adequada a suas tarefas.
+
+== A aplicação anterior
+
+Conforme exposto pela SAL, a {uri-sislegis-anterior-github}[aplicação anterior] precisa sofrer alterações para atender requisitos de negócio e também necessidades arquiteturais de tecnologia da informação (TI) do MJ. Essas mudanças envolvem a evolução da aplicação para agregar novos requisitos funcionais e, também, não funcionais. Além disso, o escopo da consultoria envolve a transformação do código que provê tais funcionalidades já existentes, de PHP para Java.
+
+== Melhorias na arquitetura
+
+Visando atender aos requisitos da SAL, o {uri-edital-arquiteto}[edital lançado por ela], para a contratação da consultoria, propõe o uso das seguintes tecnologias/`frameworks`:
+
+* http://wicket.apache.org[Apache Wicket] - como framework para gerar a camada de `frontend` em HTML;
+* http://pt.wikipedia.org/wiki/AJAX_%28programa%C3%A7%C3%A3o%29[AJAX] - para interações mais dinâmicas entre as camadas de `frontend` e `backend`, sem a necessidade de recarregamento e atualização de uma página inteira pelo browser;
+* http://projects.spring.io/spring-framework/[Spring Framework] - com o uso do modelo de gerenciamento de transações provido por ele http://docs.spring.io/spring-framework/docs/4.0.x/spring-framework-reference/html/transaction.html[(Spring Transaction Manager)];
+* http://hibernate.org[Hibernate] - para o mapeamento de dados relacionais em objetos Java;
+
+Essa era a visão do equipe de TI do MJ, e da consultoria anterior, ao fazer a montagem desse edital. Contudo, por se tratar de um novo sistema, iniciado do zero a partir de um código Java ainda inexistente, foram acatadas as seguintes propostas de uso de tecnologias/`frameworks`:
+
+* https://angularjs.org/[AngularJS] - como camada de `frontend`;
+* http://www.oracle.com/technetwork/java/javaee/overview/index.html[Java EE] - como camada de `backend`;
+
+== Nova proposta arquitetural
+
+Sem dúvida, o uso das tecnologias/`frameworks` propostos no edital seria adequado para o desenvolvimento da solução desejada pela SAL. Entretanto, elas não oferecem a mesma flexibilidade e velocidades de desenvolvimento necessárias ao projeto, neste momento, ao analisarmos a experiência individual de cada um dos membros da equipe. Isso se deve ao fato de que essa equipe possui mais experiência nas tecnologias e APIs Java EE.
+
+Frameworks como o Wicket e o Spring, mesmo sendo ótimos para os problemas que se propõem a resolver, não são aderentes aos padrões atuais utilizados em ambientes corporativos. Nesses ambientes, a possível necessidade de um suporte de qualidade, oferecido por grandes empresas como a Oracle, Red Hat, IBM e/ou dezenas de outros players de mercado, faz-se necessária.
+
+Sendo assim, o uso de Java EE neste projeto é uma solução extremamente interessante. Além disso podemos citar, também, alguns outros motivos:
+
+. *Adoção*. Java EE é muito mais adotado pelos desenvolvedores Java, corporativamente falando, que Spring e Wicket;
+. *Prototipação*. Através do uso de ferramentas como IDEs (ou integradas a eles) um protótipo pode ser gerado rapidamente (em cerca de minutos);
+. *Ferramental*. O número de ferramentas existentes que podem ser utilizadas e/ou integradas na construção do projeto é bem maior para Java EE que para Spring (e Wicket);
+. *Servidores de aplicações leves*. As novas APIs do Java EE são implementadas por servidores de aplicações leves. Antigamente uma das principais motivações para os desenvolvedores Java utilizarem `frameworks` como o Spring era a necessidade de trabalhar com servidores inicializáveis rapidamente, como o http://tomcat.apache.org[Tomcat]. Isso agilizava o desenvolvimento. Hoje em dia, porém, o {uri-wildfly}[WildFly] tem uma velocidade de inicialização surpreendente se comparada a versões anteriores do http://jbossas.jboss.org[JBoss AS]. Dessa forma o ganho de uso do Spring, analisado sob esta ótica, torna-se irrelevante;
+. *Servidores de aplicações gratuitos e livres*. Uma aplicação, do desenvolvimento a produção, beneficia-se do fato do Java EE ter implementações livres (`open source`), como o WildFly (escolhido para este projeto), http://glassfish.org[GlassFish], http://tomee.apache.org[TomEE], etc;
+. *Liberdade de escolha*. Pelo fato de haver várias implementações de Java EE livres, o grau de escolha na arquitetura do projeto é maior que utilizando o Spring (e Wicket);
+
+Esses são apenas alguns dos motivos. Um artigo interessante escrito por http://about.adam-bien.com/[Adam Bien] (um conhecido membro da comunidade Java), cita http://www.adam-bien.com/roller/abien/entry/8_reasons_why_java_ee[nove (9) motivos para a utilização de Java EE]. Compensa lê-lo.
+
+Se fosse levado em consideração apenas o uso de padrões de mercado, utilizando Java EE tanto no `backend` como no `frontend`, talvez alguns poderiam questionar o uso do AngularJS. Porém, esse último tem sido provado, por várias aplicações e empresas, como uma das melhores soluções para o desenvolvimento ágil de `frontends` utilizando apenas HTML 5, CSS 3 e JavaScript (http://www.w3.org/standards/webdesign/[tecnologias padronizadas pelo W3C]).
+
+O AngularJS foi concebido pelo Google como um framework MVC para JavaScript e escolhido pela equipe para o desenvolvimento do `frontend` por alguns motivos:
+
+. *Necessidade de maior apoio e integração do arquiteto da informação na equipe no desenvolvimento*. O projeto conta com esse profissional que é experiente e possui grande domínio em HTML, CSS e JavaScript. A utilização do AngularJS facilita a inserção desse membro da equipe de desenvolvimento. Isso ocorre, bem mais que se fossem utilizadas tecnologias como o http://primefaces.org/[PrimeFaces] (uma implementação de componentes http://www.oracle.com/technetwork/java/javaee/javaserverfaces-139869.html[JavaServer Faces]) ou mesmo o Wicket.
+. *Suporte ferramental na integração com o `backend`*. O {uri-jboss-forge}[JBoss Forge], uma das ferramentas adotadas na arquitetura do projeto, oferece um ótimo suporte a criação de `backends` utilizando o AngularJS.
+
+A adoção das tecnologias Java EE mais atuais (no `backend`) e do AngularJS (no `frontend`), além de oferecer soluções padronizadas e corporativas para as aplicações da SAL, também agrega um longo tempo de vida para a aplicação. O uso da versão 8 do Java Development Kit (JDK), da versão 7 da especificação Java EE, do HTML 5 e das tecnologias/`frameworks` atuais que envolvem o uso do AngularJS também podem oferecer um grande período de uso da aplicação sem a necessidade de mudanças arquiteturais profundas. Isso é bom para este projeto.
+
+== Web Services
+
+O SISLEGIS recupera informações da Câmara e do Senado através do acesso a `web services` providos por essas instituições. Como tecnologias utilizadas para a extração dessas informações, a arquitetura proposta para a aplicação também se utilizará de `frameworks` `open source`. Dentre eles, o {uri-xstream}[XStream].
+
+A camada de `backend` do SISLEGIS deverá ser acessada pelo `frontend` através da API {uri-jax-rs}[JAX-RS].
+
+== Segurança
+
+O mecanismo de segurança utilizado pelo SISLEGIS prevê o uso das soluções {uri-picketlink}[PicketLink] e {uri-keycloak}[Keycloak]. Ambas do grupo JBoss e `open source`.
+
+O PicketLink é um projeto "guarda-chuva" para segurança e gerenciamento de identidades (IDM) para aplicações Java. Utiliza a licença Apache v2. Dentre as funcionalidades providas por ele, estão APIs para autenticação, autorização, gerenciamnto de sessão, integração com LDAP, federação através de SALM, OAuth2, XACML, OpenID, WS-STS, etc. Também provê integração do mecanismo de `login` de usuários com o uso do Facebook, Twitter, Google+. Gerencia a segurança de aplicações móveis e REST.
+
+O Keycloak complementa as funcionalidades providas Picketlink oferencendo uma aplicação completa para IDM e um mecanismo integrado de `Single Sign On (SSO)` para aplicações e `web services` RESTful.
+
+== Arquitetura de desenvolvimento
+
+Para a construção da aplicação SISLEGIS, os desenvolvedores utilizarão o ambiente que possuirem em suas máquinas, seja ele Linux, OS X ou Windows.
+
+A proposta de melhoria é que a montagem desse ambiente seja feita de forma rápida e automatizada. Para isso, serão utilizados scripts que poderão ser executados diretamente no sistema operacional da máquina do desenvolvedor, numa máquina virtual (usando ou não o {uri-vagrant}[Vagrant]) ou num contêiner {uri-docker}[Docker].
+
+Parte integrante da arquitetura do ambiente de desenvolvimento, o software responsável pelo controle das versões do SISLEGIS é o {uri-git}[Git]. Ele é utilizado em conjunto com o {uri-github}[GitHub], uma rede social e um repositório central onde são inseridos os fontes construídos por cada um dos desenvolvedores.
+
+== Arquitetura de integração
+
+Para fazer a integração do software produzido pelos desenvolvedores é necessário um ambiente de integração. A montagem desse ambiente estabelece, como elemento de arquitetura, o uso de uma ferramenta de integração que, no caso, é o {uri-jenkins}[Jenkins]. Esse ambiente, contudo, não roda nas máquinas nos desenvolvedores e sim num ambiente disponível na Internet. 
+
+A proposta de melhoria de para esse ambiente é que ele seja montado num servidor oferecido na _plataforma como serviço_ ({uri-paas-redhat}[PaaS]) da Red Hat: o {uri-openshift}[OpenShift]. O ganho disso é a velocidade e a facilidade de implantação o Jenkins nesse ambiente.
+
+O OpenShift é uma solução `open source` oferecida pela Red Hat. Essa solução pode ser utilizado como um serviço gratuito (para até 3 `gears`). Também pode ser instalado num ambiente privado com o suporte da Red Hat (https://www.openshift.com/products/enterprise[Enterprise]) ou da comunidade (https://www.openshift.com/products/origin[Origin]).
+
+== Arquitetura de homologação
+
+A arquitetura para o ambiente de homologação envolve, também, o uso de um servidor oferecido pela Red Hat em sua PaaS (o OpenShift). Além disso, ligando esse ambiente ao de integração, o processo de deploy da aplicação SISLEGIS ficará extremamente simples e rápido.
+
+== Arquitetura de produção
+
+Em ambiente de produção, o SISLEGIS utilizará uma arquitetura escalável e tolerante a falhas. Essa é a principal melhoria, comparando esse ambiente com o atualmente disponibilizado para a aplicacão protótipo.
+
+Inicialmente, o ambiente de produção tem a previsão de entrar em funcionamento com os seguintes elementos:
+
+. *Dois servidores Linux ligados num cluster ativo/passivo*. Será utilizado o {uri-centos}[CentOS] 7;
+. *Duas instâncias de servidores web, uma em cada Linux, atuando como proxys reversos (ativo/passivo)*. Será utilizado o {uri-nginx}[Nginx] ou o {uri-apache-httpd}[Apache HTTPD];
+. *Dois balanceadores de carga, um em cada Linux*. Será utilizado o {uri-haproxy}[HAProxy] ou o {uri-mod_cluster}[mod_cluster] (integrado ao Apache HTTPD).
+. *Duas ou mais instâncias de servidores de aplicação, em cluster, todos os nós ativos simultaneamente*. Será utilizado o {uri-wildfly}[WildFly].
+. *Duas instâncias de banco de dados (ativo/passivo)*. Será utilizado o {uri-postgres}[PostgreSQL].
+
+Todos os procedimentos de montagem do ambiente de produção e as melhorias sugeridas para esse ambiente serão validadas com a equipe de TI do MJ.
+
+A sugestão de melhoria para a arquitetura de produção é o uso da plataforma OpenShift, provendo uma PaaS privada ao MJ, onde será realizada a implantação da aplicação SISLEGIS utilizando os elementos arquiteturais citados acima.
+
+== Conclusão
+
+Este documento apresentou propostas de melhorias arquiteturais para a aplicação SISLEGIS. Próximos documentos (produtos da consultoria) trarão explicações detalhadas, contendo roteiros para a realização de provas de conceitos da utilização dos `frameworks`, `web services` e componentes dessa aplicação.
+
+// vim: set syntax=asciidoc:

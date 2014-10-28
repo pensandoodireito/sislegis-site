@@ -1,5 +1,8 @@
 title: SISLEGIS
 base_url: ''
+disqus: asciidoctor
+disqus_generate_id: true
+disqus_developer: true
 asciidoctor:
   :numbered:
   :safe: safe
@@ -16,6 +19,7 @@ profiles:
   production:
     base_url: http://pensandoodireito.github.io/sislegis-site
     ctx_path: /sislegis-site
+    disqus_developer: false
     asciidoctor:
       :attributes:
         base_url: http://pensandoodireito.github.io/sislegis-site

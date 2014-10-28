@@ -3,7 +3,7 @@ html lang="en"
   head
     meta charset="utf-8"
     meta content="width=device-width, initial-scale=1" name="viewport"
-    title=(page.title && page.title != site.title ? [page.title, site.title] : [site.title, site.description]) * ' | '
+    title =(page.title && page.title != site.title ? [page.title, site.title] : [site.title, site.description]) * ' | '
     link href="#{site.base_url}/css/bootstrap.min.css" rel="stylesheet"
     link href="#{site.base_url}/css/sislegis-site.css" rel="stylesheet"
   body
@@ -15,19 +15,19 @@ html lang="en"
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand href="index.html" =site.title
+          a.navbar-brand href="/" =site.title
         .collapse.navbar-collapse
           ul.nav.navbar-nav
             li
-              a href="#{site.ctx_path}/sobre.html" O que é
+              a href="#{site.ctx_path}/sobre/" O que é
             li
-              a href="#{site.ctx_path}/requisitos.html" Requisitos
+              a href="#{site.ctx_path}/requisitos/" Requisitos
             li
-              a href="#{site.ctx_path}/arquitetura.html" Arquitetura
+              a href="#{site.ctx_path}/arquitetura/" Arquitetura
             li
-              a href="#{site.ctx_path}/equipe.html" Equipe
+              a href="#{site.ctx_path}/equipe/" Equipe
             li
-              a href="#{site.ctx_path}/contribua.html" Faça parte
+              a href="#{site.ctx_path}/contribua/" Faça parte
             li
               a href="http://github.com/pensandoodireito" Código Fonte
     .container

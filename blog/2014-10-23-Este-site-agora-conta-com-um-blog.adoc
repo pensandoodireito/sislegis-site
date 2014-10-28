@@ -1,0 +1,18 @@
+= Este site agora conta um blog!
+paulojeronimo
+2014-020
+:awestruct-tags: [blog, arquitetura]
+:awestruct-layout: blog
+:source-highlighter: coderay
+:imagesdir: ../images
+
+Este site agora conta com um blog!
+
+O blog do SISLEGIS é utilizado pela equipe de desenvolvimento para a apresentação de:
+
+* Notícias relativas ao projeto:
+** Definições estabelecidas em reuniões;
+** Resultados de sprints;
+* Conteúdo técnico relativo a elementos arquiteturais do projeto;
+
+Enjoy!

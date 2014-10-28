@@ -1,0 +1,17 @@
+---
+layout: base
+title: Notícias do SISLEGIS
+---
+.row-fluid
+  .span8
+    - site.posts.each do |post|
+      .row-fluid
+        .span12.well.post-bg
+          = partial 'post.html.slim', :post => post
+    .pagination.no-bottom-margin
+  .span4
+    .row-fluid
+      = partial('latest-news-sidebar.html.slim')
+    .row-fluid
+      .span12.well.post-bg
+        h2 All Tags
