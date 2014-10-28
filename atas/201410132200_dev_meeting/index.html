@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><title>Dev Meeting 13/10/2014 21h | SISLEGIS</title><link href="http://pensandoodireito.github.io/sislegis-site/css/bootstrap.min.css" rel="stylesheet"><link href="http://pensandoodireito.github.io/sislegis-site/css/sislegis-site.css" rel="stylesheet"></head><body><div class="navbar navbar-default navbar-fixed-top" role="navigation"><div class="container"><div class="navbar-header"><button class="navbar-toggle collapsed" data-target=".navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/">SISLEGIS</a></div><div class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/sislegis-site/sobre/">O que é</a></li><li><a href="/sislegis-site/requisitos/">Requisitos</a></li><li><a href="/sislegis-site/arquitetura/">Arquitetura</a></li><li><a href="/sislegis-site/equipe/">Equipe</a></li><li><a href="/sislegis-site/contribua/">Faça parte</a></li><li><a href="http://github.com/pensandoodireito">Código Fonte</a></li></ul></div></div></div><div class="container"><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Reunião sobre a camada de modelo da sprint #1</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="definição-básica-das-entidades"><a class="anchor" href="#definição-básica-das-entidades"></a>Definição básica das entidades</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Reunião</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>data</p>
+</li>
+<li>
+<p>lista de proposições</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Proposição</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>id(pk)</p>
+</li>
+<li>
+<p>idProposicao</p>
+</li>
+<li>
+<p>origem [CAMARA,SENADO]</p>
+</li>
+<li>
+<p>sigla (tipo+numero+ano) somente GET</p>
+</li>
+<li>
+<p>ano</p>
+</li>
+<li>
+<p>numero</p>
+</li>
+<li>
+<p>tipoProposicao</p>
+</li>
+<li>
+<p>data de apresentação</p>
+</li>
+<li>
+<p>ementa</p>
+</li>
+<li>
+<p>autor (parlamentar ou órgão) somente texto</p>
+</li>
+<li>
+<p>situacaoTramitacao ???</p>
+</li>
+<li>
+<p>idComissao</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Comissao</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="definições-gerais"><a class="anchor" href="#definições-gerais"></a>Definições gerais</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Utilizar uma fachada para tratar as informações que virão da camara e do senado</p>
+</li>
+<li>
+<p>Decidir como será tratado as "posições" geridas pelas ASPAR apresentado no documento enviado pelo Christiano hoje. &#8594; Inserir como um tipo de comentário?</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="considerações-finais"><a class="anchor" href="#considerações-finais"></a>Considerações finais</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Guilherme vai atualizar o modelo e amanhã teremos outra reunião para finalizar modelo da sprint #1 e PJ apresentar estrutura do projeto</p>
+</div>
+</div>
+</div></div><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script><script src="http://pensandoodireito.github.io/sislegis-site/js/bootstrap.min.js"></script></body></html>

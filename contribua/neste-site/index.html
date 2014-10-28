@@ -1,0 +1,138 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><title>Como contribuir | SISLEGIS</title><link href="http://pensandoodireito.github.io/sislegis-site/css/bootstrap.min.css" rel="stylesheet"><link href="http://pensandoodireito.github.io/sislegis-site/css/sislegis-site.css" rel="stylesheet"></head><body><div class="navbar navbar-default navbar-fixed-top" role="navigation"><div class="container"><div class="navbar-header"><button class="navbar-toggle collapsed" data-target=".navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/">SISLEGIS</a></div><div class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/sislegis-site/sobre/">O que é</a></li><li><a href="/sislegis-site/requisitos/">Requisitos</a></li><li><a href="/sislegis-site/arquitetura/">Arquitetura</a></li><li><a href="/sislegis-site/equipe/">Equipe</a></li><li><a href="/sislegis-site/contribua/">Faça parte</a></li><li><a href="http://github.com/pensandoodireito">Código Fonte</a></li></ul></div></div></div><div class="container"><div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title"></div>
+<ul class="sectlevel1">
+<li><a href="#como-contribuir-na-construção-deste-site">1. Como contribuir na construção deste site</a>
+<ul class="sectlevel2">
+<li><a href="#faça-um-fork-do-repositório">1.1. Faça um fork do repositório</a></li>
+<li><a href="#baixe-uma-imagem-docker">1.2. Baixe uma imagem Docker</a></li>
+<li><a href="#configure-o-contêiner">1.3. Configure o contêiner</a></li>
+<li><a href="#edite-o-site-e-teste-o-localmente">1.4. Edite o site e teste-o localmente</a></li>
+</ul>
+</li>
+<li><a href="#como-este-site-é-gerado">2. Como este site é gerado?</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="como-contribuir-na-construção-deste-site"><a class="anchor" href="#como-contribuir-na-construção-deste-site"></a>1. Como contribuir na construção deste site</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Este site é estático. Isso significa que ele não é gerado dinamicamente por um servidor e é previamente construído com o uso de algumas ferramentas. No caso, essas ferramentas são o <a href="http://awestruct.org">Awestruct</a> e <a href="http://asciidoctor.org">Asciidoctor</a>. Elas dependem de um ambiente <a href="http://ruby-lang.org">Ruby</a> para serem executadas. Após construído, ele é hospedado gratuitamente no <a href="http://pages.github.com">GitHub Pages</a>.</p>
+</div>
+<div class="paragraph">
+<p>Esta página explica como você pode montar, rapidamente, um ambiente preparado para editar este site, adicionando, removendo ou alterando conteúdo.</p>
+</div>
+<div class="sect2">
+<h3 id="faça-um-fork-do-repositório"><a class="anchor" href="#faça-um-fork-do-repositório"></a>1.1. Faça um fork do repositório</h3>
+<div class="paragraph">
+<p>Para contribuir na construção deste site, você deve possuir uma conta no <a href="http://github.com">GitHub</a>. Em seguida, deve <a href="https://help.github.com/articles/fork-a-repo">criar um fork</a> do <a href="http://github.com/pensandoodireito/sislegis-site">repositório sislegis-site</a> para essa tua conta. Para saber o que estamos priorizando no desenvolvimento, verifique as <a href="http://github.com/pensandoodireito/sislegis-site/issues">issues abertas</a>. É claro que você também pode sugerir mudanças fazendo <a href="http://github.com/pensandoodireito/sislegis-site/pulls?q=">pull requests</a> mesmo para issues ainda não existentes! ;)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="baixe-uma-imagem-docker"><a class="anchor" href="#baixe-uma-imagem-docker"></a>1.2. Baixe uma imagem Docker</h3>
+<div class="paragraph">
+<p>A forma mais fácil e rápida de você preparar teu ambiente para fazer a construção deste site, é utilizar o <a href="http://www.docker.com">Docker</a>. Com ele você buscará uma imagem que contém todas as ferramentas necessárias, já pré-instaladas e prontas para a execução.</p>
+</div>
+<div class="paragraph">
+<p>Instale o Docker seguindo os <a href="https://docs.docker.com/installation/">passos de instalação descritos em sua documentação</a>.</p>
+</div>
+<div class="paragraph">
+<p>Após instalar o Docker, crie um contêiner:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">docker run -it -p 4242:4242 paulojeronimo/judcon-2014-brazil /bin/bash</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Em alguns sistemas, como no <a href="http://fedoraproject.org">Fedora</a>, o docker deve ser executado como <code>root</code>. Então, se você tiver experimentado um erro na execução do comando acima, tente executá-lo novamente com o seguinte comando: <code>sudo !!</code>.</p>
+</div>
+<div class="paragraph">
+<p>Se desejar saber detalhes sobre como a imagem <a href="https://registry.hub.docker.com/u/paulojeronimo/judcon-2014-brazil/">paulojeronimo/judcon-2014-brazil</a> foi criada, leia o <a href="http://paulojeronimo.github.io/JUDCon-2014-Brazil/tutorial.html">tutorial de Docker do Paulo Jerônimo</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configure-o-contêiner"><a class="anchor" href="#configure-o-contêiner"></a>1.3. Configure o contêiner</h3>
+<div class="paragraph">
+<p>O contêiner que você criou com o comando acima já possui quase tudo o que é necessário. Mas, ainda não tem o código do teu fork deste site e também não tem as configurações do teu usuário no GitHub para fazer commits de tuas alterações. Então, execute o script a seguir que ele fará as configurações necessárias para deixar teu contêiner preparado para construir este site:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">bash &lt;(curl -L http://pensandoodireito.github.io/sislegis-site/configurar-conteiner.sh)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="edite-o-site-e-teste-o-localmente"><a class="anchor" href="#edite-o-site-e-teste-o-localmente"></a>1.4. Edite o site e teste-o localmente</h3>
+<div class="paragraph">
+<p>Logue-se com o teu usuário (<code>su - $GHUSER</code>) e vá para o diretório <code>sislegis-site</code>.</p>
+</div>
+<div class="paragraph">
+<p>Teste a edição local do site criando um arquivo <code>teste.adoc</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">cat &gt; teste.adoc &lt;&lt;EOF
+= Teste
+:page-layout: base
+
+Essa é uma página de teste
+
+// vim: set syntax=asciidoc:
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Execute o comando <code>rake</code> e acesse a URL <a href="http://localhost:4242/teste.html" class="bare">http://localhost:4242/teste.html</a>. Se tudo der certo, parabéns, você acaba de criar uma nova página local para o sislegis-site. Agora, você precisa fazer a adição dessa página ao teu fork e, logo após, um commit.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git add teste.adoc
+git commit -m 'testando uma contribuição'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>O script <a href="/configurar-conteiner.sh">configurar-conteiner.sh</a> já prepara para você o remoto <code>upstream</code> apontando para o repositório original sislegis-site. Você pode executar a instrução a seguir para verificar isso:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git remote -v</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Como uma boa prática, sempre, antes de fazer um push e um pull request, faça um <code>fetch</code> e um <code>merge</code> das mudanças de <code>upstream</code> para o teu fork executando as instruções a seguir:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git fetch upstream
+git merge upstream/master</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Assim as alterações de outras pessoas na branch master desse projeto serão atualizadas na branch master do teu fork.</p>
+</div>
+<div class="paragraph">
+<p>Se tuas alterações foram realizadas diretamente na branch master do teu fork (uma possibilidade) e não ocorreram conflitos no <code>merge</code> você pode, agora, fazer um <code>push</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git push</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Finalmente, faça um <a href="https://help.github.com/articles/using-pull-requests">pull request</a>, através da interface administrativa do GitHub, para que os administradores do projeto avaliem se o teu <code>commit</code> é útil e pode ser mesclado ao projeto!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="como-este-site-é-gerado"><a class="anchor" href="#como-este-site-é-gerado"></a>2. Como este site é gerado?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Este site é construído colaborativamente pelos seus <a href="/equipe/">desenvolvedores</a>. Sua geração é feita automaticamente, após cada <code>merge</code> de um <code>pull request</code> no <a href="http://github.com/pensandoodireito/sislegis-site">repositório GitHub do projeto</a>, pelo uso da ferramenta de integração contínua <a href="http://travis-ci.org">Travis CI</a>. Quando o site é gerado através dessa ferramenta o estado de sua construção é apresentado na página <a href="http://travis-ci.org/pensandoodireito/sislegis-site/builds" class="bare">http://travis-ci.org/pensandoodireito/sislegis-site/builds</a>.</p>
+</div>
+</div>
+</div></div><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script><script src="http://pensandoodireito.github.io/sislegis-site/js/bootstrap.min.js"></script></body></html>

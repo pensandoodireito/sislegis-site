@@ -1,0 +1,251 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><title>Arquitetura da aplicação (SISLEGIS), produto 1 | SISLEGIS</title><link href="http://pensandoodireito.github.io/sislegis-site/css/bootstrap.min.css" rel="stylesheet"><link href="http://pensandoodireito.github.io/sislegis-site/css/sislegis-site.css" rel="stylesheet"></head><body><div class="navbar navbar-default navbar-fixed-top" role="navigation"><div class="container"><div class="navbar-header"><button class="navbar-toggle collapsed" data-target=".navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/">SISLEGIS</a></div><div class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/sislegis-site/sobre/">O que é</a></li><li><a href="/sislegis-site/requisitos/">Requisitos</a></li><li><a href="/sislegis-site/arquitetura/">Arquitetura</a></li><li><a href="/sislegis-site/equipe/">Equipe</a></li><li><a href="/sislegis-site/contribua/">Faça parte</a></li><li><a href="http://github.com/pensandoodireito">Código Fonte</a></li></ul></div></div></div><div class="container"><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Arquitetura da aplicação (SISLEGIS), produto 1</p>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle" class="title"></div>
+<ul class="sectlevel1">
+<li><a href="#introdução">1. Introdução</a></li>
+<li><a href="#contexto-atual">2. Contexto atual</a></li>
+<li><a href="#a-aplicação-anterior">3. A aplicação anterior</a></li>
+<li><a href="#melhorias-na-arquitetura">4. Melhorias na arquitetura</a></li>
+<li><a href="#nova-proposta-arquitetural">5. Nova proposta arquitetural</a></li>
+<li><a href="#web-services">6. Web Services</a></li>
+<li><a href="#segurança">7. Segurança</a></li>
+<li><a href="#arquitetura-de-desenvolvimento">8. Arquitetura de desenvolvimento</a></li>
+<li><a href="#arquitetura-de-integração">9. Arquitetura de integração</a></li>
+<li><a href="#arquitetura-de-homologação">10. Arquitetura de homologação</a></li>
+<li><a href="#arquitetura-de-produção">11. Arquitetura de produção</a></li>
+<li><a href="#conclusão">12. Conclusão</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introdução"><a class="anchor" href="#introdução"></a>1. Introdução</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Este documento apresenta um levantamento preliminar com sugestões de melhorias arquiteturais dos sistemas de informação da Secretaria de Assuntos Legislativos (SAL). Ele descreve, mais especificamente, as melhorias arquiteturais para a <a href="http://github.com/pensandoodireito/sislegis-app">aplicação SISLEGIS</a>. Essa aplicação é responsável pelo acompanhamento de proposições e o cadastramento de referências legislativas do Ministério da Justiça (MJ).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contexto-atual"><a class="anchor" href="#contexto-atual"></a>2. Contexto atual</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Em sua apresentação para a consultoria, a SAL demonstrou a realização de suas tarefas com o auxílio da <a href="http://github.com/mobiwave/sislegis">aplicação protótipo do SISLEGIS</a> (escrita em PHP e produzida pela consultoria anterior), através de planilhas e documentos escritos no <a href="http://office.microsoft.com/pt-br/">Microsoft Office</a>, e utilizando-se de ferramentas como o <a href="https://trello.com">Trello</a>. Também foi citado pela SAL como era realizado o uso de alguns dos produtos da <a href="http://edens.com.br/">empresa Edens</a> num momento anterior.</p>
+</div>
+<div class="paragraph">
+<p>O objetivo da consultoria é, baseando-se no sistema atual (protótipo funcional) e no levantamento de requisitos realizado para a SAL (e outros departamentos do MJ), desenvolver uma solução adequada a suas tarefas.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="a-aplicação-anterior"><a class="anchor" href="#a-aplicação-anterior"></a>3. A aplicação anterior</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Conforme exposto pela SAL, a <a href="http://github.com/mobiwave/sislegis">aplicação anterior</a> precisa sofrer alterações para atender requisitos de negócio e também necessidades arquiteturais de tecnologia da informação (TI) do MJ. Essas mudanças envolvem a evolução da aplicação para agregar novos requisitos funcionais e, também, não funcionais. Além disso, o escopo da consultoria envolve a transformação do código que provê tais funcionalidades já existentes, de PHP para Java.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="melhorias-na-arquitetura"><a class="anchor" href="#melhorias-na-arquitetura"></a>4. Melhorias na arquitetura</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Visando atender aos requisitos da SAL, o <a href="http://www.pnud.org.br/recrutamento/20140725_0958.pdf">edital lançado por ela</a>, para a contratação da consultoria, propõe o uso das seguintes tecnologias/<code>frameworks</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://wicket.apache.org">Apache Wicket</a> - como framework para gerar a camada de <code>frontend</code> em HTML;</p>
+</li>
+<li>
+<p><a href="http://pt.wikipedia.org/wiki/AJAX_%28programa%C3%A7%C3%A3o%29">AJAX</a> - para interações mais dinâmicas entre as camadas de <code>frontend</code> e <code>backend</code>, sem a necessidade de recarregamento e atualização de uma página inteira pelo browser;</p>
+</li>
+<li>
+<p><a href="http://projects.spring.io/spring-framework/">Spring Framework</a> - com o uso do modelo de gerenciamento de transações provido por ele <a href="http://docs.spring.io/spring-framework/docs/4.0.x/spring-framework-reference/html/transaction.html">(Spring Transaction Manager)</a>;</p>
+</li>
+<li>
+<p><a href="http://hibernate.org">Hibernate</a> - para o mapeamento de dados relacionais em objetos Java;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Essa era a visão do equipe de TI do MJ, e da consultoria anterior, ao fazer a montagem desse edital. Contudo, por se tratar de um novo sistema, iniciado do zero a partir de um código Java ainda inexistente, foram acatadas as seguintes propostas de uso de tecnologias/<code>frameworks</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://angularjs.org/">AngularJS</a> - como camada de <code>frontend</code>;</p>
+</li>
+<li>
+<p><a href="http://www.oracle.com/technetwork/java/javaee/overview/index.html">Java EE</a> - como camada de <code>backend</code>;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="nova-proposta-arquitetural"><a class="anchor" href="#nova-proposta-arquitetural"></a>5. Nova proposta arquitetural</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sem dúvida, o uso das tecnologias/<code>frameworks</code> propostos no edital seria adequado para o desenvolvimento da solução desejada pela SAL. Entretanto, elas não oferecem a mesma flexibilidade e velocidades de desenvolvimento necessárias ao projeto, neste momento, ao analisarmos a experiência individual de cada um dos membros da equipe. Isso se deve ao fato de que essa equipe possui mais experiência nas tecnologias e APIs Java EE.</p>
+</div>
+<div class="paragraph">
+<p>Frameworks como o Wicket e o Spring, mesmo sendo ótimos para os problemas que se propõem a resolver, não são aderentes aos padrões atuais utilizados em ambientes corporativos. Nesses ambientes, a possível necessidade de um suporte de qualidade, oferecido por grandes empresas como a Oracle, Red Hat, IBM e/ou dezenas de outros players de mercado, faz-se necessária.</p>
+</div>
+<div class="paragraph">
+<p>Sendo assim, o uso de Java EE neste projeto é uma solução extremamente interessante. Além disso podemos citar, também, alguns outros motivos:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Adoção</strong>. Java EE é muito mais adotado pelos desenvolvedores Java, corporativamente falando, que Spring e Wicket;</p>
+</li>
+<li>
+<p><strong>Prototipação</strong>. Através do uso de ferramentas como IDEs (ou integradas a eles) um protótipo pode ser gerado rapidamente (em cerca de minutos);</p>
+</li>
+<li>
+<p><strong>Ferramental</strong>. O número de ferramentas existentes que podem ser utilizadas e/ou integradas na construção do projeto é bem maior para Java EE que para Spring (e Wicket);</p>
+</li>
+<li>
+<p><strong>Servidores de aplicações leves</strong>. As novas APIs do Java EE são implementadas por servidores de aplicações leves. Antigamente uma das principais motivações para os desenvolvedores Java utilizarem <code>frameworks</code> como o Spring era a necessidade de trabalhar com servidores inicializáveis rapidamente, como o <a href="http://tomcat.apache.org">Tomcat</a>. Isso agilizava o desenvolvimento. Hoje em dia, porém, o <a href="http://wildfly.org">WildFly</a> tem uma velocidade de inicialização surpreendente se comparada a versões anteriores do <a href="http://jbossas.jboss.org">JBoss AS</a>. Dessa forma o ganho de uso do Spring, analisado sob esta ótica, torna-se irrelevante;</p>
+</li>
+<li>
+<p><strong>Servidores de aplicações gratuitos e livres</strong>. Uma aplicação, do desenvolvimento a produção, beneficia-se do fato do Java EE ter implementações livres (<code>open source</code>), como o WildFly (escolhido para este projeto), <a href="http://glassfish.org">GlassFish</a>, <a href="http://tomee.apache.org">TomEE</a>, etc;</p>
+</li>
+<li>
+<p><strong>Liberdade de escolha</strong>. Pelo fato de haver várias implementações de Java EE livres, o grau de escolha na arquitetura do projeto é maior que utilizando o Spring (e Wicket);</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Esses são apenas alguns dos motivos. Um artigo interessante escrito por <a href="http://about.adam-bien.com/">Adam Bien</a> (um conhecido membro da comunidade Java), cita <a href="http://www.adam-bien.com/roller/abien/entry/8_reasons_why_java_ee">nove (9) motivos para a utilização de Java EE</a>. Compensa lê-lo.</p>
+</div>
+<div class="paragraph">
+<p>Se fosse levado em consideração apenas o uso de padrões de mercado, utilizando Java EE tanto no <code>backend</code> como no <code>frontend</code>, talvez alguns poderiam questionar o uso do AngularJS. Porém, esse último tem sido provado, por várias aplicações e empresas, como uma das melhores soluções para o desenvolvimento ágil de <code>frontends</code> utilizando apenas HTML 5, CSS 3 e JavaScript (<a href="http://www.w3.org/standards/webdesign/">tecnologias padronizadas pelo W3C</a>).</p>
+</div>
+<div class="paragraph">
+<p>O AngularJS foi concebido pelo Google como um framework MVC para JavaScript e escolhido pela equipe para o desenvolvimento do <code>frontend</code> por alguns motivos:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Necessidade de maior apoio e integração do arquiteto da informação na equipe no desenvolvimento</strong>. O projeto conta com esse profissional que é experiente e possui grande domínio em HTML, CSS e JavaScript. A utilização do AngularJS facilita a inserção desse membro da equipe de desenvolvimento. Isso ocorre, bem mais que se fossem utilizadas tecnologias como o <a href="http://primefaces.org/">PrimeFaces</a> (uma implementação de componentes <a href="http://www.oracle.com/technetwork/java/javaee/javaserverfaces-139869.html">JavaServer Faces</a>) ou mesmo o Wicket.</p>
+</li>
+<li>
+<p><strong>Suporte ferramental na integração com o <code>backend</code></strong>. O <a href="http://forge.jboss.org">JBoss Forge</a>, uma das ferramentas adotadas na arquitetura do projeto, oferece um ótimo suporte a criação de <code>backends</code> utilizando o AngularJS.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>A adoção das tecnologias Java EE mais atuais (no <code>backend</code>) e do AngularJS (no <code>frontend</code>), além de oferecer soluções padronizadas e corporativas para as aplicações da SAL, também agrega um longo tempo de vida para a aplicação. O uso da versão 8 do Java Development Kit (JDK), da versão 7 da especificação Java EE, do HTML 5 e das tecnologias/<code>frameworks</code> atuais que envolvem o uso do AngularJS também podem oferecer um grande período de uso da aplicação sem a necessidade de mudanças arquiteturais profundas. Isso é bom para este projeto.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="web-services"><a class="anchor" href="#web-services"></a>6. Web Services</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>O SISLEGIS recupera informações da Câmara e do Senado através do acesso a <code>web services</code> providos por essas instituições. Como tecnologias utilizadas para a extração dessas informações, a arquitetura proposta para a aplicação também se utilizará de <code>frameworks</code> <code>open source</code>. Dentre eles, o <a href="http://xstream.codehaus.org">XStream</a>.</p>
+</div>
+<div class="paragraph">
+<p>A camada de <code>backend</code> do SISLEGIS deverá ser acessada pelo <code>frontend</code> através da API <a href="https://jax-rs-spec.java.net">JAX-RS</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="segurança"><a class="anchor" href="#segurança"></a>7. Segurança</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>O mecanismo de segurança utilizado pelo SISLEGIS prevê o uso das soluções <a href="http://picketlink.org">PicketLink</a> e <a href="http://keycloak.jboss.org">Keycloak</a>. Ambas do grupo JBoss e <code>open source</code>.</p>
+</div>
+<div class="paragraph">
+<p>O PicketLink é um projeto "guarda-chuva" para segurança e gerenciamento de identidades (IDM) para aplicações Java. Utiliza a licença Apache v2. Dentre as funcionalidades providas por ele, estão APIs para autenticação, autorização, gerenciamnto de sessão, integração com LDAP, federação através de SALM, OAuth2, XACML, OpenID, WS-STS, etc. Também provê integração do mecanismo de <code>login</code> de usuários com o uso do Facebook, Twitter, Google+. Gerencia a segurança de aplicações móveis e REST.</p>
+</div>
+<div class="paragraph">
+<p>O Keycloak complementa as funcionalidades providas Picketlink oferencendo uma aplicação completa para IDM e um mecanismo integrado de <code>Single Sign On (SSO)</code> para aplicações e <code>web services</code> RESTful.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="arquitetura-de-desenvolvimento"><a class="anchor" href="#arquitetura-de-desenvolvimento"></a>8. Arquitetura de desenvolvimento</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Para a construção da aplicação SISLEGIS, os desenvolvedores utilizarão o ambiente que possuirem em suas máquinas, seja ele Linux, OS X ou Windows.</p>
+</div>
+<div class="paragraph">
+<p>A proposta de melhoria é que a montagem desse ambiente seja feita de forma rápida e automatizada. Para isso, serão utilizados scripts que poderão ser executados diretamente no sistema operacional da máquina do desenvolvedor, numa máquina virtual (usando ou não o <a href="https://www.vagrantup.com">Vagrant</a>) ou num contêiner <a href="http://www.docker.com">Docker</a>.</p>
+</div>
+<div class="paragraph">
+<p>Parte integrante da arquitetura do ambiente de desenvolvimento, o software responsável pelo controle das versões do SISLEGIS é o <a href="http://git-scm.org">Git</a>. Ele é utilizado em conjunto com o <a href="http://github.com">GitHub</a>, uma rede social e um repositório central onde são inseridos os fontes construídos por cada um dos desenvolvedores.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="arquitetura-de-integração"><a class="anchor" href="#arquitetura-de-integração"></a>9. Arquitetura de integração</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Para fazer a integração do software produzido pelos desenvolvedores é necessário um ambiente de integração. A montagem desse ambiente estabelece, como elemento de arquitetura, o uso de uma ferramenta de integração que, no caso, é o <a href="http://jenkins-ci.org">Jenkins</a>. Esse ambiente, contudo, não roda nas máquinas nos desenvolvedores e sim num ambiente disponível na Internet.</p>
+</div>
+<div class="paragraph">
+<p>A proposta de melhoria de para esse ambiente é que ele seja montado num servidor oferecido na <em>plataforma como serviço</em> (<a href="http://www.redhat.com/en/technologies/platform-as-a-service">PaaS</a>) da Red Hat: o <a href="http://openshift.com">OpenShift</a>. O ganho disso é a velocidade e a facilidade de implantação o Jenkins nesse ambiente.</p>
+</div>
+<div class="paragraph">
+<p>O OpenShift é uma solução <code>open source</code> oferecida pela Red Hat. Essa solução pode ser utilizado como um serviço gratuito (para até 3 <code>gears</code>). Também pode ser instalado num ambiente privado com o suporte da Red Hat (<a href="https://www.openshift.com/products/enterprise">Enterprise</a>) ou da comunidade (<a href="https://www.openshift.com/products/origin">Origin</a>).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="arquitetura-de-homologação"><a class="anchor" href="#arquitetura-de-homologação"></a>10. Arquitetura de homologação</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A arquitetura para o ambiente de homologação envolve, também, o uso de um servidor oferecido pela Red Hat em sua PaaS (o OpenShift). Além disso, ligando esse ambiente ao de integração, o processo de deploy da aplicação SISLEGIS ficará extremamente simples e rápido.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="arquitetura-de-produção"><a class="anchor" href="#arquitetura-de-produção"></a>11. Arquitetura de produção</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Em ambiente de produção, o SISLEGIS utilizará uma arquitetura escalável e tolerante a falhas. Essa é a principal melhoria, comparando esse ambiente com o atualmente disponibilizado para a aplicacão protótipo.</p>
+</div>
+<div class="paragraph">
+<p>Inicialmente, o ambiente de produção tem a previsão de entrar em funcionamento com os seguintes elementos:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Dois servidores Linux ligados num cluster ativo/passivo</strong>. Será utilizado o <a href="http://centos.org">CentOS</a> 7;</p>
+</li>
+<li>
+<p><strong>Duas instâncias de servidores web, uma em cada Linux, atuando como proxys reversos (ativo/passivo)</strong>. Será utilizado o <a href="http://nginx.org">Nginx</a> ou o <a href="http://httpd.apache.org">Apache HTTPD</a>;</p>
+</li>
+<li>
+<p><strong>Dois balanceadores de carga, um em cada Linux</strong>. Será utilizado o <a href="http://haproxy.org">HAProxy</a> ou o <a href="http://mod-cluster.jboss.org">mod_cluster</a> (integrado ao Apache HTTPD).</p>
+</li>
+<li>
+<p><strong>Duas ou mais instâncias de servidores de aplicação, em cluster, todos os nós ativos simultaneamente</strong>. Será utilizado o <a href="http://wildfly.org">WildFly</a>.</p>
+</li>
+<li>
+<p><strong>Duas instâncias de banco de dados (ativo/passivo)</strong>. Será utilizado o <a href="http://postgresql.org">PostgreSQL</a>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Todos os procedimentos de montagem do ambiente de produção e as melhorias sugeridas para esse ambiente serão validadas com a equipe de TI do MJ.</p>
+</div>
+<div class="paragraph">
+<p>A sugestão de melhoria para a arquitetura de produção é o uso da plataforma OpenShift, provendo uma PaaS privada ao MJ, onde será realizada a implantação da aplicação SISLEGIS utilizando os elementos arquiteturais citados acima.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusão"><a class="anchor" href="#conclusão"></a>12. Conclusão</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Este documento apresentou propostas de melhorias arquiteturais para a aplicação SISLEGIS. Próximos documentos (produtos da consultoria) trarão explicações detalhadas, contendo roteiros para a realização de provas de conceitos da utilização dos <code>frameworks</code>, <code>web services</code> e componentes dessa aplicação.</p>
+</div>
+</div>
+</div></div><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script><script src="http://pensandoodireito.github.io/sislegis-site/js/bootstrap.min.js"></script></body></html>
