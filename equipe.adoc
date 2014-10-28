@@ -49,6 +49,6 @@ Página no GitHub: https://github.com/orgs/pensandoodireito/people
 * {uri-eduardo}[Eduardo Paiva]
 * Guilherme Moraes
 
-== link:/contribua/[Faça parte]
+== link:../contribua/[Faça parte]
 
 // vim: set syntax=asciidoc:
