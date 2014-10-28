@@ -1,0 +1,9 @@
+- post = page["post"]
+.post
+  h2.title
+    a href="#{site.base_url}#{post.url}" = post.title
+  .byline
+    p
+      = "Posted by " + lookup_name(post.author) + " on " + post.date.strftime('%b %d, %Y');
+  p
+    = post.content

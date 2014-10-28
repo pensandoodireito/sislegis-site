@@ -1,0 +1,17 @@
+= Arquitetura da aplicação (SISLEGIS), produto 2
+:page-layout: base
+:toc:
+:toc-title!:
+:toc-placement!:
+:numbered:
+include::links.adoc[]
+
+{page-title}
+
+toc::[]
+
+== Introdução
+
+Relatório técnico contendo roteiro para realização de prova de conceitos de utilização de `frameworks`, `web services` e componentes para o aprimoramento de sistema de acompanhamento de proposições e referências de legislações.
+
+// vim: set syntax=asciidoc:

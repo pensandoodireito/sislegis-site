@@ -1,0 +1,17 @@
+= Arquitetura
+:page-layout: base
+include::links.adoc[]
+
+== Arquitetura da aplicação
+
+Essa página apresenta detalhes sobre a arquitetura da {uri-sislegis-app}[aplicação SISLEGIS]. Entretanto, vai um pouco além pois também contextualiza o desenvolvimento dessa aplicação e a motivação para a tomada de decisões arquiteturais.
+
+A organização desse documento obedece a ordem de produtos que devem ser entregues pelo consultor {uri-paulo}[Paulo Jerônimo] em seu contrato (estabelecido através da participação no {uri-edital-arquiteto}[Processo Seletivo Simplificado 11/2014)].
+
+Alterações arquiteturais ocorreram no início do projeto. Dessa forma, os produtos esperados no edital (item 4 {uri-edital-arquiteto}[desse documento]) sofreram mudanças em relação as propostas originais. As motivações para essas mudanças são detalhadas no corpo dos produtos detalhados abaixo.
+
+* link:produto1/[Produto 1] - Relatório contendo levantamento preliminar com sugestões de melhorias arquiteturais dos sistemas de informação da Secretaria de Assuntos Legislativos responsáveis pelo acompanhamento de proposições e cadastramento de referências legislativas do Ministério da Justiça, baseado nas tecnologias Wicket, AJAX, Spring Transaction Framework e Hibernate.
+
+* link:produto2/[Produto 2] - Relatório técnico contendo roteiro para realização de prova de conceitos de utilização de `frameworks`, `web services` e componentes para o aprimoramento de sistema de acompanhamento de proposições e referências de legislações.
+
+// vim: set syntax=asciidoc:
