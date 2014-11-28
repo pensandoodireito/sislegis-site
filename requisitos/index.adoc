@@ -8,6 +8,6 @@ Leia o link:documento/[documento] elaborado pela link:../equipe/[equipe de desen
 A equipe de desenvolvimento utiliza o processo {uri-scrum}[Scrum] e a ferramenta {uri-targetprocess}[TargetProcess] para detalhar, priorizar e acompanhar a implementação dos requisitos levantados.
 
 == Cartões de requisitos
-* link:./[sprint4]
+* link:sprint4[Sprint 4]
 
 // vim: set syntax=asciidoc:
