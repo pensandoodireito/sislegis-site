@@ -1,9 +1,17 @@
 = Cartões de Requisito
+:page-layout: base
+:numbered:
+:toc:
+:toc-title: {page-title}
+:toc-placement!:
+include::links.adoc[]
 
 * Data: 27/11/2014.
 * Número da sprint: 4.
 * Ponto focal: Marco Antonio Konopacki.
 * Contato: 9234-7331 – marco.konopacki@mj.gov.br
+
+toc::[]
 
 == Apresentação
 
