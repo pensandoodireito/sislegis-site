@@ -1,6 +1,5 @@
 = Cartões de Requisito
 :page-layout: base
-:numbered:
 :toc:
 :toc-title: {page-title}
 :toc-placement!:
