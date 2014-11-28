@@ -1,0 +1,35 @@
+= Cartões de Requisito
+
+Data: 27/11/2014.
+Número da sprint: 4.
+Responsável pelo preenchimento: Marco Antonio Konopacki.
+Contato: 9234-7331 – marco.konopacki@mj.gov.br
+
+== Apresentação
+
+Considerando o resultado das sprints passadas, em que o sistema possibilitou a montagem de uma reunião e a associação de comentários e encaminhamentos a cada proposição, percebeu-se a importância de que os encaminhamentos dados a cada proposição gerassem tarefas decorrentes desse encaminhamento. Por isso, a prioridade nessa sprint é realizar os requisitos associados a geração e o controle de tarefas. Considerado isso, seguem as descrições mínimas de requisitos e as estórias por sua ordem de prioridade:
+
+== Cartão 1
+
+*Tarefa:* Encaminhamento – Geração de tarefa (com notificação com envio de e-mail)
+
+*Quando acontece:* Na tela de encaminhamentos, ao selecionar um encaminhamento, alguns tipos de encaminhamento podem gerar uma tarefa para o responsável atribuído.
+
+*Estória:* Durante a realização da reunião semanal de pauta, o usuário que está operando o sistema seleciona uma proposição e em seguida abre a tela de encaminhamentos. Nessa tela, seleciona um tipo de encaminhamento, por exemplo, “Elaborar Nota Técnica”. A esse encaminhamento atribuí o responsável “Vladimir Sampaio”, estabelece a Data e a Hora limites e faz ou não um comentário. Ao clicar em adicionar, o sistema cadastra a tarefa correspondente ao responsável atribuído, o qual recebe um e-mail com detalhes do encaminhamento.
+
+== Cartão 2
+
+*Tarefa:* Minhas tarefas
+
+*Quando acontece:* Quando o usuário loga no sistema, o menu superior no ícone de tarefas exibe a lista de tarefa “não lidas”. Quando o usuário recebe um e-mail com a descrição da tarefa e clica no link para abri-la no SISLEGIS. 
+
+*Estória:* “Vladimir Sampaio” loga no SISLEGIS e o sistema exibe no menu superior o número de tarefas “não lidas” atribuídas a ele. Ao clicar no ícone do menu, um dropdown exibe o título da tarefa, que será o mesmo tempo de “Tipo de Encaminhamento” com a data limite entre parênteses. O primeiro item é elaborar “Nota técnica” que ao ser clicado, é levado para uma tela descritiva da tarefa que terá as informações: 1) tipo da tarefa; 2) Data e hora limite para realizá-la; 3) comentário associado a tarefa; 4) Origem do encaminhamento (ex: reunião do dia 12/11/2014). Abaixo dessas informações, haverá a descrição da proposição e os ícones com comentários e outros encaminhamentos associados a essa proposição.
+
+== Cartão 3
+
+*Tarefa:* Minhas tarefas - Gerenciar
+
+*Quando acontece:* Quando o usuário clica no ícone de tarefas e em seguida, no final da lista, em “Todas as minhas tarefas”.
+
+*Estória:* “Vladimir Sampaio” loga no SISLEGIS e ao clicar no ícone de tarefas do menu, um dropdown exibe as últimas 5 tarefas que foram associadas a ele e um item “Todas as minhas tarefas”. Ao clicar nesse item, ele é levado a uma tela com duas colunas onde a coluna da esquerda possuí a lista de todas as tarefas do usuário com seu status entre parentes (Pendente ou Concluída). Ao clicar em uma das dessas tarefas, seus dados são carregados na coluna da direita que terá as informações: 1) tipo da tarefa; 2) Data e hora limite para realizá-la; 3) comentário associado a tarefa; 4) Origem do encaminhamento (ex: reunião do dia 12/11/2014). Abaixo dessas informações, haverá a descrição da proposição e os ícones com comentários e outros encaminhamentos associados a essa proposição. No canto superior direito da coluna haverá uma descrição de status originalmente como “Pendente” e um botão do lado “Marcar como concluída”. Ao clicar nesse botão, o status da tarefa passa a ser de “Concluída”.
+
