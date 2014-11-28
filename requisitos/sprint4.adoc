@@ -1,9 +1,9 @@
 = Cartões de Requisito
 
-Data: 27/11/2014.
-Número da sprint: 4.
-Responsável pelo preenchimento: Marco Antonio Konopacki.
-Contato: 9234-7331 – marco.konopacki@mj.gov.br
+* Data: 27/11/2014.
+* Número da sprint: 4.
+* Responsável pelo preenchimento: Marco Antonio Konopacki.
+* Contato: 9234-7331 – marco.konopacki@mj.gov.br
 
 == Apresentação
 
