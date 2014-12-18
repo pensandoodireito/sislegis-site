@@ -53,8 +53,16 @@ Uma das atribuições da SAL é a elaboração de propostas de proposições que
 *Estória:* Sabrina (chefia de gabinete operada pelo Hamilton) recebe a resposta da SENACON e irá cadastrá-la no SISLEGIS. Hamilton entra no sistema e clica na aba de distribuição. Na pilha de consultas a serem realizadas, encontra a consulta a SENACON e ali sobe o arquivo referente a resposta da área. A partir da leitura da resposta, ele também preenche o campo de resumo da resposta, com informações que ele julga relevante para serem o resumo da resposta dada pela SENACON. O parecerista responsável recebe um e-mail informando que a resposta foi cadastrada.
 
 == Cartão 7
-*Tarefa*:
-*Quando acontece:* 
-*Estória:*
+
+*Tarefa*: Cadastramento de um comentário da distribuição
+*Quando acontece:* Quando é feito algum contato informal sobre uma tentiva de consulta
+*Estória:* Tendo em vista que a SNJ não encaminhou a manifestação até o final do prazo estipulado, João faz contato por telefone e recebe o retorno dizendo que por conta da demanda, eles não consiguirão dar a resposta no prazo, mas que a priori não tem nada a opor ao projeto. João loga no sistema e na área de distribuição, faz o comentário “ainda aguardando a resposta oficial da SNJ. Por contato telefônico, obtive que a priori eles não tem nada a opor”. 
+
+== Cartão 8
+
+*Tarefa*: Salvar versão oficial da nota
+*Quando acontece:* Quando existe um texto final e se quer salvar sua versão oficial
+*Estória:* Depois da consulta e o fechamento do texto final da proposta de norma, Marcelo irá carregar o arquivo final e salvar a versão oficial no sistema. Ao clicar para salvar a versão oficial, o sistema o obriga a preencher a data de registro no SIDOF e o Número Único de Protocolo, caso esses campos ainda não estejam preenchidos.  Depois da versão oficial estar salva, o usuário não poderá mais clicar no botão para salvar norma preliminar (botão some).
+
 
 
