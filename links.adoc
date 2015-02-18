@@ -31,6 +31,15 @@
 :uri-jax-rs: https://jax-rs-spec.java.net
 :uri-jenkins: http://jenkins-ci.org
 :uri-paas-redhat: http://www.redhat.com/en/technologies/platform-as-a-service
+:uri-jboss-forge: http://forge.jboss.org
+:uri-maven: http://maven.apache.org
+:uri-rest: http://en.wikipedia.org/wiki/REST
+:uri-javaee-specification: https://java.net/projects/javaee-spec/pages/Home
+:uri-angularjs: http://angularjs.org
+:uri-vim: http://vim.org
+:uri-oracle-jdk: http://www.oracle.com/technetwork/java/javase/downloads/index.html
+:uri-junit: http://junit.org
+
 // URIs do projeto
 :uri-edital-arquiteto: http://www.pnud.org.br/recrutamento/20140725_0958.pdf
 :uri-sislegis: {uri-github}/pensandoodireito
@@ -44,6 +53,7 @@
 :uri-sislegis-site-issues: {uri-sislegis-site}/issues
 :uri-sislegis-site-travis: {uri-travis-ci}/pensandoodireito/sislegis-site
 :uri-sislegis-site-travis-builds: {uri-sislegis-site-travis}/builds
+
 // Contas da equipe no GitHub
 :uri-aman: {uri-github}/amanrathie
 :uri-christiano: {uri-github}/christianolins

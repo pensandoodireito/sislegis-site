@@ -88,6 +88,6 @@ Finalmente, faça um {uri-pull-request}[pull request], através da interface adm
 
 == Como este site é gerado?
 
-Este site é construído colaborativamente pelos seus link:../equipe/[desenvolvedores]. Sua geração é feita automaticamente, após cada `merge` de um `pull request` no {uri-sislegis-site}[repositório GitHub do projeto], pelo uso da ferramenta de integração contínua {uri-travis-ci}[Travis CI]. Quando o site é gerado através dessa ferramenta o estado de sua construção é apresentado na página {uri-sislegis-site-travis-builds}.
+Este site é construído colaborativamente pelos seus link:../../equipe/[desenvolvedores]. Sua geração é feita automaticamente, após cada `merge` de um `pull request` no {uri-sislegis-site}[repositório GitHub do projeto], pelo uso da ferramenta de integração contínua {uri-travis-ci}[Travis CI]. Quando o site é gerado através dessa ferramenta o estado de sua construção é apresentado na página {uri-sislegis-site-travis-builds}.
 
 // vim: set syntax=asciidoc:

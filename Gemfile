@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'awestruct', '0.5.5'
-gem 'asciidoctor', '1.5.1'
+gem 'asciidoctor', '1.5.2'
 gem 'coderay', '1.1.0'
 gem 'slim', '~> 2.0.3'
 gem 'tilt', '~> 2.0.0'

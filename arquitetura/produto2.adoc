@@ -1,4 +1,6 @@
 = Arquitetura da aplicação (SISLEGIS), produto 2
+:author: Paulo Jerônimo
+:email: pj@paulojeronimo.info
 :page-layout: base
 :toc:
 :toc-title!:
@@ -12,6 +14,407 @@ toc::[]
 
 == Introdução
 
-Relatório técnico contendo roteiro para realização de prova de conceitos de utilização de `frameworks`, `web services` e componentes para o aprimoramento de sistema de acompanhamento de proposições e referências de legislações.
+Este documento apresenta relatórios técnicos contendo roteiros para realização de provas de conceito de utilização de frameworks, web services e componentes para o aprimoramento de sistema de acompanhamento de proposições e referências de legislações (SISLEGIS). Desenvolveremos essas provas de conceito (PoCs - do inglês `proof of concept`) no tópico a seguir.
+
+Conforme apresentado no link:../produto1/[produto 1], o SISLEGIS deverá fazer uso de alguns frameworks e API's (`application program interface`) Java para o consumo de web services dos sites da Câmara e do Senado. Dentre eles, destacamos:
+
+* {uri-xstream}[XStream] - um framework (`open source`) para o consumo e geração de dados em XML. No contexto do SISLEGIS, esse framework deve ser utilizado para, ao se obter informações dos sites da Câmara e do Senado no formato XML, popular a camada de modelo (entidades Java) dessa aplicação com a finalidade de alimentar seu banco de dados.
+* {uri-jax-rs}[JAX-RS] - uma API, parte integrante da {uri-javaee-specification}[especificação Java EE], que segue um modelo {uri-rest}[REST] para trabalhar com web services. No contexto do SISLEGIS, essa API deve ser utilizada para prover os serviços que serão consumidos pela camada de apresentação da aplicação (escrita com o uso do framework {uri-angularjs}[AngularJS]).
+
+No decorrer deste documento serão apresentados passos para a construção das provas de conceito de utilização desses dois componentes (`XStream` e `JAX-RS`) no contexo do desenvolvimento da aplicação SISLEGIS.
+
+== Desenvolvimento das provas de conceito
+
+No intuito de testar apenas as tecnologias citadas na introdução, e para deixar as provas de conceito o mais simples possível, este documento apresenta os passos para a construção de aplicações executáveis em Java, que criam as provas de conceito previstas, utilizando apenas um shell Bash, um editor de textos qualquer ({uri-vim}[Vim] é o de minha preferência), o {uri-oracle-jdk}[Oracle JDK], o {uri-maven}[Maven] e o {uri-jboss-forge}[JBoss Forge]. Para a execução das PoCs é esperado que você já tenha essas ferramentas instaladas e configuradas em teu ambiente.
+
+A montagem e a configuração de um ambiente de desenvolvimento completo, de maneira automatizada e possibilitando, ao desenvolvedor, o uso de um IDE (`integrated development environmet`), é assunto apresentado no `produto 3` e, portanto, fica fora dessa discussão neste momento.
+
+
+=== Recuperação de comissões do site da Câmara utilizando o XStream
+
+Os sites da Câmara e do Senado oferecem a possibilidade de se buscar as comissões dessas instituições e essa funcionalidade é básica, no SISLEGIS, para que possam ser encontradas as proposições feitas por elas.
+
+Nesta PoC será demonstrada a utilização o framework XStream para a realização dessa busca. Além disso, ele será utilizado para facilitar o mapeamento e a conversão dos dados obtidos no formato XML para classes Java.
+
+Como nosso intuito é apenas o de fazermos uma prova de conceito focaremos, neste momento, somente na construção de uma aplicação, simples, que fará um `parser`, utilizando o XStream, da lista de comissões disponíveis no site da Câmara.
+
+Iniciemos pela construção de uma estrutura de diretórios para esta PoC, que chamaremos de `poc1`. Abramos um terminal executando um shell Bash e digitemos:
+
+[source,bash]
+-----
+mkdir -p ~/exemplos/sislegis/poc1
+cd !$
+mkdir -p src/{main,test}/java/br/gov/mj/sislegis/app/parser/camara
+-----
+
+Faremos esta PoC seguindo uma abordagem guiada pelos testes (`Test Driven Development` - TDD) começando, portanto, pela criação de uma classe de teste que utiliza o framework {uri-junit}[JUnit]. Abramos o nosso editor de textos preferido e criemos um novo arquivo, inserindo o código Java a seguir dentro dele. 
+
+[source,java]
+----
+package br.gov.mj.sislegis.app.parser.camara;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import br.gov.mj.sislegis.app.model.Comissao;
+
+public class ParserComissoesCamaraTest {
+    private List<Comissao> comissoes;
+
+    @Before
+    public void recuperaComissoes() throws Exception {
+        comissoes = new ParserComissoesCamara().getComissoes();
+    }
+
+    @Test
+    public void devemExistirComissoes() {
+        assertNotNull(comissoes);
+    }
+
+    @Test
+    public void devemSerListadasAoMenos5Comissoes() {
+        assertTrue("deveriam ser listadas ao menos 5 comissões", comissoes.size() > 5);
+        comissoes.forEach(System.out::println);
+    }
+}
+----
+
+Salvemos esse arquivo com o nome `src/test/java/br/gov/mj/sislegis/app/parser/camara/ParserComissoesCamaraTest.java`.
+
+Agora, criemos a classe que está sendo testada. Criando outro arquivo em nosso editor, insiramos o código Java a seguir dentro dele.
+
+[source,java]
+-----
+package br.gov.mj.sislegis.app.parser.camara;
+
+import java.net.URL;
+import java.util.List;
+
+import br.gov.mj.sislegis.app.model.Comissao;
+
+import com.thoughtworks.xstream.XStream;
+
+public class ParserComissoesCamara {
+
+    public List<Comissao> getComissoes() throws Exception {
+        URL url = new URL(
+                "http://www.camara.gov.br/SitCamaraWS/Orgaos.asmx/ObterOrgaos");
+
+        XStream xstream = new XStream();
+        xstream.ignoreUnknownElements();
+
+        ListaComissoes comissoes = new ListaComissoes();
+
+        xstream.alias("orgaos", ListaComissoes.class);
+        xstream.alias("orgao", Comissao.class);
+
+        xstream.addImplicitCollection(ListaComissoes.class, "comissoes");
+        xstream.aliasAttribute(Comissao.class, "id", "id");
+        xstream.aliasAttribute(Comissao.class, "sigla", "sigla");
+
+        xstream.fromXML(url, comissoes);
+
+        return comissoes.getComissoes();
+    }
+}
+
+class ListaComissoes {
+    protected List<Comissao> comissoes;
+
+    protected List<Comissao> getComissoes() {
+        return comissoes;
+    }
+}
+-----
+
+Salvemos esse arquivo com o nome `src/main/java/br/gov/mj/sislegis/app/parser/camara/ParserComissoesCamara.java`.
+
+A classe `br.gov.mj.sislegis.app.model.Comissao` também deve ser criada para que consigamos fazer a construção dessa PoC. 
+
+No shell aberto, executemos o comando a seguir:
+
+[source,bash]
+----
+mkdir src/main/java/br/gov/mj/sislegis/app/model
+----
+
+Voltando ao editor, criemos um novo arquivo e insiramos este código Java dentro dele:
+
+[source,java]
+----
+package br.gov.mj.sislegis.app.model;
+
+import java.io.Serializable;
+
+public class Comissao implements Serializable {
+
+    private static final long serialVersionUID = -9103342334603175569L;
+
+    private Long id;
+
+    private String sigla;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(final Long id) {
+        this.id = id;
+    }
+
+    public String getSigla() {
+        return sigla;
+    }
+
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder("{");
+        if (id != null)
+            result.append("id: " + id);
+        if (sigla != null)
+            result.append(", sigla: " + sigla.trim());
+        result.append("}");
+        return result.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Comissao)) {
+            return false;
+        }
+        Comissao other = (Comissao) obj;
+        if (id != null) {
+            if (!id.equals(other.id)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+}
+----
+
+Salvemos esse arquivo com o nome `src/main/java/br/gov/mj/sislegis/app/model/Comissao.java`.
+
+Agora, criemos o arquivo `pom.xml` para que consigamos fazer a construção desse projeto. Novamente, utilizando nosso editor de textos preferido, criemos um novo arquivo, insiramos o conteúdo a seguir e, por fim, salvemos ele no diretório corrente (`poc1`):
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>br.gov.mj.sislegis</groupId>
+    <artifactId>poc1</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <build>
+        <finalName>sislegis</finalName>
+    </build>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
+----
+
+Observemos a estrutura de diretórios criada até este ponto. Executando o comando `tree`,  nossa saída deverá ser como a apresentada a seguir:
+
+----
+.
+|-- pom.xml
+`-- src
+    |-- main
+    |   `-- java
+    |       `-- br
+    |           `-- gov
+    |               `-- mj
+    |                   `-- sislegis
+    |                       `-- app
+    |                           |-- model
+    |                           |   `-- Comissao.java
+    |                           `-- parser
+    |                               `-- camara
+    |                                   `-- ParserComissoesCamara.java
+    `-- test
+        `-- java
+            `-- br
+                `-- gov
+                    `-- mj
+                        `-- sislegis
+                            `-- app
+                                `-- parser
+                                    `-- camara
+                                        `-- ParserComissoesCamaraTest.java
+
+20 directories, 4 files
+----
+
+Por fim, testemos a aplicação executando o Maven da seguinte forma:
+
+[source,bash]
+----
+mvn test
+----
+
+Se não tivermos nenhum problema de comunicação com o site da Câmara, a execução do comando acima deverá conter uma saída semelhante a seguinte:
+
+----
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running br.gov.mj.sislegis.app.parser.camara.ParserComissoesCamaraTest
+{id: 2001, sigla: CAPADR}
+{id: 2003, sigla: CCJC}
+{id: 2002, sigla: CCTCI}
+{id: 536996, sigla: CCULT}
+{id: 2004, sigla: CDC}
+{id: 2008, sigla: CDEIC}
+{id: 2007, sigla: CDHM}
+{id: 2006, sigla: CDU}
+{id: 2009, sigla: CE}
+{id: 537236, sigla: CESPO}
+{id: 2011, sigla: CFFC}
+{id: 2010, sigla: CFT}
+{id: 2017, sigla: CINDRA}
+{id: 5438, sigla: CLP}
+{id: 6174, sigla: CMADS}
+{id: 2012, sigla: CME}
+{id: 6722, sigla: CMMC}
+{id: 537226, sigla: CMPCCAI}
+{id: 5971, sigla: COETICA}
+{id: 537337, sigla: CPIPETRO}
+{id: 2018, sigla: CREDN}
+{id: 5503, sigla: CSPCCO}
+{id: 2014, sigla: CSSF}
+{id: 2015, sigla: CTASP}
+{id: 6066, sigla: CTUR}
+{id: 2016, sigla: CVT}
+{id: 5973, sigla: MERCOSUL}
+{id: 4, sigla: MESA}
+{id: 537332, sigla: PEC34413}
+{id: 180, sigla: PLEN}
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.51 sec
+
+Results :
+
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2.748 s
+[INFO] Finished at: 2015-02-17T23:10:31-02:00
+[INFO] Final Memory: 14M/156M
+[INFO] ------------------------------------------------------------------------
+----
+
+=== Utilização de JAX-RS para a criação de web services que serão consumidos pela camada de apresentação do SISLEGIS
+
+As proposições que entram na pauta de reuniões semanais da SAL precisam receber encaminhamentos. Exemplos de encaminhamentos possíveis são: "Agendar reunião", "Elaborar nota técnica", "Enviar email", "Fazer contato telefônico", etc.
+
+Nesta PoC, utilizaremos a API `JAX-RS`, e alguns frameworks, para criar web services que possibilitarão a realização de operações `CRUD` (um acrônimo para `create`, `retrieve`, `update` e `delete`) para uma entidade Java chamada `Encaminhamento`. Estes web services serão executados num servidor de aplicações JBoss e serão acessados por uma aplicação web escrita puramente com HTML, CSS e JavaScript (utilizando o AngularJS).
+
+Esta PoC será útil para que, no desenvolvimento do SISLEGIS, a criação de todos os web services desta categoria sejam realizadas num mesmo padrão e tenham uma codificação simples, rápida e eficiente.
+
+A forma mais rápida de realizarmos a construção deste PoC é através da ferramenta `JBoss Forge`. O `Forge` é um gerador de código, também utilizado para a criação de código Java EE, que pode ser utilizado tanto via linha de comando quanto integrado a um IDE. Nesta PoC, utilizaremos seu potencial através da inserção de comandos em seu `prompt` de comando. Então, façamos sua inicialização para receber esse `prompt`. Em um shell executando Bash, digitemos:
+
+[source,bash]
+----
+mkdir -p ~/exemplos/sislegis
+cd !$
+forge
+----
+
+No prompt apresentado pelo `Forge`, nossa primeira instrução será criar um novo projeto. Executemos:
+
+----
+project-new --named poc2 --topLevelPackage br.gov.mj.sislegis.app
+----
+
+A simples execução deste comando já nos gera uma estrutura de diretórios padrão, no Maven, e um arquivo `pom.xml`.
+
+Como iremos desenvolver um CRUD, é interessante que esse `pom.xml` também já seja configurado para suportar o uso da API JPA. E, como faremos o teste dessa aplicação num servidor de aplicações JBoss, essa configuração utilizará o provedor de persistência desse servidor. Então, peçamos ao `Forge` que faça os ajustes necessários para nós:
+
+----
+jpa-setup --container JBOSS_EAP6
+----
+
+Esse comando, além de fazer os ajustes no arquivo `pom.xml`, também cria o arquivo `persistence.xml` no diretório necessário.
+
+Também pediremos ao `Forge` que ele modifique o projeto para que possamos utilizar a API `JAX-RS`. O comando a seguir incluirá a dependência no necessária no `pom.xml` e também criará uma classe (`RestApplication`) que será responsável pelo mapeamento do caminho `/rest` para nossa aplicação:
+
+----
+rest-setup
+----
+
+Utilizaremos as APIs `Bean Validation` e `EJB` em nosso projeto. Então, solicitaremos ao Forge que faça as alterações necessárias a fim de utilizarmos estas APIs:
+
+----
+ejb-setup
+constraint-setup
+----
+
+Criaremos a nossa entidade `Encaminhamento`. Ela conterá um `id` e um `nome`. Estabeleceremos a regra de que o nome não poderá ser nulo e deverá conter no máximo 30 caracteres. Pediremos ao `Forge` que gere essa entidade para nós através dos seguintes comandos:
+
+----
+jpa-new-entity --named Encaminhamento --targetPackage br.gov.mj.sislegis.app.model
+jpa-new-field --named nome --type String --length 30
+constraint-add --onProperty nome --constraint NotNull
+constraint-add --onProperty nome --constraint Size --max 30
+----
+
+Para gerar os `endpoints` `REST` para a entidade, criando, dessa forma, os códigos necessários para atender as requisições CRUD que faremos através de métodos `HTTP`, precisamos solicitar ao `Forge` a execução deste último comando:
+
+----
+rest-generate-endpoints-from-entities --targets br.gov.mj.sislegis.app.model.Encaminhamento --packageName br.gov.mj.sislegis.app.rest
+----
+
+Chegando até este ponto, geramos uma camada de web services acessível via `JAX-RS`, que é o objetivo desse tutorial. Contudo, apenas para tornar esta camada testável, através de uma interface web, executaremos os comandos a seguir. Eles irão gerar uma camada de apresentação em `AngularJS` para que possamos testar a chamada aos serviços `REST` criados para o `CRUD` da entidade `Encaminhamento`.
+
+----
+scaffold-setup --provider AngularJS
+scaffold-generate --provider AngularJS --targets br.gov.mj.sislegis.app.model.Encaminhamento
+----
+
+Finalmente, podemos solicitar que o próprio `Forge` faça a construção da aplicação executando o comando `build`. Isso irá gerar o pacote `poc2.war` que poderá ser, então, implantando e testado no JBoss.
+
+== Conclusão
+
+As provas de conceito apresentadas neste documento são de suma importância para o consumo e o desenvolvimento dos web services processados pelo SISLEGIS. Ou seja, tanto na obtenção de informações dos sites da Câmara e Senado (utilizando o framework `XStream`), quanto na geração de informações que serão utilizadas pela camada de apresentação do SISLEGIS (utilizando a API `JAX-RS`), as PoCs desenvolvidas deste produto serão utilizadas como referência para o desenvolvimento dessa aplicação.
 
 // vim: set syntax=asciidoc:
