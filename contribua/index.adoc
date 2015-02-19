@@ -8,12 +8,12 @@ O {uri-sislegis}[SISLEGIS] é software livre. Qualquer um pode participar contri
 
 O SISLEGIS está dividido, neste momento, nos seguintes projetos:
 
-. {uri-sislegis-site}[sislegis-site] (este site). Para atuar nesse projeto, primeiro leia a página link:/contribua/neste-site/["Como contribuir na construção deste site"].
+. {uri-sislegis-site}[sislegis-site] (este site). Para atuar nesse projeto, primeiro leia a página link:neste-site/["Como contribuir na construção deste site"].
 .. {uri-sislegis-site-issues}[Issues abertas]
 . {uri-sislegis-prototipo}[sislegis-prototipo]. Protótipo de telas da aplicação, desenvolvido pelo arquiteto da informação da equipe.
 . {uri-sislegis-dotfiles}[sislegis-dotfiles]. Conjunto de arquivos de configuração (e scripts) utilizados em ambientes do projeto (desenvolvimento, homologação, integração, produção).
 . {uri-sislegis-ambiente}[sislegis-ambiente]. Conjunto de scripts utilizados, especificamente, para a montagem de ambientes do projeto.
 . {uri-sislegis-ambiente-fedora}[sislegis-ambiente-fedora]. Contjunto de scripts utilizados, especificamente, para a montagem de ambientes no Fedora.
-. {uri-sislegis-app}[sislegis-app] (a aplicação executada na infraestrutura do MJ). Para atuar nesse projeto, primeiro leia a página link:/arquitetura/["Arquitetura da aplicação"].
+. {uri-sislegis-app}[sislegis-app] (a aplicação executada na infraestrutura do MJ). Para atuar nesse projeto, primeiro leia a página link:../arquitetura/["Arquitetura da aplicação"].
 
 // vim: set syntax=asciidoc:
