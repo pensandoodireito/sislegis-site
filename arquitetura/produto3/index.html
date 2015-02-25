@@ -1,0 +1,367 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><title>Arquitetura da aplicação (SISLEGIS), produto 3 | SISLEGIS</title><link href="http://pensandoodireito.github.io/sislegis-site/css/bootstrap.min.css" rel="stylesheet"><link href="http://pensandoodireito.github.io/sislegis-site/css/sislegis-site.css" rel="stylesheet"></head><body><div class="navbar navbar-default navbar-fixed-top" role="navigation"><div class="container"><div class="navbar-header"><button class="navbar-toggle collapsed" data-target=".navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/sislegis-site/">SISLEGIS</a></div><div class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/sislegis-site/sobre/">O que é</a></li><li><a href="/sislegis-site/requisitos/">Requisitos</a></li><li><a href="/sislegis-site/arquitetura/">Arquitetura</a></li><li><a href="/sislegis-site/equipe/">Equipe</a></li><li><a href="/sislegis-site/contribua/">Faça parte</a></li><li><a href="http://github.com/pensandoodireito">Código Fonte</a></li></ul></div></div></div><div class="container"><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Arquitetura da aplicação (SISLEGIS), produto 3</p>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle" class="title"></div>
+<ul class="sectlevel1">
+<li><a href="#introdução">1. Introdução</a></li>
+<li><a href="#diretrizes-de-análise-e-projeto">2. Diretrizes de análise e projeto</a>
+<ul class="sectlevel2">
+<li><a href="#adoção-de-scrum-como-metodologia-ágil-para-o-desenvolvimento">2.1. Adoção de Scrum, como metodologia ágil para o desenvolvimento</a></li>
+<li><a href="#análise-e-projeto-simplificados">2.2. Análise e projeto simplificados</a></li>
+</ul>
+</li>
+<li><a href="#sugestões-de-ferramentas-para-o-desenvolvimento">3. Sugestões de ferramentas para o desenvolvimento</a>
+<ul class="sectlevel2">
+<li><a href="#linux-fedora-ou-ubuntu">3.1. Linux (Fedora ou Ubuntu)</a></li>
+<li><a href="#openjdk-ou-oracle-jdk">3.2. OpenJDK ou Oracle JDK</a></li>
+<li><a href="#git-e-github">3.3. Git (e GitHub)</a></li>
+<li><a href="#apache-maven">3.4. Apache Maven</a></li>
+<li><a href="#jboss-forge">3.5. JBoss Forge</a></li>
+<li><a href="#jboss-developer-studio-ou-eclipse-luna-jboss-tools">3.6. JBoss Developer Studio (ou Eclipse Luna + JBoss Tools)</a></li>
+<li><a href="#vagrant-e-ou-docker">3.7. Vagrant e/ou Docker</a></li>
+</ul>
+</li>
+<li><a href="#montagem-do-ambiente-de-desenvolvimento">4. Montagem do ambiente de desenvolvimento</a>
+<ul class="sectlevel2">
+<li><a href="#nas-máquinas-dos-desenvolvedores">4.1. Nas máquinas dos desenvolvedores</a>
+<ul class="sectlevel3">
+<li><a href="#instalação-no-fedora">4.1.1. Instalação no Fedora</a></li>
+<li><a href="#instalação-no-ubuntu">4.1.2. Instalação no Ubuntu</a></li>
+</ul>
+</li>
+<li><a href="#nos-servidores-de-desenvolvimento-providos-pelo-openshift">4.2. Nos servidores de desenvolvimento (providos pelo OpenShift)</a>
+<ul class="sectlevel3">
+<li><a href="#nexus">4.2.1. Nexus</a></li>
+<li><a href="#jenkins">4.2.2. Jenkins</a></li>
+<li><a href="#keycloak">4.2.3. Keycloak</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#conclusão">5. Conclusão</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introdução"><a class="anchor" href="#introdução"></a>1. Introdução</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Este produto apresenta diretrizes de análise e projeto de sistemas da informação da Secretaria de Assuntos Legislativos (SAL) responsáveis pelo acompanhamento e referências de legislações através do SISLEGIS, assim como sugestões de ferramentas para o desenvolvimento e manutenção de sistemas em ambiente de desenvolvimento integrado por meio da utilização de SVN, Eclipse, Maven e Jenkins.</p>
+</div>
+<div class="paragraph">
+<p>De forma resumida, esse documento também apresenta um processo a ser seguido para a montagem do ambiente de desenvolvimento, tanto nas máquinas dos desenvolvedores quanto nos servidores acessados por elas.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="diretrizes-de-análise-e-projeto"><a class="anchor" href="#diretrizes-de-análise-e-projeto"></a>2. Diretrizes de análise e projeto</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="adoção-de-scrum-como-metodologia-ágil-para-o-desenvolvimento"><a class="anchor" href="#adoção-de-scrum-como-metodologia-ágil-para-o-desenvolvimento"></a>2.1. Adoção de Scrum, como metodologia ágil para o desenvolvimento</h3>
+<div class="paragraph">
+<p>O <a href="http://www.desenvolvimentoagil.com.br/scrum/">Scrum</a> é um processo de desenvolvimento iterativo e incremental para o gerenciamento de projetos e desenvolvimento de software ágil. Ele possui seu foco no gerenciamento de projeto da organização onde é dificil planejar à frente.</p>
+</div>
+<div class="paragraph">
+<p>Scrum aplica-se no contexto do SISLEGIS, devido as seguintes características do projeto e da equipe:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>O projeto deverá ser entregue de forma iterativa e incremental;</p>
+</li>
+<li>
+<p>A equipe é multi-funcional e auto-organizada;</p>
+</li>
+<li>
+<p>A equipe sabe por onde começar e o que é mais prioritário para o cliente (definindo isso junto com ele);</p>
+</li>
+<li>
+<p>As metas menores (<code>sprints</code>) são atingíveis e claras;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A adoção de scrum deve trazer os seguintes ganhos ao projeto:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Visibilidade: clara visibilidade do que está completo e das pendências o que reduz os riscos e as incertezas associadas ao projeto;</p>
+</li>
+<li>
+<p>Aumento do ROI: entregando funcionalidades antes para a validação do cliente;</p>
+</li>
+<li>
+<p>Maior flexibilidade a agilidade: permite rever o planejamento, mudar de direção ou fazer adaptações para as próximas iterações;</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="análise-e-projeto-simplificados"><a class="anchor" href="#análise-e-projeto-simplificados"></a>2.2. Análise e projeto simplificados</h3>
+<div class="paragraph">
+<p>Na adoção do Scrum no contexto do projeto, não é obrigatória a utilização de UML (<code>Unified Modeling Language</code>) ou uma descrição pormenorizada ou extensa para as estórias de usuário que serão levantadas para a aplicação. Elas serão refinadas a cada novo <code>sprint</code>.</p>
+</div>
+<div class="paragraph">
+<p>A UML pode ser utilizada pelos desenvolvedores do SISLEGIS apenas como uma forma de comunicação.</p>
+</div>
+<div class="paragraph">
+<p>O projeto da aplicação e a sua codificação, entretanto, devem procurar seguir uma abordagem dirigida pelos testes (TDD - sigla para o termo em inglês <code>Test Driven Development</code>).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sugestões-de-ferramentas-para-o-desenvolvimento"><a class="anchor" href="#sugestões-de-ferramentas-para-o-desenvolvimento"></a>3. Sugestões de ferramentas para o desenvolvimento</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Este tópico sugere diversas ferramentas que podem (e/ou devem) ser utilizadas no desenvolvimento do SISLEGIS. Também descreve sua motivação de uso.</p>
+</div>
+<div class="sect2">
+<h3 id="linux-fedora-ou-ubuntu"><a class="anchor" href="#linux-fedora-ou-ubuntu"></a>3.1. Linux (Fedora ou Ubuntu)</h3>
+<div class="paragraph">
+<p>Linux deve ser a principal alternativa de sistema operacional utilizado para o ambiente de desenvolvimento do SISLEGIS. Alguns motivos para isso:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Maior aderência a <a href="http://www.softwarelivre.gov.br/comunidade-no-governo">diretriz geral do governo de utilização de software livre</a>;</p>
+</li>
+<li>
+<p>Concordância com o sistema operacional que será utilizado no ambiente de produção;</p>
+</li>
+<li>
+<p>Scripts para automação da montagem do ambiente. Serão desenvolvidos scripts que farão a montagem do ambiente de desenvolvimento de forma automática e esses scripts serão, também, parte integrante do desenvolvimento da aplicação.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A escolha da distribuição Linux utilizada será limitada as distribuiçoes <a href="http://fedoraproject.org">Fedora</a> (nas versões 20 ou 21) e <a href="http://ubuntu.com">Ubuntu</a> (14.10) pois, para cada uma dessas distribuições, são necessárias codificações e ajustes diferentes para os scripts de montagem de ambiente do SISLEGIS.</p>
+</div>
+<div class="paragraph">
+<p>O desenvolvedor também poderá optar por fazer uso de outro sistema operacional (OS X ou Windows). Contudo, os procedimentos para a montagem de seu ambiente, nesse caso, deverão ser manuais e por sua conta própria. Mesmo assim, espera-se que não haja tantas dificuldades quando for essa a situação. Alternativamente, nesse último caso, poderão ser adotados o uso do Vagrant (e/ou do Docker) para tornar a aplicação disponível e executável num ambiente virtualizado. Isso é discutido neste documento, em um tópico mais a frente.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="openjdk-ou-oracle-jdk"><a class="anchor" href="#openjdk-ou-oracle-jdk"></a>3.2. OpenJDK ou Oracle JDK</h3>
+<div class="paragraph">
+<p>O <code>Java Development Kit</code> (JDK) é a ferramenta básica para o desenvolvimento de aplicações Java e, no caso do SISLEGIS, para a construção de todo o <code>backend</code> desse projeto. Este documento sugere a adoção da versão 1.8 (ou superior) desta ferramenta. O SISLEGIS deve estar preparado para ser posto em produção tanto com o uso do <a href="http://openjdk.java.net/">OpenJDK</a> (software livre) quanto com o uso do <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Oracle JDK</a>.</p>
+</div>
+<div class="paragraph">
+<p>A utilização da versão 1.8 ou superior se faz necessária por abranger novas características da linguagem como <a href="http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html">lambda expressions</a> e programação funcional. Esses recursos, quando adotados na codificação de um sistema, trazem ganhos significativos em termos de velocidade de codificação, clareza e reaproveitamento de código. Uma boa referência sobre estas questões é o livro <a href="https://pragprog.com/book/vsjava8/functional-programming-in-java">Functional Programming in Java: Harnessing the Power of Java 8 Lambda Expressions</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="git-e-github"><a class="anchor" href="#git-e-github"></a>3.3. Git (e GitHub)</h3>
+<div class="paragraph">
+<p>Com a finalidade de prover uma ferramenta de versionamento mais adequada para um modelo de desenvolvimento distribuído, esse documento amplia as motivações sugeridas para o uso do Git (ao invés do SVN) no item <a href="../produto1/#arquitetura-de-desenvolvimento">"Arquitetura de desenvolvimento"</a>, do produto 1.</p>
+</div>
+<div class="paragraph">
+<p>O SISLEGIS precisa ter a capacidade de ser codificado de maneira distribuída, independente de um repositório central de código. Não que ele não possa e existir e, na prática, existirá (e estará publicado no <a href="http://github.com">GitHub</a>). Mas, essa característica de desenvolvimento distribuído deve permitir que os desenvolvedores possam trabalhar de maneira desatrelada a existência de um servidor central. Todo o histórico do projeto deve estar disponível a qualquer momento e de forma independente até mesmo da existência de uma conexão de rede. Essa característica de desenvolvimento distribuído é obtida com o uso do Git e não é possível através do SVN.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="apache-maven"><a class="anchor" href="#apache-maven"></a>3.4. Apache Maven</h3>
+<div class="paragraph">
+<p>Conforme apresentado nos produtos anteriores (<a href="../produto1/">1</a> e <a href="../produto2/">2</a>), todo o processo de construção do projeto fará uso da ferramenta <a href="http://maven.apache.org">Apache Maven</a>.</p>
+</div>
+<div class="paragraph">
+<p>O Maven, com toda certeza, pode não ser a melhor ferramenta para a construção de projetos Java. O <a href="http://ant.apache.org">Ant</a>, uma ótima ferramenta com este mesmo propóstito, no passado teve seus dias de glória e foi tendo seu uso substituído pelo Maven, gradualmente. Hoje em dia <a href="http://lmgtfy.com/?q=gradle+vs+maven#seen">são feitas muitas comparações entre o Gradle e o Maven</a> e fala-se muito que o primeiro (<a href="https://gradle.org">Gradle</a>) vem tomando o espaço do Maven nos projetos. Contudo, no SISLEGIS, para não ampliarmos ainda os skills necessários para a equipe de desenvolvimento, adotaremos o Maven.</p>
+</div>
+<div class="paragraph">
+<p>Por fim, e para concluir, tornaremos o uso do Maven mais simples através do uso do <a href="http://forge.jboss.org">JBoss Forge</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="jboss-forge"><a class="anchor" href="#jboss-forge"></a>3.5. JBoss Forge</h3>
+<div class="paragraph">
+<p>O <a href="http://forge.jboss.org">JBoss Forge</a> foi discutido numa <a href="../produto2/#utiliza%C3%A7%C3%A3o-de-jax-rs-para-a-cria%C3%A7%C3%A3o-de-web-services-que-ser%C3%A3o-consumidos-pela-camada-de-apresenta%C3%A7%C3%A3o-do-sislegis">PoC elaborada no produto 2</a> e, como visto, ele poderá ser utilizado para a construção do <code>backend</code> JAX-RS do SISLEGIS. Além disso o Forge é definido, em seu site, como a forma mais rápida de se construir aplicações Java EE com o uso do Maven.</p>
+</div>
+<div class="paragraph">
+<p>Este documento incentiva o uso do Forge não apenas como demonstrado na PoC do produto 2. Ele espera que o uso do Forge possa ser também adotado em várias outras tarefas como, por exemplo:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Na definição das entidades da camada de modelo;</p>
+</li>
+<li>
+<p>Na geração de classes para serem testadas no <a href="http://arquillian.org">Arquillian</a>;</p>
+</li>
+<li>
+<p>Na geração da camada de apresentação das entidades, utilizando o <a href="http://angularjs.org">AngularJS</a>;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>O Forge pode ser utilizado na linha de comando (shell) ou através de um IDE (<code>Integrated Development Environment</code>). Espera-se que os desenvolvedores adquiram o hábito de trabalhar com ele de qualquer forma que seja.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="jboss-developer-studio-ou-eclipse-luna-jboss-tools"><a class="anchor" href="#jboss-developer-studio-ou-eclipse-luna-jboss-tools"></a>3.6. JBoss Developer Studio (ou Eclipse Luna + JBoss Tools)</h3>
+<div class="paragraph">
+<p>Não é necessário dizer que o uso de um IDE no desenvolvimento em Java se faz neessário para a obtenção de velocidade de codificação nessa linguagem.</p>
+</div>
+<div class="paragraph">
+<p>Este documento sugere que o IDE utilizado no desenvolvimento do SISLEGIS seja uma variante do <a href="http://eclipse.org">Eclipse Luna</a> configurada pela Red Hat, chamada de <a href="http://tools.jboss.org/downloads/devstudio/index.html">JBoss Developer Studio</a>. Como alternativa, também é sugerido o uso do <a href="https://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/lunasr1a">Eclipse IDE for Java EE Developers</a> juntamente com a instalação do conjunto de plugins fornecidos no pacote <a href="http://tools.jboss.org/">JBoss Tools</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="vagrant-e-ou-docker"><a class="anchor" href="#vagrant-e-ou-docker"></a>3.7. Vagrant e/ou Docker</h3>
+<div class="paragraph">
+<p>Para facilitar a montagem do ambiente de desenvolvimento, o item <a href="../produto1/#arquitetura-de-desenvolvimento">"Arquitetura de desenvolvimento"</a> (produto 1) sugere a utilização das ferramentas <a href="https://www.vagrantup.com">Vagrant</a> e <a href="http://www.docker.com">Docker</a>. Mas, essas ferramentas são opcionais. Na verdade, todo o ambiente de desenvolvimento pode ser instalado diretamente no sistema operacional de uma máquina física, sem a necessidade da instalação dessas ferramentas que são úteis para a montagem de ambientes virtualizados.</p>
+</div>
+<div class="paragraph">
+<p>A idéia básica por trás do uso do Vagrant (e/ou do Docker), no ambiente de desenvolvimento do SISLEGIS, é a necessidade de se tornar fácil, rápida e automática, a criação desse ambiente. Além disso, pelo fato dessas ferramentas montarem ambientes virtualizados, esses ambientes podem ser contruídos em outros sistemas operacionais fora o Linux (base para este projeto). Seu uso viabiliza, então, a montagem de ambientes de desenvolvimento no Windows ou no OS X. Ressaltamos porém, que uso das ferramentas de desenvolvimento em ambientes virtualizados (tirando o caso do uso do Docker instalado no próprio Linux hospedeiro) pode não ser tão produtivo pela questão do alto consumo de recursos necessários para a camada de virtualização.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="montagem-do-ambiente-de-desenvolvimento"><a class="anchor" href="#montagem-do-ambiente-de-desenvolvimento"></a>4. Montagem do ambiente de desenvolvimento</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Este tópico vai além das sugestões de ferramentas para o ambiente de desenvolvimento e explica, de forma simplificada, como instalá-las tanto nas máquinas dos desenvolvedores quanto nos servidores utilizados por eles.</p>
+</div>
+<div class="sect2">
+<h3 id="nas-máquinas-dos-desenvolvedores"><a class="anchor" href="#nas-máquinas-dos-desenvolvedores"></a>4.1. Nas máquinas dos desenvolvedores</h3>
+<div class="paragraph">
+<p>A montagem do ambiente de desenvolvimento pode ser realizada de forma muito simples, tanto no Fedora, quanto no Ubuntu. Bascicamente, os passos para isso são os seguintes:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Instalar o Git;</p>
+</li>
+<li>
+<p>Clonar o projeto de instalação de ambiente para o sistema operacional (Fedora ou Ubuntu) que estiver utilizando;</p>
+</li>
+<li>
+<p>Criar o arquivo <code>config</code> e ajustar algumas variáveis, de acordo com ambiente;</p>
+</li>
+<li>
+<p>Executar o script <code>instalar</code>;</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="instalação-no-fedora"><a class="anchor" href="#instalação-no-fedora"></a>4.1.1. Instalação no Fedora</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Faça um clone do projeto <a href="http://github.com/pensandoodireito/sislegis-ambiente-fedora">sislegis-ambiente-fedora</a>;</p>
+</li>
+<li>
+<p>Siga os passos descritos no arquivo <code>README.md</code> desse projeto;</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="instalação-no-ubuntu"><a class="anchor" href="#instalação-no-ubuntu"></a>4.1.2. Instalação no Ubuntu</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Faça um clone do projeto <a href="http://github.com/pensandoodireito/sislegis-ambiente-ubuntu">sislegis-ambiente-ubuntu</a>;</p>
+</li>
+<li>
+<p>Siga os passos descritos no arquivo <code>README.md</code> desse projeto;</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="nos-servidores-de-desenvolvimento-providos-pelo-openshift"><a class="anchor" href="#nos-servidores-de-desenvolvimento-providos-pelo-openshift"></a>4.2. Nos servidores de desenvolvimento (providos pelo OpenShift)</h3>
+<div class="paragraph">
+<p>O <a href="http://openshift.com">OpenShift</a>, um produto da Red Hat, provê uma infraestrutura PaaS que pode ser utilizada de forma pública (utilizando o serviço já instalado em servidores disponíveis na Internet) ou de forma privada (instalando-se o serviço numa infraestrutura própria).</p>
+</div>
+<div class="paragraph">
+<p>No contexto do SISLEGIS sugere-se o uso do OpenShift, de forma pública ou privada (mas com acesso público aos desenvolvedores), para o oferecimento de alguns serviços, dentre eles:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Uma instância de <a href="http://www.sonatype.org/nexus/">Nexus</a>;</p>
+</li>
+<li>
+<p>Uma instância de <a href="http://jenkins-ci.org">Jenkins</a>;</p>
+</li>
+<li>
+<p>Uma instãncia de <a href="http://keycloak.jboss.org">Keycloack</a>;</p>
+</li>
+<li>
+<p>Uma instância da aplicação SISLEGIS integrado pelo Jenkins;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A instalação desses serviços no OpenShift é sugerida, principalmente, pela facilidade, pela disponibilidade de uso na Internet e pela capacidade de ampliação dos recursos computacionais, caso seja necessário.</p>
+</div>
+<div class="sect3">
+<h4 id="nexus"><a class="anchor" href="#nexus"></a>4.2.1. Nexus</h4>
+<div class="paragraph">
+<p>O Nexus é um gereciador de repositórios para o Maven.</p>
+</div>
+<div class="paragraph">
+<p>Gerenciadores de repositórios tem dois propósitos primordiais:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Atuar como proxies altamente configuráveis entre uma organização e os repositórios públicos do Maven;</p>
+</li>
+<li>
+<p>Suprir uma organização com um destino para a publicação de seus próprios artefatos;</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Atuando como proxy para repositórios públicos, o Nexus reduz significativamente a quantidade de downloads reduntantes pelos elementos da organização, evitando chamadas externas a Internet e diminuindo o tempo gasto internamente, para o download de artefatos. Isto reduz, consideravelmente, o tempo para a construção de aplicações.</p>
+</div>
+<div class="paragraph">
+<p>No contexto do SISLEGIS, o servidor Nexus deve estar disponível na nuvem do OpenShift para que os desenvolvedores possam acessá-lo livremente pela Internet. Um ótimo tutorial explicando como usuar o Nexus de forma local está disponível no post <a href="http://blog.arungupta.me/setup-local-nexus-repository-deploying-war-from-maven-techtip74/">"Setup Local Nexus Repository and Deploying WAR File from Maven"</a> publicado, recentemente, por Arun Gupta. Um tutorial mais antigo entitulado <a href="http://a.ladoservidor.com/tutoriais/maven-nexus/index.html">"Utilizando Maven, Nexus e Subversion em projetos Java"</a>, publicado por Paulo Jerônimo, também é um ótimo exemplo que explica o funcionamento dessas ferramentas em conjunto.</p>
+</div>
+<div class="paragraph">
+<p>O processo de instalação do Nexus no OpenShift, para o uso do SISLEGIS, tem seus fundamentos no post <a href="https://blog.openshift.com/nexus-repository-manager-in-the-cloud-for-free-with-openshift/">"Run a Nexus Repository Manager in the Cloud for Free with OpenShift"</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="jenkins"><a class="anchor" href="#jenkins"></a>4.2.2. Jenkins</h4>
+<div class="paragraph">
+<p>Integração contínua é uma das práticas mais importantes do desenvolvimento ágil. Através dela, é possível agilizar tarefas demoradas como a compilação de um projeto e a execução dos seus testes automatizados. Com um servidor de integração contínua bem configurado, essas tarefas são executadas a cada mudança no repositório de código e, em caso de erros de compilação ou falhas nos testes automatizados, todos os desenvolvedores são alertados rapidamente. Dessa forma, se o servidor de integração não aponta problemas no projeto, a equipe tem a segurança de que as mudanças no código estão de acordo com a bateria de testes. É também um passo na direção do deploy contínuo.</p>
+</div>
+<div class="paragraph">
+<p>No contexto do SISLEGIS, o Jenkins deverá ser rensponsável por integrar o código da aplicação buscando suas alterações a partir do repositório GitHub utilizado pelo projeto.</p>
+</div>
+<div class="paragraph">
+<p>O processo de instalação do Jenkins no OpenShift, para o uso do SISLEGIS, tem seus fundamentos no post <a href="https://developers.openshift.com/en/managing-continuous-integration.html">"Continuous Integration with Jenkins"</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="keycloak"><a class="anchor" href="#keycloak"></a>4.2.3. Keycloak</h4>
+<div class="paragraph">
+<p>O Keycloak é uma solução de segurança desenvolvida pelo grupo JBoss. Ele provê uma solução para a <code>Single Sign On</code> (SSO) para aplicações web e serviços RESTful que podem, inclusive, utilizar soluções como OAuth 2 e JSON Web Token (JWT).</p>
+</div>
+<div class="paragraph">
+<p>No contexto do SISLEGIS ele será utilizado para autenticação (integradao ao LDAP do MJ), autorização, ponto central para o gerenciamento de papéis na aplicação e seu mapeamento com usuários.</p>
+</div>
+<div class="paragraph">
+<p>O Keycloak pode ser implantado com um war, como uma instância JBoss pré-configurada, ou na nuvem provida pelo OpenShift. No ambiente de desenvolvimento, ele será provido através desse último e/ou numa imagem Docker.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusão"><a class="anchor" href="#conclusão"></a>5. Conclusão</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Este produto oferece diretrizes para o desenvolvimento de forma ágil do SISLEGIS através da adoção do Scrum como metodologia. Também sugere ferramentas e apresenta um roteiro simplificado para a sua instalação no ambiente de desenvolvimento. Espera-se, com isso, que todo o trabalho de codificação do sistema seja realizado de forma ágil e com qualidade.</p>
+</div>
+</div>
+</div></div><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script><script src="http://pensandoodireito.github.io/sislegis-site/js/bootstrap.min.js"></script></body></html>
