@@ -1,0 +1,180 @@
+= Arquitetura da aplicação (SISLEGIS), produto 3
+:author: Paulo Jerônimo
+:email: paulojeronimo@gmail.com
+:page-layout: base
+:toc:
+:toc-title!:
+:toclevels: 4
+:toc-placement!:
+:numbered:
+include::links.adoc[]
+
+{page-title}
+
+toc::[]
+
+== Introdução
+
+Este produto apresenta diretrizes de análise e projeto de sistemas da informação da Secretaria de Assuntos Legislativos (SAL) responsáveis pelo acompanhamento e referências de legislações através do SISLEGIS, assim como sugestões de ferramentas para o desenvolvimento e manutenção de sistemas em ambiente de desenvolvimento integrado por meio da utilização de SVN, Eclipse, Maven e Jenkins.
+
+De forma resumida, esse documento também apresenta um processo a ser seguido para a montagem do ambiente de desenvolvimento, tanto nas máquinas dos desenvolvedores quanto nos servidores acessados por elas.
+
+== Diretrizes de análise e projeto
+
+=== Adoção de Scrum, como metodologia ágil para o desenvolvimento
+
+O {uri-scrum}[Scrum] é um processo de desenvolvimento iterativo e incremental para o gerenciamento de projetos e desenvolvimento de software ágil. Ele possui seu foco no gerenciamento de projeto da organização onde é dificil planejar à frente.
+
+Scrum aplica-se no contexto do SISLEGIS, devido as seguintes características do projeto e da equipe:
+
+* O projeto deverá ser entregue de forma iterativa e incremental;
+* A equipe é multi-funcional e auto-organizada;
+* A equipe sabe por onde começar e o que é mais prioritário para o cliente (definindo isso junto com ele);
+* As metas menores (`sprints`) são atingíveis e claras;
+
+A adoção de scrum deve trazer os seguintes ganhos ao projeto:
+
+* Visibilidade: clara visibilidade do que está completo e das pendências o que reduz os riscos e as incertezas associadas ao projeto;
+* Aumento do ROI: entregando funcionalidades antes para a validação do cliente;
+* Maior flexibilidade a agilidade: permite rever o planejamento, mudar de direção ou fazer adaptações para as próximas iterações;
+
+=== Análise e projeto simplificados
+
+Na adoção do Scrum no contexto do projeto, não é obrigatória a utilização de UML (`Unified Modeling Language`) ou uma descrição pormenorizada ou extensa para as estórias de usuário que serão levantadas para a aplicação. Elas serão refinadas a cada novo `sprint`.
+
+A UML pode ser utilizada pelos desenvolvedores do SISLEGIS apenas como uma forma de comunicação.
+
+O projeto da aplicação e a sua codificação, entretanto, devem procurar seguir uma abordagem dirigida pelos testes (TDD - sigla para o termo em inglês `Test Driven Development`).
+
+== Sugestões de ferramentas para o desenvolvimento
+
+Este tópico sugere diversas ferramentas que podem (e/ou devem) ser utilizadas no desenvolvimento do SISLEGIS. Também descreve sua motivação de uso.
+
+=== Linux (Fedora ou Ubuntu)
+
+Linux deve ser a principal alternativa de sistema operacional utilizado para o ambiente de desenvolvimento do SISLEGIS. Alguns motivos para isso:
+
+* Maior aderência a http://www.softwarelivre.gov.br/comunidade-no-governo[diretriz geral do governo de utilização de software livre];
+* Concordância com o sistema operacional que será utilizado no ambiente de produção;
+* Scripts para automação da montagem do ambiente. Serão desenvolvidos scripts que farão a montagem do ambiente de desenvolvimento de forma automática e esses scripts serão, também, parte integrante do desenvolvimento da aplicação.
+
+A escolha da distribuição Linux utilizada será limitada as distribuiçoes {uri-fedora}[Fedora] (nas versões 20 ou 21) e {uri-ubuntu}[Ubuntu] (14.10) pois, para cada uma dessas distribuições, são necessárias codificações e ajustes diferentes para os scripts de montagem de ambiente do SISLEGIS.
+
+O desenvolvedor também poderá optar por fazer uso de outro sistema operacional (OS X ou Windows). Contudo, os procedimentos para a montagem de seu ambiente, nesse caso, deverão ser manuais e por sua conta própria. Mesmo assim, espera-se que não haja tantas dificuldades quando for essa a situação. Alternativamente, nesse último caso, poderão ser adotados o uso do Vagrant (e/ou do Docker) para tornar a aplicação disponível e executável num ambiente virtualizado. Isso é discutido neste documento, em um tópico mais a frente.
+
+=== OpenJDK ou Oracle JDK
+
+O `Java Development Kit` (JDK) é a ferramenta básica para o desenvolvimento de aplicações Java e, no caso do SISLEGIS, para a construção de todo o `backend` desse projeto. Este documento sugere a adoção da versão 1.8 (ou superior) desta ferramenta. O SISLEGIS deve estar preparado para ser posto em produção tanto com o uso do {uri-openjdk}[OpenJDK] (software livre) quanto com o uso do {uri-oracle-jdk}[Oracle JDK].
+
+A utilização da versão 1.8 ou superior se faz necessária por abranger novas características da linguagem como http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html[lambda expressions] e programação funcional. Esses recursos, quando adotados na codificação de um sistema, trazem ganhos significativos em termos de velocidade de codificação, clareza e reaproveitamento de código. Uma boa referência sobre estas questões é o livro https://pragprog.com/book/vsjava8/functional-programming-in-java[Functional Programming in Java: Harnessing the Power of Java 8 Lambda Expressions]
+
+=== Git (e GitHub)
+
+Com a finalidade de prover uma ferramenta de versionamento mais adequada para um modelo de desenvolvimento distribuído, esse documento amplia as motivações sugeridas para o uso do Git (ao invés do SVN) no item link:../produto1/#arquitetura-de-desenvolvimento["Arquitetura de desenvolvimento"], do produto 1.
+
+O SISLEGIS precisa ter a capacidade de ser codificado de maneira distribuída, independente de um repositório central de código. Não que ele não possa e existir e, na prática, existirá (e estará publicado no {uri-github}[GitHub]). Mas, essa característica de desenvolvimento distribuído deve permitir que os desenvolvedores possam trabalhar de maneira desatrelada a existência de um servidor central. Todo o histórico do projeto deve estar disponível a qualquer momento e de forma independente até mesmo da existência de uma conexão de rede. Essa característica de desenvolvimento distribuído é obtida com o uso do Git e não é possível através do SVN.
+
+=== Apache Maven
+
+Conforme apresentado nos produtos anteriores (link:../produto1/[1] e link:../produto2/[2]), todo o processo de construção do projeto fará uso da ferramenta {uri-maven}[Apache Maven].
+
+O Maven, com toda certeza, pode não ser a melhor ferramenta para a construção de projetos Java. O {uri-ant}[Ant], uma ótima ferramenta com este mesmo propóstito, no passado teve seus dias de glória e foi tendo seu uso substituído pelo Maven, gradualmente. Hoje em dia http://lmgtfy.com/?q=gradle+vs+maven#seen[são feitas muitas comparações entre o Gradle e o Maven] e fala-se muito que o primeiro ({uri-gradle}[Gradle]) vem tomando o espaço do Maven nos projetos. Contudo, no SISLEGIS, para não ampliarmos ainda os skills necessários para a equipe de desenvolvimento, adotaremos o Maven.
+
+Por fim, e para concluir, tornaremos o uso do Maven mais simples através do uso do {uri-jboss-forge}[JBoss Forge].
+
+=== JBoss Forge
+
+O {uri-jboss-forge}[JBoss Forge] foi discutido numa link:../produto2/#utiliza%C3%A7%C3%A3o-de-jax-rs-para-a-cria%C3%A7%C3%A3o-de-web-services-que-ser%C3%A3o-consumidos-pela-camada-de-apresenta%C3%A7%C3%A3o-do-sislegis[PoC elaborada no produto 2] e, como visto, ele poderá ser utilizado para a construção do `backend` JAX-RS do SISLEGIS. Além disso o Forge é definido, em seu site, como a forma mais rápida de se construir aplicações Java EE com o uso do Maven.
+
+Este documento incentiva o uso do Forge não apenas como demonstrado na PoC do produto 2. Ele espera que o uso do Forge possa ser também adotado em várias outras tarefas como, por exemplo:
+
+* Na definição das entidades da camada de modelo;
+* Na geração de classes para serem testadas no {uri-arquillian}[Arquillian];
+* Na geração da camada de apresentação das entidades, utilizando o {uri-angularjs}[AngularJS];
+
+O Forge pode ser utilizado na linha de comando (shell) ou através de um IDE (`Integrated Development Environment`). Espera-se que os desenvolvedores adquiram o hábito de trabalhar com ele de qualquer forma que seja.
+
+===  JBoss Developer Studio (ou Eclipse Luna + JBoss Tools)
+
+Não é necessário dizer que o uso de um IDE no desenvolvimento em Java se faz neessário para a obtenção de velocidade de codificação nessa linguagem.
+
+Este documento sugere que o IDE utilizado no desenvolvimento do SISLEGIS seja uma variante do {uri-eclipse}[Eclipse Luna] configurada pela Red Hat, chamada de {uri-jboss-devstudio}[JBoss Developer Studio]. Como alternativa, também é sugerido o uso do https://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/lunasr1a[Eclipse IDE for Java EE Developers] juntamente com a instalação do conjunto de plugins fornecidos no pacote {uri-jboss-tools}[JBoss Tools].
+
+=== Vagrant e/ou Docker
+
+Para facilitar a montagem do ambiente de desenvolvimento, o item link:../produto1/#arquitetura-de-desenvolvimento["Arquitetura de desenvolvimento"] (produto 1) sugere a utilização das ferramentas {uri-vagrant}[Vagrant] e {uri-docker}[Docker]. Mas, essas ferramentas são opcionais. Na verdade, todo o ambiente de desenvolvimento pode ser instalado diretamente no sistema operacional de uma máquina física, sem a necessidade da instalação dessas ferramentas que são úteis para a montagem de ambientes virtualizados.
+
+A idéia básica por trás do uso do Vagrant (e/ou do Docker), no ambiente de desenvolvimento do SISLEGIS, é a necessidade de se tornar fácil, rápida e automática, a criação desse ambiente. Além disso, pelo fato dessas ferramentas montarem ambientes virtualizados, esses ambientes podem ser contruídos em outros sistemas operacionais fora o Linux (base para este projeto). Seu uso viabiliza, então, a montagem de ambientes de desenvolvimento no Windows ou no OS X. Ressaltamos porém, que uso das ferramentas de desenvolvimento em ambientes virtualizados (tirando o caso do uso do Docker instalado no próprio Linux hospedeiro) pode não ser tão produtivo pela questão do alto consumo de recursos necessários para a camada de virtualização.
+
+== Montagem do ambiente de desenvolvimento
+
+Este tópico vai além das sugestões de ferramentas para o ambiente de desenvolvimento e explica, de forma simplificada, como instalá-las tanto nas máquinas dos desenvolvedores quanto nos servidores utilizados por eles.
+
+=== Nas máquinas dos desenvolvedores
+
+A montagem do ambiente de desenvolvimento pode ser realizada de forma muito simples, tanto no Fedora, quanto no Ubuntu. Bascicamente, os passos para isso são os seguintes:
+
+. Instalar o Git;
+. Clonar o projeto de instalação de ambiente para o sistema operacional (Fedora ou Ubuntu) que estiver utilizando;
+. Criar o arquivo `config` e ajustar algumas variáveis, de acordo com ambiente;
+. Executar o script `instalar`;
+
+==== Instalação no Fedora
+
+. Faça um clone do projeto {uri-sislegis-ambiente-fedora}[sislegis-ambiente-fedora];
+. Siga os passos descritos no arquivo `README.md` desse projeto;
+
+==== Instalação no Ubuntu
+
+. Faça um clone do projeto {uri-sislegis-ambiente-ubuntu}[sislegis-ambiente-ubuntu];
+. Siga os passos descritos no arquivo `README.md` desse projeto;
+
+=== Nos servidores de desenvolvimento (providos pelo OpenShift)
+
+O {uri-openshift}[OpenShift], um produto da Red Hat, provê uma infraestrutura PaaS que pode ser utilizada de forma pública (utilizando o serviço já instalado em servidores disponíveis na Internet) ou de forma privada (instalando-se o serviço numa infraestrutura própria).
+
+No contexto do SISLEGIS sugere-se o uso do OpenShift, de forma pública ou privada (mas com acesso público aos desenvolvedores), para o oferecimento de alguns serviços, dentre eles:
+
+* Uma instância de {uri-nexus}[Nexus];
+* Uma instância de {uri-jenkins}[Jenkins];
+* Uma instãncia de {uri-keycloak}[Keycloack];
+* Uma instância da aplicação SISLEGIS integrado pelo Jenkins;
+
+A instalação desses serviços no OpenShift é sugerida, principalmente, pela facilidade, pela disponibilidade de uso na Internet e pela capacidade de ampliação dos recursos computacionais, caso seja necessário.
+
+==== Nexus
+
+O Nexus é um gereciador de repositórios para o Maven.
+
+Gerenciadores de repositórios tem dois propósitos primordiais:
+
+. Atuar como proxies altamente configuráveis entre uma organização e os repositórios públicos do Maven;
+. Suprir uma organização com um destino para a publicação de seus próprios artefatos;
+
+Atuando como proxy para repositórios públicos, o Nexus reduz significativamente a quantidade de downloads reduntantes pelos elementos da organização, evitando chamadas externas a Internet e diminuindo o tempo gasto internamente, para o download de artefatos. Isto reduz, consideravelmente, o tempo para a construção de aplicações.
+
+No contexto do SISLEGIS, o servidor Nexus deve estar disponível na nuvem do OpenShift para que os desenvolvedores possam acessá-lo livremente pela Internet. Um ótimo tutorial explicando como usuar o Nexus de forma local está disponível no post http://blog.arungupta.me/setup-local-nexus-repository-deploying-war-from-maven-techtip74/["Setup Local Nexus Repository and Deploying WAR File from Maven"] publicado, recentemente, por Arun Gupta. Um tutorial mais antigo entitulado http://a.ladoservidor.com/tutoriais/maven-nexus/index.html["Utilizando Maven, Nexus e Subversion em projetos Java"], publicado por Paulo Jerônimo, também é um ótimo exemplo que explica o funcionamento dessas ferramentas em conjunto.
+
+O processo de instalação do Nexus no OpenShift, para o uso do SISLEGIS, tem seus fundamentos no post https://blog.openshift.com/nexus-repository-manager-in-the-cloud-for-free-with-openshift/["Run a Nexus Repository Manager in the Cloud for Free with OpenShift"].
+
+==== Jenkins
+
+Integração contínua é uma das práticas mais importantes do desenvolvimento ágil. Através dela, é possível agilizar tarefas demoradas como a compilação de um projeto e a execução dos seus testes automatizados. Com um servidor de integração contínua bem configurado, essas tarefas são executadas a cada mudança no repositório de código e, em caso de erros de compilação ou falhas nos testes automatizados, todos os desenvolvedores são alertados rapidamente. Dessa forma, se o servidor de integração não aponta problemas no projeto, a equipe tem a segurança de que as mudanças no código estão de acordo com a bateria de testes. É também um passo na direção do deploy contínuo.
+
+No contexto do SISLEGIS, o Jenkins deverá ser rensponsável por integrar o código da aplicação buscando suas alterações a partir do repositório GitHub utilizado pelo projeto.
+
+O processo de instalação do Jenkins no OpenShift, para o uso do SISLEGIS, tem seus fundamentos no post https://developers.openshift.com/en/managing-continuous-integration.html["Continuous Integration with Jenkins"].
+
+==== Keycloak
+
+O Keycloak é uma solução de segurança desenvolvida pelo grupo JBoss. Ele provê uma solução para a `Single Sign On` (SSO) para aplicações web e serviços RESTful que podem, inclusive, utilizar soluções como OAuth 2 e JSON Web Token (JWT).
+
+No contexto do SISLEGIS ele será utilizado para autenticação (integradao ao LDAP do MJ), autorização, ponto central para o gerenciamento de papéis na aplicação e seu mapeamento com usuários.
+
+O Keycloak pode ser implantado com um war, como uma instância JBoss pré-configurada, ou na nuvem provida pelo OpenShift. No ambiente de desenvolvimento, ele será provido através desse último e/ou numa imagem Docker.
+
+== Conclusão
+
+Este produto oferece diretrizes para o desenvolvimento de forma ágil do SISLEGIS através da adoção do Scrum como metodologia. Também sugere ferramentas e apresenta um roteiro simplificado para a sua instalação no ambiente de desenvolvimento. Espera-se, com isso, que todo o trabalho de codificação do sistema seja realizado de forma ágil e com qualidade.
+
+// vim: set syntax=asciidoc:

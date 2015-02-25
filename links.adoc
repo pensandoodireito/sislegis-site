@@ -9,12 +9,15 @@
 :uri-fork-a-repo: https://help.github.com/articles/fork-a-repo
 :uri-pull-request: https://help.github.com/articles/using-pull-requests
 :uri-fedora: http://fedoraproject.org
+:uri-ubuntu: http://ubuntu.com
 :uri-jruby: http://jruby.org
 :uri-targetprocess: http://www.targetprocess.com
-:uri-scrum: http://pt.wikipedia.org/wiki/Scrum
+:uri-scrum: http://www.desenvolvimentoagil.com.br/scrum/
 :uri-travis-ci: http://travis-ci.org
 :uri-trello: https://trello.com
 :uri-jboss-forge: http://forge.jboss.org
+:uri-jboss-tools: http://tools.jboss.org/
+:uri-jboss-devstudio: http://tools.jboss.org/downloads/devstudio/index.html
 :uri-wildfly: http://wildfly.org
 :uri-picketlink: http://picketlink.org
 :uri-keycloak: http://keycloak.jboss.org
@@ -31,14 +34,19 @@
 :uri-jax-rs: https://jax-rs-spec.java.net
 :uri-jenkins: http://jenkins-ci.org
 :uri-paas-redhat: http://www.redhat.com/en/technologies/platform-as-a-service
-:uri-jboss-forge: http://forge.jboss.org
+:uri-ant: http://ant.apache.org
 :uri-maven: http://maven.apache.org
+:uri-gradle: https://gradle.org
 :uri-rest: http://en.wikipedia.org/wiki/REST
 :uri-javaee-specification: https://java.net/projects/javaee-spec/pages/Home
 :uri-angularjs: http://angularjs.org
 :uri-vim: http://vim.org
+:uri-openjdk: http://openjdk.java.net/
 :uri-oracle-jdk: http://www.oracle.com/technetwork/java/javase/downloads/index.html
 :uri-junit: http://junit.org
+:uri-eclipse: http://eclipse.org
+:uri-arquillian: http://arquillian.org
+:uri-nexus: http://www.sonatype.org/nexus/
 
 // URIs do projeto
 :uri-edital-arquiteto: http://www.pnud.org.br/recrutamento/20140725_0958.pdf
@@ -46,6 +54,7 @@
 :uri-sislegis-app: {uri-sislegis}/sislegis-app
 :uri-sislegis-ambiente: {uri-sislegis}/sislegis-ambiente
 :uri-sislegis-ambiente-fedora: {uri-sislegis}/sislegis-ambiente-fedora
+:uri-sislegis-ambiente-ubuntu: {uri-sislegis}/sislegis-ambiente-ubuntu
 :uri-sislegis-anterior-github: http://github.com/mobiwave/sislegis
 :uri-sislegis-dotfiles: {uri-sislegis}/sislegis-dotfiles
 :uri-sislegis-prototipo: {uri-sislegis}/sislegis-prototipo

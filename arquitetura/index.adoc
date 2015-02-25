@@ -14,4 +14,6 @@ Alterações arquiteturais ocorreram no início do projeto. Dessa forma, os prod
 
 * link:produto2/[Produto 2] - Relatório técnico contendo roteiro para realização de prova de conceitos de utilização de `frameworks`, `web services` e componentes para o aprimoramento de sistema de acompanhamento de proposições e referências de legislações.
 
+* link:produto3/[Produto 3] - Relatório contendo diretrizes de análise e projeto de sistemas da informação da Secretaria de Assuntos Legislativos responsáveis pelo acompanhamento e referências de legislações, assim como sugestões de ferramentas para o desenvolvimento e manutenção de sistemas em ambiente de desenvolvimento integrado por meio da utilização de SVN, Eclipse, Maven e Jenkins.
+
 // vim: set syntax=asciidoc:
