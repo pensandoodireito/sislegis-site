@@ -96,7 +96,7 @@ O Forge pode ser utilizado na linha de comando (shell) ou através de um IDE (`I
 
 ===  JBoss Developer Studio (ou Eclipse Luna + JBoss Tools)
 
-Não é necessário dizer que o uso de um IDE no desenvolvimento em Java se faz neessário para a obtenção de velocidade de codificação nessa linguagem.
+Não é necessário dizer que o uso de um IDE no desenvolvimento em Java se faz necessário para a obtenção de velocidade de codificação nessa linguagem.
 
 Este documento sugere que o IDE utilizado no desenvolvimento do SISLEGIS seja uma variante do {uri-eclipse}[Eclipse Luna] configurada pela Red Hat, chamada de {uri-jboss-devstudio}[JBoss Developer Studio]. Como alternativa, também é sugerido o uso do https://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/lunasr1a[Eclipse IDE for Java EE Developers] juntamente com a instalação do conjunto de plugins fornecidos no pacote {uri-jboss-tools}[JBoss Tools].
 
@@ -112,7 +112,7 @@ Este tópico vai além das sugestões de ferramentas para o ambiente de desenvol
 
 === Nas máquinas dos desenvolvedores
 
-A montagem do ambiente de desenvolvimento pode ser realizada de forma muito simples, tanto no Fedora, quanto no Ubuntu. Bascicamente, os passos para isso são os seguintes:
+A montagem do ambiente de desenvolvimento pode ser realizada de forma muito simples, tanto no Fedora, quanto no Ubuntu. Basicamente, os passos para isso são os seguintes:
 
 . Instalar o Git;
 . Clonar o projeto de instalação de ambiente para o sistema operacional (Fedora ou Ubuntu) que estiver utilizando;
