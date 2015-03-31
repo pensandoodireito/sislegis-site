@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1" name="viewport"><title>Arquitetura da aplicação (SISLEGIS), modelo para implantação em produção | SISLEGIS</title><link href="http://pensandoodireito.github.io/sislegis-site/css/bootstrap.min.css" rel="stylesheet"><link href="http://pensandoodireito.github.io/sislegis-site/css/sislegis-site.css" rel="stylesheet"></head><body><div class="navbar navbar-default navbar-fixed-top" role="navigation"><div class="container"><div class="navbar-header"><button class="navbar-toggle collapsed" data-target=".navbar-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/sislegis-site/">SISLEGIS</a></div><div class="collapse navbar-collapse"><ul class="nav navbar-nav"><li><a href="/sislegis-site/sobre/">O que é</a></li><li><a href="/sislegis-site/requisitos/">Requisitos</a></li><li><a href="/sislegis-site/arquitetura/">Arquitetura</a></li><li><a href="/sislegis-site/equipe/">Equipe</a></li><li><a href="/sislegis-site/contribua/">Faça parte</a></li><li><a href="http://github.com/pensandoodireito">Código Fonte</a></li></ul></div></div></div><div class="container"><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Arquitetura da aplicação (SISLEGIS), modelo para implantação em produção</p>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle" class="title"></div>
+<ul class="sectlevel1">
+<li><a href="#resumo">1. Resumo</a></li>
+<li><a href="#introdução">2. Introdução</a></li>
+<li><a href="#desenvolvimento">3. Desenvolvimento</a>
+<ul class="sectlevel2">
+<li><a href="#modelo-de-referência">3.1. Modelo de referência</a></li>
+<li><a href="#componentes-do-modelo">3.2. Componentes do modelo</a>
+<ul class="sectlevel3">
+<li><a href="#elementos-comuns">3.2.1. Elementos comuns</a>
+<ul class="sectlevel4">
+<li><a href="#linux-centos-ou-rhel">Linux (CentOS ou RHEL)</a></li>
+<li><a href="#openjdk-ou-oracle-jdk">OpenJDK ou Oracle JDK</a></li>
+</ul>
+</li>
+<li><a href="#o-balanceador-de-carga-haproxy">3.2.2. O balanceador de carga (HAProxy)</a></li>
+<li><a href="#o-servidor-ldap-openldap-ou-microsoft-ad">3.2.3. O servidor LDAP (OpenLDAP ou Microsoft AD)</a></li>
+<li><a href="#o-servidor-wildfly-controlador-do-domínio-dc">3.2.4. O servidor WildFly controlador do domínio (DC)</a></li>
+<li><a href="#os-servidores-wildfly-responsáveis-pela-execução-do-sislegis-nós-do-cluster">3.2.5. Os servidores WildFly responsáveis pela execução do SISLEGIS (nós do cluster)</a></li>
+<li><a href="#o-servidor-wildfly-responsável-pela-segurança-keycloak">3.2.6. O servidor WildFly responsável pela segurança (Keycloak)</a></li>
+<li><a href="#o-servidor-de-banco-de-dados-postgres">3.2.7. O servidor de banco de dados (Postgres)</a></li>
+</ul>
+</li>
+<li><a href="#utilizando-os-scripts-do-modelo-na-implantação-do-ambiente-de-produção">3.3. Utilizando os scripts do modelo na implantação do ambiente de produção</a></li>
+</ul>
+</li>
+<li><a href="#conclusão">4. Conclusão</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="resumo"><a class="anchor" href="#resumo"></a>1. Resumo</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Este produto apresenta um roteiro para a implantação e internalização do SISLEGIS junto à Coordenação-Geral de Tecnologia da Informação (CGTI) do Ministério da Justiça (MJ).</p>
+</div>
+<div class="paragraph">
+<p>De forma simplificada, este produto também oferece um passo a passo a ser seguido para a montagem do ambiente de produção do SISLEGIS, tanto em máquinas do MJ quanto em um ambiente virtualizado qualquer fora de seu <code>data center</code>. Sendo assim, através da execução dos passos descritos aqui, é possível ser realizada a montagem de um ambiente adequado para a execução do SISLEGIS em quaisquer computadores (reais e/ou virtuais) observando-se, prioritariamente, sua premissa de ser um software livre e de fácil implantação em qualquer ambiente.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="introdução"><a class="anchor" href="#introdução"></a>2. Introdução</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>O SISLEGIS é um software livre e de simples implantação em qualquer parque computacional. Ele é constituído de vários componentes de software que funcionam de forma independente porém integradas. Como características não funcionais, o SISLEGIS também deve ser escalável e ter alta disponibilidade. É por esse motivo que sua arquitetura básica de implantação foi desenvolvida com o uso de componentes Java EE e de servidores compatíveis com essa especificação. Os elementos básicos (e mínimos) de uma arquitetura que proveja os requisitos não funcionais solicitados pelo SISLEGIS num ambiente de produção são os seguintes:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Um componente balanceador de carga.</p>
+</li>
+<li>
+<p>Duas (ou mais) instânias de servidores de aplicações Java EE, executando em cluster, gerenciadas por uma instância controladora de domínio (DC).</p>
+</li>
+<li>
+<p>Uma instância do servidor de aplicação Java EE, atuando como gerenciador de usuários/perfis para a aplicação SISLEGIS e provendo a mesma, os mecanismos básicos de autenticação num servidor LDAP (ex.: OpenLDAP e MS Active Directory). Essa instância também deve ser controlada pelo DC.</p>
+</li>
+<li>
+<p>Uma ou mais instâncias de servidores de banco de dados.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>A implantantação dessa arquitetura pode ser realizada em qualquer local, tanto nas máquinas do MJ (virtualizadas ou não) quanto num ambiente virtualizado simplificado e reduzido. O objetivo deste documento é prover uma visão geral sobre os componentes de software que fazem parte do SISLEGIS e explicar como montar as peças que fazem essa aplicação ser integrada e disponibilizada para a produção.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="desenvolvimento"><a class="anchor" href="#desenvolvimento"></a>3. Desenvolvimento</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="modelo-de-referência"><a class="anchor" href="#modelo-de-referência"></a>3.1. Modelo de referência</h3>
+<div class="paragraph">
+<p>Como modelo a ser seguido pela equipe da CGTI para a implantação do SISLEGIS no ambiente do MJ, foi desenvolvido um projeto denominado <code>sislegis-ambiente-producao</code>. Esse projeto está disponível no GitHub na seguinte URL: <a href="http://github.com/pensandoodireito/sislegis-ambiente-producao" class="bare">http://github.com/pensandoodireito/sislegis-ambiente-producao</a>.</p>
+</div>
+<div class="paragraph">
+<p>Esse projeto é responsável por montar um ambiente virtualizado, similar ao necessário num ambiente de produção do SISLEGIS, mas utilizando dimensões reduzidas para as máquinas. Mais que prover esse ambiente virtualizado, os scripts desenvolvidos nesse projeto também podem ser utilizados (com alguma configuração) para montar o ambiente real do SISLEGIS nas máquinas do MJ.</p>
+</div>
+<div class="paragraph">
+<p>Para a execução desse modelo, pode ser utilizado qualquer máquina/sistema operacional que comporte a execução de um ambiente virtualizado (com VirtualBox ou VMware) através do <a href="https://www.vagrantup.com">Vagrant</a>. A idéia básica por trás do uso do Vagrant, nesse modelo de referência do SISLEGIS, é a necessidade de se tornar fácil, rápida e automática, a criação desse modelo. Seu uso viabiliza, então, a montagem de um ambiente virtual no Windows, Linux ou OS X.</p>
+</div>
+<div class="paragraph">
+<p>Detalhes sobre como colocar esse modelo em execução são encontrados no <code>README</code> do projeto. Contudo, a montagem desse ambiente é extremamente simples e esses são os comandos para baixar e executar o modelo num ambiente virtualizado coordenado pelo Vagrant:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">git clone http://github.com/pensandoodireito/sislegis-ambiente-producao
+cd sislegis-ambiente-producao
+./configurar-etc-hosts
+vagrant up</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>O Vagrant levará algum tempo para concluir todo o processo de provisionamento das máquinas mas, após sua finalização, essas são algumas das URLs que estarão disponíveis para o teste do sislegis:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="http://sislegis.local" class="bare">http://sislegis.local</a> - essa URL possibilita o acesso a aplicação SISLEGIS;</p>
+</li>
+<li>
+<p><a href="http://sislegis.local:8180" class="bare">http://sislegis.local:8180</a> - essa URL possibilita o acesso direto a aplicação instalada no primeiro nó do cluster;</p>
+</li>
+<li>
+<p><a href="http://sislegis.local:8280" class="bare">http://sislegis.local:8280</a> - essa URL possibilita o acesso direto a aplicação instalada no segundo nó do cluster;</p>
+</li>
+<li>
+<p><a href="http://sislegis.local:9990" class="bare">http://sislegis.local:9990</a> - essa URL possibilita o acesso a interface de administração do controlador de domínio do WildFly;</p>
+</li>
+<li>
+<p><a href="http://keycloak.local" class="bare">http://keycloak.local</a> - essa URL possibilita o acesso a interface de administração do <a href="http://keycloak.jboss.org">Keycloak</a>, responsável pela administração de usuários e perfis da aplicação SISLEGIS;</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="componentes-do-modelo"><a class="anchor" href="#componentes-do-modelo"></a>3.2. Componentes do modelo</h3>
+<div class="paragraph">
+<p>O modelo de referência desenvolvido para a implantação em produção conteḿ elementos comuns em sua infraestrutura e também individualizados. Nesse tópico são apresentados alguns detalhes sobre cada um desses componentes.</p>
+</div>
+<div class="sect3">
+<h4 id="elementos-comuns"><a class="anchor" href="#elementos-comuns"></a>3.2.1. Elementos comuns</h4>
+<div class="sect4">
+<h5 id="linux-centos-ou-rhel"><a class="anchor" href="#linux-centos-ou-rhel"></a>Linux (CentOS ou RHEL)</h5>
+<div class="paragraph">
+<p>O Linux é a principal alternativa de sistema operacional utilizado para o ambiente de produção do SISLEGIS. Alguns motivos para isso:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Maior aderência a <a href="http://www.softwarelivre.gov.br/comunidade-no-governo">diretriz geral do governo de utilização de software livre</a>;</p>
+</li>
+<li>
+<p>Facilidade para execução de scripts para automação da montagem do ambiente. Foram desenvolvidos vários scripts que fazem a montagem do ambiente de produção de forma automática. Esses scripts são em escritos em Bash e Ruby.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A escolha da distribuição CentOS para a produção ocorre em vista dele ser o mais compatível a distribuição Red Hat Enterprise Linux (RHEL) que, por sua vez, é que oferece um melhor casamento com outras tecnologias e componentes de software utilizados pelo SISLEGIS, como o Oracle JDK e o WildFly, peças chaves na arquitetura dessa aplicação. A versão escolhida, nesse momento, para a execucão do CentOS é a 6.6 em função do melhor conhecimento da equipe da CGTI nessa versão.</p>
+</div>
+<div class="paragraph">
+<p>Todas as máquinas utilizadas pelo SISLEGIS em ambiente de produção precisam utilizar esse sabor de Linux em virtude da proximidade com o RHEL e também de expectativas contratuais para a sua execução no futuro.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="openjdk-ou-oracle-jdk"><a class="anchor" href="#openjdk-ou-oracle-jdk"></a>OpenJDK ou Oracle JDK</h5>
+<div class="paragraph">
+<p>O <code>Java Development Kit</code> (JDK) é a ferramenta básica para o desenvolvimento de aplicações Java e, no caso do SISLEGIS, para a construção de todo o <code>backend</code> desse projeto. Este documento sugere a adoção da versão 1.8 (ou superior) desta ferramenta. O SISLEGIS deve estar preparado para ser posto em produção tanto com o uso do <a href="http://openjdk.java.net/">OpenJDK</a> (software livre) quanto com o uso do <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Oracle JDK</a>.</p>
+</div>
+<div class="paragraph">
+<p>A utilização da versão 1.8 ou superior se faz necessária por abranger novas características da linguagem como <a href="http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html">lambda expressions</a> e programação funcional. Esses recursos, quando adotados na codificação de um sistema, trazem ganhos significativos em termos de velocidade de codificação, clareza e reaproveitamento de código. Uma boa referência sobre estas questões é o livro <a href="https://pragprog.com/book/vsjava8/functional-programming-in-java">Functional Programming in Java: Harnessing the Power of Java 8 Lambda Expressions</a></p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="o-balanceador-de-carga-haproxy"><a class="anchor" href="#o-balanceador-de-carga-haproxy"></a>3.2.2. O balanceador de carga (HAProxy)</h4>
+<div class="paragraph">
+<p>Responsável pela distribuição de carga entre os nós de um cluster de servidores, o <a href="http://haproxy.org">HAProxy</a> é utilizado como um dos componentes arquiteturais da aplicação SISLEGIS e, além disso, também faz o papel de proxy reverso atuando no repasse das requisições realizadas por clientes da aplicação através dos protocolos HTTP e HTTPS.</p>
+</div>
+<div class="paragraph">
+<p>A instalação do HAProxy é realizada, no modelo de referência, na máquina de IP 172.17.6.84 (<code>sislegis4</code>), juntamente com a instalação do servidor Wildfly responsável pela segurança (Keycloak).</p>
+</div>
+<div class="paragraph">
+<p>A instalação desse servidor no ambiente modelo é realizada através do script <code>instalar-haproxy</code>. Esse script também pode ser utilizado em outros ambientes.</p>
+</div>
+<div class="paragraph">
+<p>Uma possibilidade, caso ampliem-se os requisitos de disponibilidade do SISLEGIS, é fazer a instalação do HAProxy em servidores Linux clusterizados (ativo/passivos). Dessa forma, elimina-se a possibilidade de indisponibilidade da aplicação caso este servidor apresente falha.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="o-servidor-ldap-openldap-ou-microsoft-ad"><a class="anchor" href="#o-servidor-ldap-openldap-ou-microsoft-ad"></a>3.2.3. O servidor LDAP (OpenLDAP ou Microsoft AD)</h4>
+<div class="paragraph">
+<p>O servidor LDAP é responsável por manter a base de usuários das aplicações do SISLEGIS.</p>
+</div>
+<div class="paragraph">
+<p>No modelo de implantação é utilizado o servidor OpenLDAP e, no MJ, o Microsoft Active Directory.</p>
+</div>
+<div class="paragraph">
+<p>O servidor LDAP não é acessado diretamente pela aplicação SISLEGIS pois o mecanismos de autenticação utilizado por ela faz uso do Keycloak que, por sua vez, tem essa responsabilidade. Dessa forma, todas as instruções e configurações necessárias para acesso ao LDAP são realizadas na instância Wildfly que executa o Keycloak.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="o-servidor-wildfly-controlador-do-domínio-dc"><a class="anchor" href="#o-servidor-wildfly-controlador-do-domínio-dc"></a>3.2.4. O servidor WildFly controlador do domínio (DC)</h4>
+<div class="paragraph">
+<p>Todas as instâncias WildFly componentes do domínio da aplicação SISLEGIS são gerenciadas por uma única instância Wildfly chamada de controladora de domínio (DC).</p>
+</div>
+<div class="paragraph">
+<p>A instalação do DC é realizada, no modelo, na máquina de IP 172.17.6.84 (<code>sislegis4</code>).</p>
+</div>
+<div class="paragraph">
+<p>A indisponibilidade do DC não causa a indisponibilidade da aplicação SISLEGIS pois não afeta as instâncias responsáveis pelo atendimento as requisições ao SISLEGIS (nós do cluster). Contudo, a falta do DC (também chamado de <code>master</code>) impede o gerenciamento das instâncias <code>slave</code> que atendem as requisições e, também, a possibilidade de implantação de novas versões da aplicação.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="os-servidores-wildfly-responsáveis-pela-execução-do-sislegis-nós-do-cluster"><a class="anchor" href="#os-servidores-wildfly-responsáveis-pela-execução-do-sislegis-nós-do-cluster"></a>3.2.5. Os servidores WildFly responsáveis pela execução do SISLEGIS (nós do cluster)</h4>
+<div class="paragraph">
+<p>As instâncias WildFly que atendem as requisições da aplicação SISLEGIS compõem um cluster a fim de compartilhar estado entre os servidores. Dessa forma, se um cliente estiver sendo atendido por uma instância, e ela cair, ele poderá ser atendido por uma outra instância do cluster automaticamente (e sem perda de dados). Isso amplia a disponibilidade da aplicação.</p>
+</div>
+<div class="paragraph">
+<p>No modelo, as máquinas de IP 172.17.6.81 (<code>sislegis1</code>) e 172.17.6.82 (<code>sislegis2</code>) são também chamadas de <code>slaves</code> e formam o cluster responsável por atender as requisições ao SISLEGIS.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="o-servidor-wildfly-responsável-pela-segurança-keycloak"><a class="anchor" href="#o-servidor-wildfly-responsável-pela-segurança-keycloak"></a>3.2.6. O servidor WildFly responsável pela segurança (Keycloak)</h4>
+<div class="paragraph">
+<p>O Keycloak é uma solução de segurança desenvolvida pelo grupo JBoss. Ele provê uma solução para a <code>Single Sign On</code> (SSO) para aplicações web e serviços RESTful que podem, inclusive, utilizar soluções como OAuth 2 e JSON Web Token (JWT).</p>
+</div>
+<div class="paragraph">
+<p>No contexto do SISLEGIS ele será utilizado para autenticação (integradao ao LDAP do MJ), autorização, ponto central para o gerenciamento de papéis na aplicação e seu mapeamento com usuários.</p>
+</div>
+<div class="paragraph">
+<p>O Keycloak pode ser implantado com um war, como uma instância JBoss pré-configurada, ou na nuvem provida pelo OpenShift. No ambiente de desenvolvimento, ele será provido através desse último e/ou numa imagem Docker.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="o-servidor-de-banco-de-dados-postgres"><a class="anchor" href="#o-servidor-de-banco-de-dados-postgres"></a>3.2.7. O servidor de banco de dados (Postgres)</h4>
+<div class="paragraph">
+<p>O servidor de banco de dados responsável pelo armazenamento das informações do SISLEGIS é o Postgres. Idealmente, e num ambiente de produção com maiores requisitos de disponibilidade, este servidor deve ser configurado para suportar alta disponibilidade.</p>
+</div>
+<div class="paragraph">
+<p>No modelo, a máquina de IP 172.17.6.83 (<code>sislegis3</code>) é reponsável por gerenciar uma única instância de Postgres.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="utilizando-os-scripts-do-modelo-na-implantação-do-ambiente-de-produção"><a class="anchor" href="#utilizando-os-scripts-do-modelo-na-implantação-do-ambiente-de-produção"></a>3.3. Utilizando os scripts do modelo na implantação do ambiente de produção</h3>
+<div class="paragraph">
+<p>Todos os scripts desenvolvidos para o provisionamento das máquinas do modelo de implantação podem ser utilizados, também, na montagem do ambiente de produção real utilizado pelo SISLEGIS dentro do MJ. Bastam apenas algumas configurações descritas na documentação do próprio projeto do modelo.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="conclusão"><a class="anchor" href="#conclusão"></a>4. Conclusão</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Este produto oferece uma visão geral de um modelo de implantação para o SISLEGIS. Esse modelo também pode ser utilizado num ambiente com servidores (virtuais ou não), tanto dentro do MJ quanto em outro parque computacional qualquer. Espera-se, com isso, que todo o trabalho de implantação do SISLEGIS em ambiente de produção seja realizado, pela CGTI do MJ, de forma simples, com a qualidade necessária e sem maiores complicações.</p>
+</div>
+</div>
+</div></div><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script><script src="http://pensandoodireito.github.io/sislegis-site/js/bootstrap.min.js"></script></body></html>
