@@ -415,6 +415,8 @@ Finalmente, podemos solicitar que o próprio `Forge` faça a construção da apl
 
 == Conclusão
 
-As provas de conceito apresentadas neste documento são de suma importância para o consumo e o desenvolvimento dos web services processados pelo SISLEGIS. Ou seja, tanto na obtenção de informações dos sites da Câmara e Senado (utilizando o framework `XStream`), quanto na geração de informações que serão utilizadas pela camada de apresentação do SISLEGIS (utilizando a API `JAX-RS`), as PoCs desenvolvidas deste produto serão utilizadas como referência para o desenvolvimento dessa aplicação.
+As provas de conceito apresentadas neste documento são de suma importância para o consumo e o desenvolvimento dos web services processados pelo SISLEGIS. Ou seja, tanto na obtenção de informações dos sites da Câmara e Senado (utilizando o framework `XStream`), quanto na geração de informações que serão utilizadas pela camada de apresentação do SISLEGIS (utilizando a API `JAX-RS`), as PoCs desenvolvidas neste produto podem ser utilizadas como referência para o desenvolvimento dessa aplicação.
+
+O conteúdo trabalhado nas PoCs desenvolvidas neste produto é totalmente relevante a situações reais que precisarão ser tratadas no desenvolvimento do SISLEGIS e, por esse motivo, devem ser um roteiro útil para a equipe de desenvolvimento dessa aplicação.
 
 // vim: set syntax=asciidoc:
