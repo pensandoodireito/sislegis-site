@@ -8,7 +8,7 @@ Este site apresenta informações sobre o desenvolvimento do *Sistema de Acompan
 Aqui você obtém as seguintes respostas:
 
 * link:sobre/[O que é o SISLEGIS?]
-** link:sobre/[Screenshots]
+** link:https://github.com/pensandoodireito/sislegis-site/issues/32[Screenshots]
 ** link:requisitos/[Requisitos levantados e priorizados.]
 * link:equipe/[Quem está desenvolvendo o SISLEGIS?]
 ** link:contribua/[Posso participar?]
